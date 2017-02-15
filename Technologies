@@ -1,5 +1,5 @@
 Back-end: Nodejs + expressjs
-Front-end: angularjs
+Front-end: angularjs + pug
 Database: Mongoose
 Css: Bootstrap
 Project track: trello, git
