@@ -1,5 +1,2 @@
 # s17-ESN-SV2
-YOU ARE NOT PERMITTED TO SHARE THIS REPO OUTSIDE THIS GITHUB ORG. 
-YOU ARE NOT PERMITTED TO FORK THIS REPO.
-YOU ARE NOT ALLOWED TO MAKE ANY PUBLIC REPOS INSIDE cmusv-fse
-
+Contributors(alphabetical order)：Gao Lianghao, Guo Jinliang, Guo Jianfeng, Guo Qing, Li MingHao
