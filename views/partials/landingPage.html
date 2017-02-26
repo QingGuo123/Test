@@ -39,7 +39,7 @@
     <script type="text/javascript" src="chatPublicly.js"></script>
 </head>
 
-<body ng-app="SSNoC">
+<body ng-app="ESNApp">
     <div ui-view class="container-fluid ng-scope">
         <div id="landing-navbar" ng-controller="navbarController" class="ng-scope">
             <div class="navbar navbar-success">
@@ -74,10 +74,87 @@
                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span></button>Welcome back david, what do you wanna do today?</div>
             </div>
         </div>
-
-
-
-
-
+        <div id="userStatus" ng-controller="statusController" class="col-xs-12">
+            <h2>Your Status</h2>
+            <form class="ng-valid ng-dirty ng-valid-parse">
+                <div class="form-group">
+                    <div class="radio radio-primary">
+                        <label>
+                            <input type="radio" ng-model="status" name="statusRadios" value="Ok" checked="checked" class="ng-valid ng-not-empty ng-dirty ng-touched"><span class="circle"></span><span class="check"></span><span class="circle"></span>Normal</label>
+                    </div>
+                    <div class="radio radio-primary">
+                        <label>
+                            <input type="radio" ng-model="status" name="statusRadios" value="Help" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse"><span class="circle"></span><span class="check"></span><span class="circle"></span>Help</label>
+                    </div>
+                    <div class="radio radio-primary">
+                        <label>
+                            <input type="radio" ng-model="status" name="statusRadios" value="Emergency" class="ng-valid ng-not-empty ng-dirty ng-touched"><span class="circle"></span><span class="check"></span><span class="circle"></span>Emergency</label>
+                    </div>
+                    <div>
+                        <button ng-click="updateStatus()" class="btn btn-primary">Update Status</button>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <button ng-click="updateStatus()" class="btn btn-primary">Update</button>
+                </div> -->
+            </form>
+        </div>
+        <div id="userDirectory" class="col-xs-12" ng-controller="userDirectoryController">
+            <h2>User Directory</h2>
+            <div class="list-group">
+                <div> <!-- ng-repeat -->
+                    <div class="row">
+                        <div class="col-xs-7">
+	                        <div class="list-group-item">
+	                        	<!-- <div class="row-action-primary">
+	                                <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
+	                            </div> -->
+	                            <div class="row-content">
+	                                <h4 type="button">User1</h4>
+	                                <p class="ng-binding">status: Normal</p>
+	                                <p class="ng-binding">offline</p>
+	                                <p class="ng-binding"></p>
+	                            </div>
+	                        </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <div>
+                                <button type="button" class="btn btn-raised btn-sm">View Profile</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-raised btn-sm">Chat Privately</button>
+                            </div>
+                            <!-- end ngIf: user.NAME !== currentUser -->
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                    <div class="row">
+                        <div class="col-xs-7">
+	                        <div class="list-group-item">
+	                        	<!-- <div class="row-action-primary">
+	                                <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
+	                            </div> -->
+	                            <div class="row-content">
+	                                <h4 type="button">User1</h4>
+	                                <p class="ng-binding">status: Normal</p>
+	                                <p class="ng-binding">offline</p>
+	                                <p class="ng-binding"></p>
+	                            </div>
+	                        </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <div>
+                                <button type="button" class="btn btn-raised btn-sm">View Profile</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-raised btn-sm">Chat Privately</button>
+                            </div>
+                            <!-- end ngIf: user.NAME !== currentUser -->
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>

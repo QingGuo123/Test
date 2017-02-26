@@ -1,4 +1,4 @@
-angular.module('SSNoC', []).controller('homePageController', function ($scope, $http, $location) {
+angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
 		$scope.username = '';
 		$scope.password = '';
 		// $scope.loginForm.username.$setValidity("minlength",$scope.username.length>3);

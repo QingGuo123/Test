@@ -1,4 +1,4 @@
-angular.module('SSNoC', [])
+angular.module('ESNApp', [])
   .controller('lobbyPageController', function($scope, $state, $location, User, socket) {
     $scope.username = User.getUsername();
     // console.log(User.getLoginorSignup());
@@ -47,7 +47,7 @@ angular.module('SSNoC', [])
     })
   });
 
-angular.module('SSNoC', [])
+angular.module('ESNApp')
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
       .controller('navbarController', function ($scope, $location, $http, $timeout) {
         // handle navbar switch

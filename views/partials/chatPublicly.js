@@ -1,15 +1,33 @@
 
-angular.module('SSNoC', []).controller('chatPublicController', function($scope, $location, $http, $timeout){
+angular.module('SSNoC',[])
+    .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
+    
+    $scope.messages = [];
+    $scope.messages.push({
+        username: 'David',
+        timestamp: '02/25/2017 18:05:14',
+        message: 'hello, David!'
+    });
+
+
+    // {
+    //     {
+    //         username:'David',
+    //         message:'hello, David!',
+    //         timestamp: '02/25/2017 18:04:59'
+    //     },
+    //     {
+    //         username:'Eric',
+    //         message:'hello, Eric!',
+    //         timestamp: '02/25/2017 18:05:14'
+    //     }
+    // }
 
 });
 
 
 
-
-
-
-
-angular.module('SSNoC', [])
+angular.module('SSNoC')
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
       .controller('navbarController', function ($scope, $location, $http, $timeout) {
         // handle navbar switch

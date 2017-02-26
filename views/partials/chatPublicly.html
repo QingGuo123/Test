@@ -36,12 +36,12 @@
     <title>S16-SV1-SSNoC</title>
     <!-- additional stylesheets for each page-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script type="text/javascript" src="landingPage.js"></script>
+    <script type="text/javascript" src="chatPublicly.js"></script>
 </head>
 
 <body ng-app="SSNoC">
-    <div ui-view class="container-fluid ng-scope">
-        <div id="landing-navbar" ng-controller="navbarController" class="ng-scope">
+    <div ui-view class="container-fluid">
+        <div id="landing-navbar" ng-controller="navbarController">
             <div class="navbar navbar-success">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -54,30 +54,65 @@
                     <div class="navbar-collapse navbar-warning-collapse collapse" aria-expanded="false" style="height: 1px;">
                         <ul class="nav navbar-nav">
                             <li ng-class="navLobby" class="active"><a href="javascript:void(0)" ng-click="lobby()">Landing</a></li>
-                            <li ng-class="navChatPublicly"><a href="javascript:void(0)" ng-click="chatPublicly()">Chat Publicly <span class="badge ng-binding"></span></a></li>
-                            <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)" ng-click="chatPrivately()">Chat Privately <span class="badge ng-binding"></span></a></li>
-                            <li ng-class="navPostAnnouncement"><a href="javascript:void(0)" ng-click="postAnnouncement()">Post Announcement</a></li>
-                            <li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)" ng-click="measurePerf()">Measure Performance</a></li>
-                            <li ng-class="navShareLocation"><a href="javascript:void(0)" ng-click="shareLocation()">Share Location</a></li>
-                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)" ng-click="administratorPage()">Administer User Profile</a></li>
+                            <li ng-class="navChatPublicly"><a href="javascript:void(0)">Chat Publicly <span class="badge ng-binding"></span></a></li>
+                            <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)">Chat Privately <span class="badge ng-binding"></span></a></li>
+                            <li ng-class="navPostAnnouncement"><a href="javascript:void(0)">Post Announcement</a></li>
+                            <li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)">Measure Performance</a></li>
+                            <li ng-class="navShareLocation"><a href="javascript:void(0)">Share Location</a></li>
+                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)">Administer User Profile</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal" ng-click="search()"><span class="glyphicon glyphicon-search"></span></a></li>
+                            <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal"><span class="glyphicon glyphicon-search"></span></a></li>
                             <li><a href="javascript:void(0)" class="ng-binding">david</a></li>
-                            <li><a id="logout" href="javascript:void(0)" ng-click="logout()">Log out</a></li>
+                            <li><a id="logout" href="javascript:void(0)">Log out</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div id="notification">
                 <div class="alert alert-dismissable alert-info ng-binding">
-                    <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span></button>Welcome back david, what do you wanna do today?</div>
+                    <!-- <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span></button> -->Welcome back david, what do you wanna do today?
+                </div>
             </div>
         </div>
-        
-        
+        <div id="chatPublicly" ng-controller="chatPublicController" class="container center_div">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-xs-12 well">
+                    <ul class="list-group">
+                        <!-- ngRepeat: message in messages -->
+                        <!-- <li ng-repeat="message in messages" class="list-group-item ng-scope"><span class="badge ng-binding">02/25/2017 18:04:59</span><b class="ng-binding">eric</b> says: -->
+                            <!-- ngIf: message.MESSAGE -->
+                            <!-- <span ng-if="message.MESSAGE" class="ng-binding ng-scope">sb</span> -->
+                            <!-- end ngIf: message.MESSAGE -->
+                            <!-- ngIf: message.image -->
 
-
-
+                        <li ng-repeat="message in messages" class="list-group-item">
+                        	<span >{{message.username}}</span><b class="badge">{{message.timestamp}}</b> says:
+                            <span>{{message.message}}</span>
+                        </li>
+                    </ul>
+                    <form id="chatForm" name="chatForm" class="form-horizontal ng-pristine ng-valid">
+                        <div class="form-group has-feedback has-feedback-left is-empty">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><input name="message" type="text" ng-model="currentMsg" class="form-control ng-pristine ng-untouched ng-valid ng-empty"></span></div>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input autocomplete="off" value="Send Message" type="submit" ng-click="sendMessage()" class="btn btn-success btn-block">
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image" class="ng-isolate-scope">
+                            <input autocomplete="off" value="Take Picture" type="submit" class="btn btn-info btn-block">
+                        </div>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
