@@ -1,18 +1,21 @@
 'use strict';
 
-var User = function(username, password) {
+var Message = function(username, message, timestamp) {
     this.username = username;
-    this.password = password;
+    this.message = message;
+    this.timestamp = timestamp;
 };
 
-User.prototype.getUser = function(username) {
-
+Message.getAllPublicMessages = function(callback) {
+    console.log('getAllPublicMessages');
 };
 
-User.prototype.getAllUsers = function() {
-
+Message.getPublicMessage = function(callback, username) {
+    console.log('getPublicMessage ' + username);
 };
 
-User.prototype.regUser = function(username, password) {
-
+Message.postPublicMessage = function(callback, username, message, timestamp) {
+    console.log('postPublicMessage ' + username + ' ' + message + ' ' + timestamp);
 };
+
+module.exports = Message;
