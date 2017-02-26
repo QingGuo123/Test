@@ -1,8 +1,9 @@
 var sqlite3 = require('sqlite3').verbose();
 
 module.exports = {
+
     initDB: function(db_path) {
-        console.log("~/db/init_db.js: initialize database " + db_path);
+        console.log("initialize database " + db_path);
         var db = new sqlite3.Database(db_path);
         var exists = fs.existsSync(db_path);
 
@@ -18,4 +19,5 @@ module.exports = {
 
         return db;
     }
+
 }
