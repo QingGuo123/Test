@@ -3,7 +3,8 @@
 var fs = require("fs");
 var sqlite3 = require('sqlite3').verbose();
 
-var sql_users = require('../db/sql_users');
+var sql_user = require('../db/sql_user');
+var sql_message = require('../db/sql_message');
 
 module.exports = {
 
@@ -14,8 +15,9 @@ module.exports = {
         
         if (!exists) {
             db.serialize(function() {
-                db.run(sql_users.createTable());
-                db.run(sql_users.insertAdminUser("adminpwd"));
+                db.run(sql_user.createTable());
+                db.run(sql_user.insertAdminUser("adminpwd"));
+                db.run(sql_message.createTable());
             });
             console.log("create tables succeed");
         }
