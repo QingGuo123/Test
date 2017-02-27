@@ -53,9 +53,13 @@ module.exports = {
         if (controller_log)
             console.log('~/controllers/messagesController: postPublicMessage ' + username + ' ' + content + ' ' + timestamp);
         var message = new Message(username, content, timestamp);
-        message.postPublicMessage(function(postPublicMessageResult, err) {
-            if (err)
-                res.sendStatus(500);
+        message.postPublicMessage(function(postPublicMessageResult, error) {
+            if (error) {
+                if (error instanceof AppErrors.UserNotExisted)
+                    res.sendStatus(404);
+                else
+                    res.sendStatus(500);
+            }
             else {
                 if (response_log)
                     console.log(postPublicMessageResult);
