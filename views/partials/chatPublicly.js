@@ -1,7 +1,14 @@
 
-angular.module('SSNoC',[])
-    .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
+angular.module('ESNApp',[])
+    .factory('socket', function(socketFactory) {
+        return socketFactory();
+    }).value('version', '0.1')
+    .controller('chatPublicController', function ($scope, $location, $http, $timeout, socket) {
     
+    socket.on("connect", function (){
+            console.log("User connected via Socket io!");
+    });
+
     $scope.messages = [];
     $scope.messages.push({
         username: 'David',
@@ -25,14 +32,12 @@ angular.module('SSNoC',[])
 
 });
 
-
-
-angular.module('SSNoC')
+angular.module('ESNApp')
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
       .controller('navbarController', function ($scope, $location, $http, $timeout) {
         // handle navbar switch
-        $scope.lobby = function () {
-            console.log("Clicked on lobby");
+        $scope.landingPage = function () {
+            console.log("Clicked on landingPage");
             //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
