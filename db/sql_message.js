@@ -21,7 +21,7 @@ module.exports = {
     },
 
     getAllPublicMessages: function () {
-        var sql = "SELECT * FROM Message ORDER BY timestamp;";
+        var sql = "SELECT username, content, timestamp FROM Message, User WHERE User.id = Message.userid ORDER BY timestamp;";
         return sql;
     },
 
