@@ -1,3 +1,4 @@
+var fs = require("fs");
 var sqlite3 = require('sqlite3').verbose();
 
 module.exports = {
@@ -9,11 +10,11 @@ module.exports = {
 
         db.users = require('../db/table_users.js');
         db.messages = require('../db/table_messages.js');
-
+        
         if (!exists) {
             db.serialize(function() {
                 db.users.createTable(db);
-                db.messages.createTable(db);
+                //db.messages.createTable(db);
             });
         }
 
