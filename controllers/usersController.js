@@ -2,17 +2,23 @@
 
 var User = require('../models/user');
 var AppErrors = require("../AppErrors");
+var config = require('../config/global.js');
+
+var controller_log = config.console_log_config.controller_log;
+var response_log = config.console_log_config.response_log;
 
 module.exports = {
 
     getAllUsers: function(req, res) {
-        console.log('~/controllers/userController: getAllusers');
+        if (controller_log)
+            console.log('~/controllers/usersController: getAllusers');
         User.getAllUsers(function (users, error) {
             if (error) {
                 res.sendStatus(500);
             } else {
                 var outputjson = {"users": users};
-                console.log(outputjson);
+                if (response_log)
+                    console.log(outputjson);
                 res.status(200).send(outputjson);
             }
         });
@@ -20,7 +26,8 @@ module.exports = {
 
     getUser: function(req, res) {
         var username = req.params.username;
-        console.log('~/controllers/userController: getUser ' + username);
+        if (controller_log)
+            console.log('~/controllers/usersController: getUser ' + username);
         User.getUser(
             function (user, error) {
                 if (error) {
@@ -29,7 +36,8 @@ module.exports = {
                     else
                         res.sendStatus(500);
                 } else {
-                    console.log(user);
+                    if (response_log)
+                        console.log(user);
                     res.status(200).send(user);
                 }
             },
@@ -46,13 +54,16 @@ module.exports = {
     regOrLogin: function(req, res) {
         var username = req.body.username;
         var password = req.body.password;
+        if (controller_log)
+            console.log('~/controllers/usersController: regOrLogin ' + username + ' ' + password);
         var user = new User(username, password);
         user.regOrLogin(
             function (regOrLoginResult, error) {
                 if(error) {
                     res.sendStatus(500);
                 } else {
-                    console.log(regOrLoginResult);
+                    if (response_log)
+                        console.log(regOrLoginResult);
                     if (regOrLoginResult.regOrLoginResult == 0)
                         res.status(201).send(regOrLoginResult);
                     else if (regOrLoginResult.regOrLoginResult == 1)

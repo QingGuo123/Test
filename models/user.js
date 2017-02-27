@@ -1,8 +1,11 @@
 "use strict";
 
 var db = require("../db/db.js");
-var sql_users = require("../db/sql_users");
+var sql_user = require("../db/sql_user");
 var AppErrors = require("../AppErrors");
+var config = require('../config/global.js');
+
+var model_log = config.console_log_config.model_log;
 
 var User = function(username, password) {
     this.username = username;
@@ -11,14 +14,15 @@ var User = function(username, password) {
     this.regOrLogin = function(callback) {
         var username = this.username;
         var password = this.password;
-        console.log('~/models/user: regOrLogin ' + username + ' ' + password);
+        if (model_log)
+            console.log('~/models/user: regOrLogin ' + username + ' ' + password);
         db.serialize(function () {
-            db.all(sql_users.getUser(), [username],
+            db.all(sql_user.getUser(), [username],
                 function (error, rows) {
                     if (error) {
                         callback(null, error);
                     } else if (rows.length == 0) {
-                        db.run(sql_users.insertUser(), [username, password],
+                        db.run(sql_user.insertUser(), [username, password],
                             function (error) {
                                 if (error) {
                                     callback(null, error);
@@ -27,8 +31,8 @@ var User = function(username, password) {
                                 }
                             }
                         );
-                    } else if (rows.length == 1){
-                        db.all(sql_users.validUsernameAndPassword(), [username, password],
+                    } else if (rows.length == 1) {
+                        db.all(sql_user.validUsernameAndPassword(), [username, password],
                             function (error, rows) {
                                 if (error)
                                     callback(null, error);
@@ -47,16 +51,15 @@ var User = function(username, password) {
                 }
             );
         });
-        
-        
     };
 
 };
 
 User.getAllUsers = function(callback) {
-    console.log('~/models/user: getAllusers');
+    if (model_log)
+        console.log('~/models/user: getAllusers');
     var users = [];
-    db.each(sql_users.getAllUsers(),
+    db.each(sql_user.getAllUsers(),
         function (error, row) {
             if (error) {
                 callback(null, error);
@@ -71,8 +74,9 @@ User.getAllUsers = function(callback) {
 
 User.getUser = function(callback, userdata) {
     var username = userdata["username"];
-    console.log('~/models/user: getUser ' + username);
-    db.all(sql_users.getUser(), [username],
+    if (model_log)
+        console.log('~/models/user: getUser ' + username);
+    db.all(sql_user.getUser(), [username],
         function (error, rows) {
             if (error) {
                 callback(null, error);
