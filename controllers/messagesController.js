@@ -1,41 +1,67 @@
 "use strict";
 
 var Message = require('../models/message');
+var AppErrors = require("../AppErrors");
+var config = require('../config/global.js');
+
+var controller_log = config.console_log_config.controller_log;
+var response_log = config.console_log_config.response_log;
 
 module.exports = {
 
     getAllPublicMessages: function(req, res) {
-        var callback = function(allpubmsg, err) {
-            if (err)
+        if (controller_log)
+            console.log('~/controllers/messagesController: getAllPublicMessages');
+        Message.getAllPublicMessages(function(allmessages, error) {
+            if (error)
                 res.sendStatus(500);
-            else
-                res.status(200).send(allpubmsg);
-        };
-        Message.getAllPublicMessages(callback);
+            else {
+                var outputjson = {"messages": allmessages};
+                if (response_log)
+                    console.log(outputjson);
+                res.status(200).send(outputjson);
+            }
+        });
     },
 
     getPublicMessage: function(req, res) {
         var username = req.params.username;
-        var callback = function(pubmsg, err) {
-            if (err)
-                res.sendStatus(500);
-            else
-                res.status(200).send(pubmsg);
-        };
-        Message.getPublicMessage(callback, username);
+        if (controller_log)
+            console.log('~/controllers/messagesController: getPublicMessage ' + username);
+        Message.getPublicMessage(
+            function (messages, error) {
+                if (error) {
+                    if (error instanceof AppErrors.UserNotExisted)
+                        res.sendStatus(404);
+                    else
+                        res.sendStatus(500);
+                } else {
+                    var outputjson = {"messages": messages};
+                    if (response_log)
+                        console.log(outputjson);
+                    res.status(200).send(outputjson);
+                }
+            },
+            {"username": username}
+        );
     },
 
     postPublicMessage: function(req, res) {
         var username = req.body.username;
-        var message = req.body.message;
+        var content = req.body.content;
         var timestamp = req.body.timestamp;
-        var callback = function(status, err) {
+        if (controller_log)
+            console.log('~/controllers/messagesController: postPublicMessage ' + username + ' ' + content + ' ' + timestamp);
+        var message = new Message(username, content, timestamp);
+        message.postPublicMessage(function(postPublicMessageResult, err) {
             if (err)
                 res.sendStatus(500);
-            else
-                res.status(200).send(status);
-        };
-        Message.postPublicMessage(callback, username, message, timestamp);
+            else {
+                if (response_log)
+                    console.log(postPublicMessageResult);
+                res.status(200).send(postPublicMessageResult);
+            }
+        });
     }
 
 };
