@@ -41,7 +41,7 @@
 
 <!--pug file-->
 
-div.container-fluid
+<!-- div.container-fluid
     div#landing-navbar(ng-controller='navbarController')
         div.navbar.navbar-success
             .container-fluid
@@ -75,7 +75,7 @@ div.container-fluid
                         li
                             a#logout(href='javascript:void(0)', ng-click = 'logout()') Log out
         div#notification
-            div.alert.alert-dismissable.alert-info.ng-binding
+            div.alert.alert-dismissable.alert-info.ng-binding -->
 <body ng-app="ESNApp">
     <div ui-view class="container-fluid">
         <div id="landing-navbar" ng-controller="navbarController">
@@ -116,7 +116,7 @@ div.container-fluid
         <!--pug file-->
 
 
-
+<!-- 
 
 
         div.container.center_div#chatPublicly(ng-controller="chatPublicController")
@@ -125,7 +125,7 @@ div.container-fluid
                     ul.list-group
                         li.list-group-item(ng-repeat="message in messages")
                             span {{message.username}}
-                            b.badge {{message.timestamp}}
+                            b.badge {{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}
                             | says:
                             span {{message.message}}
                     form#charForm.form-horizontal.ng-pristine.ng-valid
@@ -143,7 +143,7 @@ div.container-fluid
                             div.btn-group
                             div.btn-group
 
-
+ -->
 
         <div id="chatPublicly" ng-controller="chatPublicController" class="container center_div">
             <div class="row">
