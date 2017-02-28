@@ -1,0 +1,55 @@
+html,body {
+    background: -moz-linear-gradient(top, #0099ff 0%, #99d6ff 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0099ff), color-stop(100%,#99d6ff));
+    background: -webkit-linear-gradient(top, #0099ff 0%,#99d6ff 100%);
+    background: -o-linear-gradient(top, #0099ff 0%,#99d6ff 100%);
+    background: -ms-linear-gradient(top, #0099ff 0%,#99d6ff 100%);
+    background: linear-gradient(to bottom, #0099ff 0%,#99d6ff 100%);
+    height: 100%;
+}
+#loginBtn{
+}
+
+#loginHint{
+    margin-left: 6%;
+}
+
+
+#enterLandingPage {
+    border:1.5px solid white;
+    color:white;
+}
+
+#username{
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    background-color: white;
+
+
+}
+
+#chatroom{
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    background-color: white;
+
+}
+
+#loginTitle{
+    font-family:'Russo One';
+    font-size: 43px;
+    text-shadow: 4px 4px 4px #aaa;
+    text-align: center;
+}
+
+#loginInstruction{
+    text-align: center;
+}
+
+#loginForm{
+    height: 70%;
+}
