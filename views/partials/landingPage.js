@@ -18,14 +18,15 @@ angular.module('ESNApp', [])
   .controller('userDirectoryController', function ($scope, $http, $location) {
 
     $http.get('/users').then(function (response) {
-      $scope.users = response.data;
-      for (var i in $scope.users) {
-        $scope.users[i].ONLINE = "Checking online...";
-        // socket.emit('check_online', {
-        //   "user": $scope.users[i].NAME,
-        //   "index": i
-        // });
-      }
+      $scope.users = response.data.users;
+      //console.log(response.data.users);
+      // for (var i in $scope.users) {
+      //   $scope.users[i].ONLINE = "Checking online...";
+      //   // socket.emit('check_online', {
+      //   //   "user": $scope.users[i].NAME,
+      //   //   "index": i
+      //   // });
+      // }
     });
 
     // $scope.sendUserName = function(targetUser){
@@ -68,15 +69,15 @@ angular.module('ESNApp', [])
         // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
-            alert("Clicked on landingPage");
-            $http.post('/land', {
-              'type':'land'
-            }).then(function successCallback(response) {
-              // Take in the response information
-              console.log("post successfully");
-            }, function errorCallback(response) {
-              console.log("post error");
-            });
+            window.location.href = "http://localhost:3000/landingPage.html";
+            // $http.post('/land', {
+            //   'type':'land'
+            // }).then(function successCallback(response) {
+            //   // Take in the response information
+            //   console.log("post successfully");
+            // }, function errorCallback(response) {
+            //   console.log("post error");
+            // });
               //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {

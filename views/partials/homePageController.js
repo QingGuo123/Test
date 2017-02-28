@@ -52,12 +52,12 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 			  method: 'GET',
 			  url: ('/users/' + username)
 			}).then(function successCallback(response) {
-			    console.log(response);
+			    //console.log(response);
 			    window.location.href = "http://localhost:3000/landingPage.html";
 				var curUrl = $location.absUrl();
 				console.log(curUrl);
 			  }, function errorCallback(response) {
-			    console.log(response);
+			    //console.log(response);
 			    window.location.href = "http://localhost:3000/landingPage.html";
 			    $http.post('/users', {
 					"username": username,

@@ -1,20 +1,33 @@
 
 angular.module('ESNApp',[])
-    .factory('socket', function(socketFactory) {
-        return socketFactory();
-    }).value('version', '0.1')
-    .controller('chatPublicController', function ($scope, $location, $http, $timeout, socket) {
+    .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
     
-    socket.on("connect", function (){
-            console.log("User connected via Socket io!");
+    // socket.on("connect", function (){
+    //         console.log("User connected via Socket io!");
+    // });
+    var timestamp = new Date();
+
+    $http.post('/messages/public', {
+        "username" : "eric", 
+        "content" : "hello", 
+        "timestamp" : timestamp
+    }).then(function successCallback(response) {
+        // Take in the response information
+        console.log("post successfully");
+    }, function errorCallback(response) {
+        console.log("Login failed, please check your user name and password.");
     });
 
-    $scope.messages = [];
-    $scope.messages.push({
-        username: 'David',
-        timestamp: '02/25/2017 18:05:14',
-        message: 'hello, David!'
+
+
+    $http.get('/messages/public').then(function (response) {
+      //$scope.users = response.data.users;
+      console.log(response.data);
+      $scope.messages = response.data;
     });
+
+    
+
 
 });
 
@@ -24,10 +37,12 @@ angular.module('ESNApp')
         // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
+            window.location.href = "http://localhost:3000/landingPage.html";
             //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
+            window.location.href = "http://localhost:3000/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');

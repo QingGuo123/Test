@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="icon" type="image/icon" href="favicon.ico">
     <!-- title-->
-    <title>S17-SV2-ESC</title>
+    <title>S17-SV2-ESN</title>
     <!-- additional stylesheets for each page-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script type="text/javascript" src="landingPage.js"></script>
@@ -102,7 +102,7 @@
         <div id="userDirectory" class="col-xs-12" ng-controller="userDirectoryController">
             <h2>User Directory</h2>
             <div class="list-group">
-                <div> <!-- ng-repeat -->
+                <div ng-repeat="user in users"> <!-- ng-repeat -->
                     <div class="row">
                         <div class="col-xs-7">
 	                        <div class="list-group-item">
@@ -110,9 +110,9 @@
 	                                <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
 	                            </div> -->
 	                            <div class="row-content">
-	                                <h4 type="button">User1</h4>
-	                                <p class="ng-binding">status: Normal</p>
-	                                <p class="ng-binding">offline</p>
+	                                <h4 type="button">{{user.username}}</h4>
+	                                <p class="ng-binding">status: {{user.accountstatus}}</p>
+	                                <p class="ng-binding">{{user.onlinestatus}}</p>
 	                                <p class="ng-binding"></p>
 	                            </div>
 	                        </div>
