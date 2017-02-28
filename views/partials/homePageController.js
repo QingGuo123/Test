@@ -39,6 +39,8 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 		*/
 
 		$scope.login_or_signup = function() {
+			//console.log("hello");
+			
 			var username = $scope.username;
 			var password = $scope.password;
 			//console.log("response");
@@ -46,7 +48,10 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 			  method: 'GET',
 			  url: ('/users/' + username)
 			}).then(function successCallback(response) {
-			    //console.log(response);
+			    console.log(response);
+			    $location.path("/landingPage.html");
+				var curUrl = $location.absUrl();
+				console.log(curUrl);
 			  }, function errorCallback(response) {
 			    console.log(response);
 			    $http.post('/users', {
@@ -60,6 +65,9 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 					console.log(response.data);
 					User.setLoginorSignup(response.data);
 					// $location.path('/lobby');
+					$location.path("/landingPage");
+					var curUrl = $location.absUrl();
+					console.log();
 				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
 				});

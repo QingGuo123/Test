@@ -1,7 +1,7 @@
 
 
 angular.module('ESNApp', [])
-  .controller('lobbyPageController', function($scope, $state, $location, User, socket) {
+  .controller('lobbyPageController', function($scope, $state, $location) {
     $scope.username = User.getUsername();
     // console.log(User.getLoginorSignup());
     // console.log(User.getLoginorSignup() == "login");
@@ -11,11 +11,11 @@ angular.module('ESNApp', [])
       $scope.signuporlogin = "newcomer"
     }
 
-    socket.emit('login', {
-      user: $scope.username
-    });
+    // socket.emit('login', {
+    //   user: $scope.username
+    // });
 	})
-  .controller('userDirectoryController', function ($scope, $http, $location, User, socket) {
+  .controller('userDirectoryController', function ($scope, $http, $location) {
 
     $http.get('/users').then(function (response) {
       $scope.users = response.data;
@@ -38,20 +38,20 @@ angular.module('ESNApp', [])
     //   $scope.users[user.index].ONLINE = user.online;
     // });
 
-    socket.on('update_status', function(user) {
-      for (var i in $scope.users) {
-        if ($scope.users[i].NAME === user.user_name) {
-          $scope.users[i].STATUS = user.status;
-          break;
-        }
-      }
-    })
+    // socket.on('update_status', function(user) {
+    //   for (var i in $scope.users) {
+    //     if ($scope.users[i].NAME === user.user_name) {
+    //       $scope.users[i].STATUS = user.status;
+    //       break;
+    //     }
+    //   }
+    // })
   })
   .controller('statusController', function($scope, $location, $http, $timeout){
 
 })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
-  .controller('navbarController', function ($scope, $location, $http, $timeout, User) {
+  .controller('navbarController', function ($scope, $location, $http, $timeout) {
         
         $http.get('/messages/public').then(function (response) {
           $scope.messages = response.data;
