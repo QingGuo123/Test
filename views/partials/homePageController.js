@@ -1,6 +1,7 @@
-angular.module('SSNoC', []).controller('homePageController', function ($scope, $http, $location) {
+angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
 		$scope.username = '';
 		$scope.password = '';
+<<<<<<< HEAD
 		var usnFocus = false;
 		var pwdFocus = false;
 
@@ -27,6 +28,8 @@ angular.module('SSNoC', []).controller('homePageController', function ($scope, $
         };
 
 		$scope.loginForm.username.$setValidity("minlength",$scope.username.length>3);
+=======
+>>>>>>> 6a851eef01db3148eea282615c8036d20a61e007
 		$scope.validation = {
 			username: function() {
 				var userlen = $scope.username.length;
@@ -35,20 +38,24 @@ angular.module('SSNoC', []).controller('homePageController', function ($scope, $
 				if (userlen < 3 || savekeywords) {
 					$scope.userdisable = true;
 					if (userlen < 3){
-						return "Username should have at least three characters";
+						return "Username should be at least three characters";
 					}
 					if (savekeywords) {
-						return "Username matches saved keywords, please use another name";
+						return "Username invalid, please choose another name";
 					}
 				}
 			},
 			password : function() {
 				var passwordlen = $scope.password.length;
 				$scope.passworddisable = false;
-				if (passwordlen < 4) {
+				if (passwordlen < 6) {
 					$scope.passworddisable = true;
+<<<<<<< HEAD
 
 					return "Password should have more than four characters";
+=======
+					return "Password should be at least six characters";
+>>>>>>> 6a851eef01db3148eea282615c8036d20a61e007
 				}
 			}
 		};
@@ -114,6 +121,7 @@ angular.module('SSNoC', []).controller('homePageController', function ($scope, $
 		$scope.login_or_signup = function() {
 			var username = $scope.username;
 			var password = $scope.password;
+<<<<<<< HEAD
 			// $http.post('/users/login_or_signup', {
 			// 	"username": username,
 			// 	"password": password
@@ -130,4 +138,56 @@ angular.module('SSNoC', []).controller('homePageController', function ($scope, $
 			alert("helloworld");
 
         };
+=======
+			//console.log("response");
+			$http({
+			  method: 'GET',
+			  url: ('/users/' + username)
+			}).then(function successCallback(response) {
+			    //console.log(response);
+			  }, function errorCallback(response) {
+			    console.log(response);
+			    $http.post('/users', {
+					"username": username,
+					"password": password
+				}).then(function successCallback(response) {
+					// Take in the response information
+					console.log("post successfully");
+					User.setUsername($scope.username);
+					User.setPassword($scope.password);
+					console.log(response.data);
+					User.setLoginorSignup(response.data);
+					// $location.path('/lobby');
+				}, function errorCallback(response) {
+					$scope.message="Login failed, please check your user name and password.";
+				});
+			  });
+
+
+			// $http.get('/users/' + username).then(function (response) {
+			//   console.log(response.status);
+	  //         if(response.status == 404){
+	  //         	alert("Username already exists");
+	  //         }else{
+	  //         	$http.post('/users', {
+			// 		"username": username,
+			// 		"password": password
+			// 	}).then(function(response) {
+			// 		// Take in the response information
+			// 		User.setUsername($scope.username);
+			// 		User.setPassword($scope.password);
+			// 		console.log(response.data);
+			// 		User.setLoginorSignup(response.data);
+			// 		// $location.path('/lobby');
+			// 	}, function() {
+			// 		$scope.message="Login failed, please check your user name and password.";
+			// 	});
+	  //         }
+	  //       });			
+
+
+
+			
+		};
+>>>>>>> 6a851eef01db3148eea282615c8036d20a61e007
 	});

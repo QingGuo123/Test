@@ -1,0 +1,190 @@
+<head>
+    <style type="text/css">
+    @charset "UTF-8";
+    [ng\:cloak],
+    [ng-cloak],
+    [data-ng-cloak],
+    [x-ng-cloak],
+    .ng-cloak,
+    .x-ng-cloak,
+    .ng-hide:not(.ng-hide-animate) {
+        display: none !important;
+    }
+    
+    ng\:form {
+        display: block;
+    }
+    
+    .ng-animate-shim {
+        visibility: hidden;
+    }
+    
+    .ng-anchor {
+        position: absolute;
+    }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" href="material-design-icons/iconfont/material-icons.css">
+    <link rel="stylesheet" href="bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="icon" type="image/icon" href="favicon.ico">
+    <!-- title-->
+    <title>S16-SV1-SSNoC</title>
+    <!-- additional stylesheets for each page-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script type="text/javascript" src="chatPublicly.js"></script>
+</head>
+
+<!--pug file-->
+
+<!-- div.container-fluid
+    div#landing-navbar(ng-controller='navbarController')
+        div.navbar.navbar-success
+            .container-fluid
+                .navbar-header
+                    button.navbar-toggle(type="button" data-toggle="collapse" data-target=".navbar-warning-collapse")
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                .navbar-collapse.navbar-warning-collapse.collapse
+                    ul.nav.navbar-nav
+                        li(ng-class="navLobby")
+                            a(href='javascript:void(0)' ng-click="lobby()") Lobby
+                        li(ng-class="navChatPublicly")
+                            a(href='javascript:void(0)' ng-click="chatPublicly()") Chat Publicly <span class="badge">{{message_navbar}}</span>
+                        li(ng-class="navChatprivately")
+                            a(href='javascript:void(0)' ng-click="chatPrivately()") Chat Privately <span class="badge">{{private_message_navbar}}</span>
+                        li(ng-class="navPostAnnouncement")
+                            a(href='javascript:void(0)' ng-click="postAnnouncement()") Post Announcement
+                        li(ng-class="navMeasurePerf")
+                            a(href='javascript:void(0)' ng-click="measurePerf()") Measure Performance
+                        li(ng-class="navShareLocation")
+                            a(href="javascript:void(0)" ng-click="shareLocation()") Share Location
+                        li(ng-class="navAdministerPage")
+                            a(href="javascript:void(0)" ng-click="administratorPage()") Administer User Profile
+                    ul.nav.navbar-nav.navbar-right
+                        li#search_button
+                            a(href="javascript: void(0)" data-toggle="modal" data-target="#search_modal" ng-click="search()")
+                                span.glyphicon.glyphicon-search
+                        li
+                            a(href='javascript:void(0)') {{currentUser}}
+                        li
+                            a#logout(href='javascript:void(0)', ng-click = 'logout()') Log out
+        div#notification
+            div.alert.alert-dismissable.alert-info.ng-binding -->
+<body ng-app="ESNApp">
+    <div ui-view class="container-fluid">
+        <div id="landing-navbar" ng-controller="navbarController">
+            <div class="navbar navbar-success">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" data-toggle="collapse" data-target=".navbar-warning-collapse" class="navbar-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse navbar-warning-collapse collapse" aria-expanded="false" style="height: 1px;">
+                        <ul class="nav navbar-nav">
+                            <li ng-class="navLobby" class="active"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
+                            <li ng-class="navChatPublicly"><a href="javascript:void(0)">Chat Publicly <span class="badge ng-binding"></span></a></li>
+                            <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)">Chat Privately <span class="badge ng-binding"></span></a></li>
+                            <li ng-class="navPostAnnouncement"><a href="javascript:void(0)">Post Announcement</a></li>
+                            <li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)">Measure Performance</a></li>
+                            <li ng-class="navShareLocation"><a href="javascript:void(0)">Share Location</a></li>
+                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)">Administer User Profile</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal"><span class="glyphicon glyphicon-search"></span></a></li>
+                            <li><a href="javascript:void(0)" class="ng-binding">david</a></li>
+                            <li><a id="logout" href="javascript:void(0)">Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="notification">
+                <div class="alert alert-dismissable alert-info ng-binding">
+                    <!-- <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span></button> -->Welcome back david, what do you wanna do today?
+                </div>
+            </div>
+        </div>
+
+        <!--pug file-->
+
+
+<!-- 
+
+
+        div.container.center_div#chatPublicly(ng-controller="chatPublicController")
+            div.row
+                div.col-md-12.col-lg-12.col-xs-12.well
+                    ul.list-group
+                        li.list-group-item(ng-repeat="message in messages")
+                            span {{message.username}}
+                            b.badge {{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}
+                            | says:
+                            span {{message.message}}
+                    form#charForm.form-horizontal.ng-pristine.ng-valid
+                        div.form-group.has-feedback.has-feedback-left.is-empty
+                            div.input-group
+                                span.input-group-addon
+                                    i.glyphicon.glyphicon-comment
+                                    input.form-control.ng-pristine.ng-untouched.ng-valid.ng-empty(name="message" type="text" ng-model="currentMsg")
+                        div.form-group.has-feedback.has-feedback-left
+                            input.btn.btn-success.btn-block(autocomplete="off" value="Send Message" type="submit" ng-click="sendMessage()")
+                        div.form-group.has-feedback.has-feedback-left
+                            input.ng-isolate-scope(value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image")
+                            input.btn.btn-info.btn-block(autocomplete="off" value="Take Picture" type="submit")
+                        div.btn-group.btn-group-justified
+                            div.btn-group
+                            div.btn-group
+
+ -->
+
+        <div id="chatPublicly" ng-controller="chatPublicController" class="container center_div">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-xs-12 well">
+                    <ul class="list-group">
+                        <!-- ngRepeat: message in messages -->
+                        <!-- <li ng-repeat="message in messages" class="list-group-item ng-scope"><span class="badge ng-binding">02/25/2017 18:04:59</span><b class="ng-binding">eric</b> says: -->
+                            <!-- ngIf: message.MESSAGE -->
+                            <!-- <span ng-if="message.MESSAGE" class="ng-binding ng-scope">sb</span> -->
+                            <!-- end ngIf: message.MESSAGE -->
+                            <!-- ngIf: message.image -->
+
+                        <li ng-repeat="message in messages" class="list-group-item">
+                        	<span >{{message.username}}</span><b class="badge">{{message.timestamp}}</b> says:
+                            <span>{{message.message}}</span>
+                        </li>
+                    </ul>
+                    <form id="chatForm" name="chatForm" class="form-horizontal ng-pristine ng-valid">
+                        <div class="form-group has-feedback has-feedback-left is-empty">
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i><input name="message" type="text" ng-model="currentMsg" class="form-control ng-pristine ng-untouched ng-valid ng-empty"></span></div>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input autocomplete="off" value="Send Message" type="submit" ng-click="sendMessage()" class="btn btn-success btn-block">
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image" class="ng-isolate-scope">
+                            <input autocomplete="off" value="Take Picture" type="submit" class="btn btn-info btn-block">
+                        </div>
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
