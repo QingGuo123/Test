@@ -16,20 +16,6 @@ angular.module('ESNApp',[])
         message: 'hello, David!'
     });
 
-
-    // {
-    //     {
-    //         username:'David',
-    //         message:'hello, David!',
-    //         timestamp: '02/25/2017 18:04:59'
-    //     },
-    //     {
-    //         username:'Eric',
-    //         message:'hello, Eric!',
-    //         timestamp: '02/25/2017 18:05:14'
-    //     }
-    // }
-
 });
 
 angular.module('ESNApp')

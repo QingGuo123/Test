@@ -17,16 +17,16 @@ angular.module('ESNApp', [])
 	})
   .controller('userDirectoryController', function ($scope, $http, $location, User, socket) {
 
-    // $http.get('/users').then(function (response) {
-    //   $scope.users = response.data;
-    //   for (var i in $scope.users) {
-    //     $scope.users[i].ONLINE = "Checking online...";
-    //     socket.emit('check_online', {
-    //       "user": $scope.users[i].NAME,
-    //       "index": i
-    //     });
-    //   }
-    // });
+    $http.get('/users').then(function (response) {
+      $scope.users = response.data;
+      for (var i in $scope.users) {
+        $scope.users[i].ONLINE = "Checking online...";
+        // socket.emit('check_online', {
+        //   "user": $scope.users[i].NAME,
+        //   "index": i
+        // });
+      }
+    });
 
     // $scope.sendUserName = function(targetUser){
     //   ChatPrivately.setUsername(targetUser);
@@ -51,7 +51,20 @@ angular.module('ESNApp', [])
 
 })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
-  .controller('navbarController', function ($scope, $location, $http, $timeout) {
+  .controller('navbarController', function ($scope, $location, $http, $timeout, User) {
+        
+        $http.get('/messages/public').then(function (response) {
+          $scope.messages = response.data;
+          // for (var i in $scope.users) {
+          //   $scope.message[i].ONLINE = "Checking online...";
+          //   // socket.emit('check_online', {
+          //   //   "user": $scope.users[i].NAME,
+          //   //   "index": i
+          //   // });
+          // }
+        });
+
+
         // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
