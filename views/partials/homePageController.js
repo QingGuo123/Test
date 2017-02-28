@@ -1,7 +1,6 @@
 angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
 		$scope.username = '';
 		$scope.password = '';
-		// $scope.loginForm.username.$setValidity("minlength",$scope.username.length>3);
 		$scope.validation = {
 			username: function() {
 				var userlen = $scope.username.length;
@@ -10,19 +9,19 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 				if (userlen < 3 || savekeywords) {
 					$scope.userdisable = true;
 					if (userlen < 3){
-						return "Username should have at least three characters";
+						return "Username should be at least three characters";
 					}
 					if (savekeywords) {
-						return "Username matches saved keywords, please use another name";
+						return "Username invalid, please choose another name";
 					}
 				}
 			},
 			password : function() {
 				var passwordlen = $scope.password.length;
 				$scope.passworddisable = false;
-				if (passwordlen < 4) {
+				if (passwordlen < 6) {
 					$scope.passworddisable = true;
-					return "Password should have more than four characters";
+					return "Password should be at least six characters";
 				}
 			}
 		};
