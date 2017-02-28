@@ -41,26 +41,51 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 		$scope.login_or_signup = function() {
 			var username = $scope.username;
 			var password = $scope.password;
-
-			$http.get('/users/' + username).then(function (response) {
-	          if(!response){
-	          	alert("Username already exists");
-	          }else{
-	          	$http.post('/users', {
+			//console.log("response");
+			$http({
+			  method: 'GET',
+			  url: ('/users/' + username)
+			}).then(function successCallback(response) {
+			    //console.log(response);
+			  }, function errorCallback(response) {
+			    console.log(response);
+			    $http.post('/users', {
 					"username": username,
 					"password": password
-				}).then(function(response) {
+				}).then(function successCallback(response) {
 					// Take in the response information
+					console.log("post successfully");
 					User.setUsername($scope.username);
 					User.setPassword($scope.password);
 					console.log(response.data);
 					User.setLoginorSignup(response.data);
 					// $location.path('/lobby');
-				}, function() {
+				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
 				});
-	          }
-	        });			
+			  });
+
+
+			// $http.get('/users/' + username).then(function (response) {
+			//   console.log(response.status);
+	  //         if(response.status == 404){
+	  //         	alert("Username already exists");
+	  //         }else{
+	  //         	$http.post('/users', {
+			// 		"username": username,
+			// 		"password": password
+			// 	}).then(function(response) {
+			// 		// Take in the response information
+			// 		User.setUsername($scope.username);
+			// 		User.setPassword($scope.password);
+			// 		console.log(response.data);
+			// 		User.setLoginorSignup(response.data);
+			// 		// $location.path('/lobby');
+			// 	}, function() {
+			// 		$scope.message="Login failed, please check your user name and password.";
+			// 	});
+	  //         }
+	  //       });			
 
 
 
