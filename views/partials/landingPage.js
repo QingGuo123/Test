@@ -69,11 +69,20 @@ angular.module('ESNApp', [])
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
             alert("Clicked on landingPage");
-            //$location.path('/lobby');
+            $http.post('/land', {
+              'type':'land'
+            }).then(function successCallback(response) {
+              // Take in the response information
+              console.log("post successfully");
+            }, function errorCallback(response) {
+              console.log("post error");
+            });
+              //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
             alert("Clicked on chatPublicly");
+            window.location.href = "http://localhost:3000/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');

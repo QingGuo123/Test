@@ -55,24 +55,24 @@
                         <ul class="nav navbar-nav">
                             <li ng-class="navLobby" class="active"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
                             <li ng-class="navChatPublicly"><a href="javascript:void(0)" ng-click="chatPublicly()">Chat Publicly <span class="badge ng-binding"></span></a></li>
-                            <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)" ng-click="chatPrivately()">Chat Privately <span class="badge ng-binding"></span></a></li>
+                            <!-- <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)" ng-click="chatPrivately()">Chat Privately <span class="badge ng-binding"></span></a></li>
                             <li ng-class="navPostAnnouncement"><a href="javascript:void(0)" ng-click="postAnnouncement()">Post Announcement</a></li>
                             <li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)" ng-click="measurePerf()">Measure Performance</a></li>
                             <li ng-class="navShareLocation"><a href="javascript:void(0)" ng-click="shareLocation()">Share Location</a></li>
-                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)" ng-click="administratorPage()">Administer User Profile</a></li>
+                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)" ng-click="administratorPage()">Administer User Profile</a></li> -->
                         </ul>
-<!--                         <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
                             <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal" ng-click="search()"><span class="glyphicon glyphicon-search"></span></a></li>
                             <li><a href="javascript:void(0)" class="ng-binding">david</a></li>
                             <li><a id="logout" href="javascript:void(0)" ng-click="logout()">Log out</a></li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div id="notification">
+<!--             <div id="notification">
                 <div class="alert alert-dismissable alert-info ng-binding">
                     <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span></button>Welcome back david, what do you wanna do today?</div>
-            </div>
+            </div> -->
         </div>
         <div id="userStatus" ng-controller="statusController" class="col-xs-12">
             <h2>Your Status</h2>
@@ -103,31 +103,6 @@
             <h2>User Directory</h2>
             <div class="list-group">
                 <div> <!-- ng-repeat -->
-                    <div class="row">
-                        <div class="col-xs-7">
-	                        <div class="list-group-item">
-	                        	<!-- <div class="row-action-primary">
-	                                <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
-	                            </div> -->
-	                            <div class="row-content">
-	                                <h4 type="button">User1</h4>
-	                                <p class="ng-binding">status: Normal</p>
-	                                <p class="ng-binding">offline</p>
-	                                <p class="ng-binding"></p>
-	                            </div>
-	                        </div>
-                        </div>
-                        <div class="col-xs-5">
-                            <div>
-                                <button type="button" class="btn btn-raised btn-sm">View Profile</button>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-raised btn-sm">Chat Privately</button>
-                            </div>
-                            <!-- end ngIf: user.NAME !== currentUser -->
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
                     <div class="row">
                         <div class="col-xs-7">
 	                        <div class="list-group-item">

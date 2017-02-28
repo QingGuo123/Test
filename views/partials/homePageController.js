@@ -14,6 +14,8 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 					if (savekeywords) {
 						return "Username invalid, please choose another name";
 					}
+				}else{
+					return "Username valid";
 				}
 			},
 			password : function() {
@@ -22,6 +24,8 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 				if (passwordlen < 6) {
 					$scope.passworddisable = true;
 					return "Password should be at least six characters";
+				}else{
+					return "Password valid";
 				}
 			}
 		};
@@ -49,11 +53,12 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 			  url: ('/users/' + username)
 			}).then(function successCallback(response) {
 			    console.log(response);
-			    $location.path("/landingPage.html");
+			    window.location.href = "http://localhost:3000/landingPage.html";
 				var curUrl = $location.absUrl();
 				console.log(curUrl);
 			  }, function errorCallback(response) {
 			    console.log(response);
+			    window.location.href = "http://localhost:3000/landingPage.html";
 			    $http.post('/users', {
 					"username": username,
 					"password": password
@@ -64,10 +69,6 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 					User.setPassword($scope.password);
 					console.log(response.data);
 					User.setLoginorSignup(response.data);
-					// $location.path('/lobby');
-					$location.path("/landingPage");
-					var curUrl = $location.absUrl();
-					console.log();
 				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
 				});
