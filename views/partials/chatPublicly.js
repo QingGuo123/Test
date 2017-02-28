@@ -6,24 +6,37 @@ angular.module('ESNApp',[])
     //         console.log("User connected via Socket io!");
     // });
     var timestamp = new Date();
-
-    $http.post('/messages/public', {
-        "username" : "eric", 
-        "content" : "hello", 
-        "timestamp" : timestamp
-    }).then(function successCallback(response) {
-        // Take in the response information
-        console.log("post successfully");
-    }, function errorCallback(response) {
-        console.log("Login failed, please check your user name and password.");
-    });
-
+    $scope.currentMsg;
+    // $http.post('/messages/public', {
+    //     "username" : "eric", 
+    //     "content" : "hello", 
+    //     "timestamp" : timestamp
+    // }).then(function successCallback(response) {
+    //     // Take in the response information
+    //     console.log("post successfully");
+    // }, function errorCallback(response) {
+    //     console.log("Login failed, please check your user name and password.");
+    // });
+    $scope.sendMessage = function(){
+            var timestamp1 = new Date();
+            console.log($scope.currentMsg);
+            $http.post('/messages/public', {
+            "username" : "eric", 
+            "content" : $scope.currentMsg, 
+            "timestamp" : timestamp1
+        }).then(function successCallback(response) {
+            // Take in the response information
+            console.log("post successfully");
+        }, function errorCallback(response) {
+            console.log("Login failed, please check your user name and password.");
+        });
+    }
 
 
     $http.get('/messages/public').then(function (response) {
       //$scope.users = response.data.users;
-      console.log(response.data);
-      $scope.messages = response.data;
+      console.log(response.data.messages);
+      $scope.messages = response.data.messages;
     });
 
     
