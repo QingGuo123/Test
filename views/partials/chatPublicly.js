@@ -24,7 +24,7 @@ angular.module('ESNApp',[])
     // });
     $scope.sendMessage = function(){
         var timestamp = new Date();
-        $http.get('/currentUsername').then(function (response) {
+        $http.get('/currentUsername').then(function successCallback(response) {
 
             $scope.curUsername = response.data.currentUsername;
 
@@ -39,6 +39,7 @@ angular.module('ESNApp',[])
                 console.log("Login failed, please check your user name and password.");
             });
 
+
             socket.emit("message",{
                 "username": $scope.curUsername,
                 "content": $scope.currentMsg,
@@ -46,16 +47,25 @@ angular.module('ESNApp',[])
             });
             $scope.currentMsg = "";
 
-        });
+        },
+            function errorCallback(response){
+                window.location.href = "http://localhost:3000/index.html";
+            });
 
     };
 
-
-    $http.get('/messages/public').then(function (response) {
-      //$scope.users = response.data.users;
-      console.log(response.data.messages);
-      $scope.messages = response.data.messages;
-    });
+        $http.get('/currentUsername').then(function successCallback(response) {
+            console.log("response.status: " + response.status);
+            var myBody = document.getElementById('chatPubliclyBody');
+            myBody.style.display = 'block';
+            $http.get('/messages/public').then(function (response) {
+                //$scope.users = response.data.users;
+                console.log(response.data.messages);
+                $scope.messages = response.data.messages;
+            });
+        }, function errorCallback(response){
+            window.location.href = "http://localhost:3000/index.html";
+        });
 
     
     socket.on("message", function(obj){

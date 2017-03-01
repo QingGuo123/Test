@@ -17,21 +17,7 @@ angular.module('ESNApp', [])
 
       var socket = io();
 
-    $http.get('/users').then(function (response) {
-      $scope.users = response.data.users;
-
-
-
-
-      //console.log(response.data.users);
-      // for (var i in $scope.users) {
-      //   $scope.users[i].ONLINE = "Checking online...";
-      //   // socket.emit('check_online', {
-      //   //   "user": $scope.users[i].NAME,
-      //   //   "index": i
-      //   // });
-      // }
-    });
+      $scope.users = '';
 
       socket.on("updateDirectory", function(){
           $http.get('/users').then(function (response) {
@@ -60,6 +46,16 @@ angular.module('ESNApp', [])
     //     }
     //   }
     // })
+      $http.get('/currentUsername').then(function successCallback(response) {
+          var myBody = document.getElementById('landingPageBody');
+          myBody.style.display = 'block';
+          console.log("response.status: " + response.status);
+          $http.get('/users').then(function (response) {
+              $scope.users = response.data.users;
+          });
+      }, function errorCallback(response){
+          window.location.href = "http://localhost:3000/index.html";
+      });
   })
   .controller('statusController', function($scope, $location, $http, $timeout){
 
