@@ -1,5 +1,3 @@
-
-
 angular.module('ESNApp', [])
   .controller('lobbyPageController', function($scope, $state, $location) {
     $scope.username = User.getUsername();
@@ -16,9 +14,10 @@ angular.module('ESNApp', [])
     // });
 	})
   .controller('userDirectoryController', function ($scope, $http, $location) {
-
+    
     $http.get('/users').then(function (response) {
       $scope.users = response.data.users;
+      
       //console.log(response.data.users);
       // for (var i in $scope.users) {
       //   $scope.users[i].ONLINE = "Checking online...";
@@ -95,6 +94,7 @@ angular.module('ESNApp', [])
 
         $scope.logout = function () {
             console.log("Clicked on logout");
+             window.location.href = "http://localhost:3000/index.html";
             // $http.get('/logout').then(function(response) {
             // }, function(response) {
             //     console.log(response.status);
