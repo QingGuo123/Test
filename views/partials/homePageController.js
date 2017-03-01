@@ -52,14 +52,14 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 			  method: 'GET',
 			  url: ('/users/' + username)
 			}).then(function successCallback(response) {
-			    console.log(response);
+			    //console.log(response);
 			    $http.post('/users', {
 					"username": username,
 					"password": password
 				}).then(function successCallback(response) {
-					console.log(response);
+					//console.log(response);
 					if(response.data.regOrLoginResult === 1){
-				    	alert("臭傻逼");
+				    	
 				    }else if(response.data.regOrLoginResult === 2){
 				    	window.location.href = "http://localhost:3000/landingPage.html";
 				    }
@@ -68,7 +68,7 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 				});
 			    
 			  }, function errorCallback(response) {
-			    console.log("404:"+response);
+			    //console.log("404:"+response);
 			    
 		    	if (confirm("Are you sure to create a new user?")) {
 				    $http.post('/users', {
