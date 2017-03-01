@@ -59,7 +59,7 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 				}).then(function successCallback(response) {
 					//console.log(response);
 					if(response.data.regOrLoginResult === 1){
-				    	
+						alert("Incorrect password!");
 				    }else if(response.data.regOrLoginResult === 2){
 				    	window.location.href = "http://localhost:3000/landingPage.html";
 				    }
