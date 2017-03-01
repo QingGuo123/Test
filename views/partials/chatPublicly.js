@@ -119,8 +119,11 @@ angular.module('ESNApp')
         // });
 
         $scope.logout = function () {
-            console.log("Clicked on logout");
-            window.location.href = "http://localhost:3000/index.html";
+            $http.get('/logout').then(function (response) {
+                window.location.href = "http://localhost:3000/index.html";
+            }, function errorCallback(response) {
+                window.location.href = "http://localhost:3000/index.html";
+            });
         };
 
         // socket.on("logout", function() {

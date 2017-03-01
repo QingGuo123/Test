@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use(session({
     name: 'session',
     secret: 'secret',
-    store: new FileStore,
+    store: new FileStore({logFn: function(){}}),
     cookie: {maxAge: 3600 * 1000},
     saveUninitialized: false,
     resave: false

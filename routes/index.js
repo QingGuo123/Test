@@ -10,8 +10,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/currentUsername', function(req, res, next) {
-    console.log('get session name' + req.session.loginUser);
     res.status(200).send({"currentUsername": req.session.loginUser});
+});
+
+router.get('/logout', function(req, res, next) {
+    req.session.destroy(function(err) {
+        console.log('fuck');
+        if(err)
+            res.sendStatus(500);
+        res.clearCookie("session");
+        res.sendStatus(200);
+    });
 });
 
 module.exports = router;
