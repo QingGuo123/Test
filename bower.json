@@ -15,6 +15,7 @@
     "socket.io-client": "~1.4.5",
     "angular-base64": "latest",
     "arrive": "^2.3.1",
-    "angular-sanitize": "*"
+    "angular-sanitize": "*",
+    "angular-md5": "^0.1.10"
   }
 }
