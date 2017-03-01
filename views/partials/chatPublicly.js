@@ -1,13 +1,16 @@
 
 angular.module('ESNApp',[])
     .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
-    
-    // socket.on("connect", function (){
-    //         console.log("User connected via Socket io!");
-    // });
-    var timestamp = new Date();
-    $scope.currentMsg;
-    $scope.curUsername;
+
+        var socket = io();
+        socket.on("connect", function (){
+                console.log("User connected via Socket io!");
+        });
+
+
+
+        $scope.currentMsg = "";
+        $scope.curUsername = "";
 
     // $http.post('/messages/public', {
     //     "username" : "eric", 
@@ -20,7 +23,7 @@ angular.module('ESNApp',[])
     //     console.log("Login failed, please check your user name and password.");
     // });
     $scope.sendMessage = function(){
-        var timestamp1 = new Date();
+        var timestamp = new Date();
         $http.get('/currentUsername').then(function (response) {
 
             $scope.curUsername = response.data.currentUsername;
@@ -36,7 +39,16 @@ angular.module('ESNApp',[])
                 console.log("Login failed, please check your user name and password.");
             });
         });
-    }
+
+
+        socket.emit("message",{
+            "username": $scope.curUsername,
+            "content": $scope.currentMsg,
+            "timestamp" : timestamp
+        });
+
+
+    };
 
 
     $http.get('/messages/public').then(function (response) {
