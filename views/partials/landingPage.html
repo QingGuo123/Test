@@ -101,6 +101,7 @@
     <!-- additional stylesheets for each page-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script type="text/javascript" src="landingPage.js"></script>
+    <script src="socket.io.js"></script>
 </head>
 
 <body ng-app="ESNApp">
@@ -163,31 +164,31 @@
             <h2>User Directory</h2>
             <div class="list-group">
                 <div> <!-- ng-repeat -->
-                    <div class="row">
-                        <div class="col-xs-7">
-	                        <div class="list-group-item">
-	                        	<!-- <div class="row-action-primary">
-	                                <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
-	                            </div> -->
-	                            <div class="row-content">
-	                                <h4 type="button">User1</h4>
-	                                <p class="ng-binding">status: Normal</p>
-	                                <p class="ng-binding">offline</p>
-	                                <p class="ng-binding"></p>
-	                            </div>
-	                        </div>
-                        </div>
-                        <div class="col-xs-5">
-                            <div>
-                                <button id="btn1" type="button" class="btn btn-raised btn-sm"><i class="material-icons">account_box</i></button>
-                            </div>
-                            <div>
-                                <button id="btn2" type="button" class="btn btn-raised btn-sm"><i class="material-icons">speaker_notes</i></button>
-                            </div>
-                            <!-- end ngIf: user.NAME !== currentUser -->
-                        </div>
-                    </div>
-                    <div class="list-group-separator"></div>
+                    <!--<div class="row">-->
+                        <!--<div class="col-xs-7">-->
+	                        <!--<div class="list-group-item">-->
+	                        	<!--&lt;!&ndash; <div class="row-action-primary">-->
+	                                <!--<img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">-->
+	                            <!--</div> &ndash;&gt;-->
+	                            <!--<div class="row-content">-->
+	                                <!--<h4 type="button">User1</h4>-->
+	                                <!--<p class="ng-binding">status: Normal</p>-->
+	                                <!--<p class="ng-binding">offline</p>-->
+	                                <!--<p class="ng-binding"></p>-->
+	                            <!--</div>-->
+	                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-xs-5">-->
+                            <!--<div>-->
+                                <!--<button id="btn1" type="button" class="btn btn-raised btn-sm"><i class="material-icons">account_box</i></button>-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<button id="btn2" type="button" class="btn btn-raised btn-sm"><i class="material-icons">speaker_notes</i></button>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; end ngIf: user.NAME !== currentUser &ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="list-group-separator"></div>-->
                 <div ng-repeat="user in users"> <!-- ng-repeat -->
                     <div class="row">
                         <div class="col-xs-7">
