@@ -1,74 +1,67 @@
 angular.module('ESNApp',[])
     .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
 
-        var socket = io();
+        // socket.on("connect", function (){
+        //         console.log("User connected via Socket io!");
+        // });
+        var timestamp = new Date();
+        $scope.currentMsg;
+        $scope.curUsername;
 
-    $scope.currentMsg = "";
+        // $http.post('/messages/public', {
+        //     "username" : "eric",
+        //     "content" : "hello",
+        //     "timestamp" : timestamp
+        // }).then(function successCallback(response) {
+        //     // Take in the response information
+        //     console.log("post successfully");
+        // }, function errorCallback(response) {
+        //     console.log("Login failed, please check your user name and password.");
+        // });
+        $scope.sendMessage = function(){
+            var timestamp1 = new Date();
+            $http.get('/currentUsername').then(function (response) {
 
-    socket.on("connect",function () {
-        console.log("socket has connected.");
-    });
+                $scope.curUsername = response.data.currentUsername;
 
-
-    socket.on("message", function (message) {
-            console.log("send message using socket.io successfully");
-            $scope.messages.push({
-                username: message.username,
-                content: message.content,
-                timestamp: message.timestamp
+                $http.post('/messages/public', {
+                    "username" : $scope.curUsername,
+                    "content" : $scope.currentMsg,
+                    "timestamp" : timestamp1
+                }).then(function successCallback(response) {
+                    // Take in the response information
+                    console.log("post successfully");
+                }, function errorCallback(response) {
+                    console.log("Login failed, please check your user name and password.");
+                });
             });
+        }
 
+
+        $http.get('/messages/public').then(function (response) {
+            //$scope.users = response.data.users;
+            console.log(response.data.messages);
+            $scope.messages = response.data.messages;
         });
 
-$scope.sendMessage = function(){
-    var timestamp = new Date();
-    console.log($scope.currentMsg);
-    $http.post('/messages/public', {
-        "username" : "jinliang",
-        "content" : $scope.currentMsg,
-        "timestamp" : timestamp
-    }).then(function successCallback(response) {
-        // Take in the response information
-        console.log("post successfully");
-    }, function errorCallback(response) {
-            console.log("Login failed, please check your user name and password.");
-        });
-
-    console.log("test");
-
-        socket.emit("message",{
-            "username": "jinliang",
-            "content": $scope.currentMsg,
-            "timestamp": timestamp
-        });
-    };
 
 
-    $http.get('/messages/public').then(function (response) {
-      console.log(response.data.messages);
-      for(var i = 0; i < 10; i++){
-          $scope.messages.push({
-              username: response.data.messages.username,
-              content: response.data.messages.content,
-              timestamp: response.data.messages.timestamp
-          });
-      }
+
     });
-    
-    $scope.logout = function () {
-        console.log("click logout button.");
-        $http.get("/index").then(function (response) {
-            
-        })
-    }
-
-    
-
-
-});
 
 angular.module('ESNApp')
+//.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
     .controller('navbarController', function ($scope, $location, $http, $timeout) {
+        // handle navbar switch
+        $scope.curUser = '';
+
+        $http.get('/currentUsername').then(function (response) {
+            $scope.curUser = response.data.currentUsername;
+
+        });
+
+
+
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
             window.location.href = "http://localhost:3000/landingPage.html";
@@ -86,22 +79,50 @@ angular.module('ESNApp')
         $scope.navAdministerPage = "hide";
         $scope.navMeasurePerf = "hide";
 
+        // $http.post("/users/current_user").then(function (response) {
+        //     var username = response.data.username;
+        //     var privilegeLevel = response.data.privilege_level;
+        //     User.setUsername(username);
+        //     User.setLoginorSignup("login");
+        //     User.setPrivilegeLevel(privilegeLevel);
+        //     $scope.currentUser = username;
+        //     $scope.privilegeLevel = privilegeLevel;
+        //     switch (privilegeLevel) {
+        //         case "Administrator":
+        //             $scope.navAdministerPage = "";
+        //             $scope.navMeasurePerf = "";
+        //             break;
+        //         case "Monitor":
+        //             $scope.navMeasurePerf = "";
+        //             break;
+        //         default:
+        //             if ($location.$$url === "/measurePerformance" ||
+        //                 $location.$$url === "/administratorPage" ||
+        //                 $location.$$url === "/administratorUserProfile") {
+        //                 $location.url("/lobby");
+        //             }
+        //             break;
+        //     }
+
+        //     if (User.getLoginorSignup() === "login") {
+        //         Notification.postNotification($scope, "Welcome back "+User.getUsername()+", what do you wanna do today?", "info");
+        //     } else {
+        //         Notification.postNotification($scope, "Welcome new user "+User.getUsername()+", what do you wanna do today?", "info");
+        //     }
+
+        //     socket.emit('login', {
+        //         user: User.getUsername()
+        //     });
+        // }, function () {
+        //     $location.path('/index');
+        // });
 
         $scope.logout = function () {
-            console.log("Clicked on logout");
-            // $http.get('/logout').then(function(response) {
-            // }, function(response) {
-            //     console.log(response.status);
-            //     console.log(response.status === 302);
-            //     if (response.status === 302) {
-            //         socket.emit("logout", {
-            //             user: User.getUsername()
-            //         });
-            //         $location.path('/index');
-            //     } else {
-            //         console.log("Log out failed.");
-            //     }
-            // });
+            $http.get('/logout').then(function (response) {
+                window.location.href = "http://localhost:3000/index.html";
+            }, function errorCallback(response) {
+                window.location.href = "http://localhost:3000/index.html";
+            });
         };
 
         // socket.on("logout", function() {
