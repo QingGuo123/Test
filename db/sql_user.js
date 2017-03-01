@@ -30,7 +30,7 @@ module.exports = {
     },
 
     getAllUsers: function () {
-        var sql = "SELECT * FROM User ORDER BY username;";
+        var sql = "SELECT * FROM User ORDER BY onlinestatus DESC, username ASC;";
         return sql;
     },
 
