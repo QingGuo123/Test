@@ -1,0 +1,7 @@
+Description,HTTP Method,Partial URI,Request Data,Response Data,Success Status Code,Location Header Needed?,Failure Status Code,Associated Use Case,Notes
+Register a user,POST,/users,"username, password",,If new user is created: 201 Created,Yes,,Join Community,Timestamps must be passed from client. Server does not have a clock or time server. 
+Retrieve all users,GET,/users,,Array of users,If user exist: 200 Ok,No,,Join Community,
+Retrieve a user's record,GET,/users/{userName},,User,If user is found: 200 Ok,No,If user does not exist: 404 Not Found,Join Community,
+Post a message on public wall from a user,POST,/messages/public,"username, message, timestamp",full URI of created location breadcrumb if Location was specified in request,If new message created: 201 Created,If new message created: 201 Created,Yes.  If user does not exist: 404 Not Found,Chat Publicly,
+Retrieve all messages posted on public wall,GET,/messages/public,,Array of Messages,If messages found: 200 Ok,No,,Chat Publicly,
+Retrieve all messages posted on public wall by a user,GET,/messages/public/{userName},,Array of Messages,If a user and messages found: 200 Ok,No,,Chat Publicly,
