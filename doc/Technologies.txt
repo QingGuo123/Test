@@ -1,6 +1,0 @@
-Back-end: Nodejs + expressjs
-Front-end: angularjs + pug
-Database: Sqlite
-Css: Bootstrap
-Project track: trello, git
-Cloud: Heroku
