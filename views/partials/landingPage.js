@@ -21,7 +21,20 @@ angular.module('ESNApp', [])
 
       socket.on("updateDirectory", function(){
           $http.get('/users').then(function (response) {
-              $scope.users = response.data.users;
+              var users_temp = [];
+              users_temp = response.data.users;
+              console.log(response.data.users);
+              console.log(users_temp);
+              console.log(users_temp.length);
+              //$scope.users = response.data.users;
+              for(var i = 0;i < users_temp.length;i++){
+                  if(users_temp[i].onlinestatus == 1){
+                      users_temp[i].onlinestatus = "Online";
+                  }else{
+                      users_temp[i].onlinestatus = "Offline";
+                  }
+              }
+              $scope.users = users_temp;
           });
       });
 
@@ -51,7 +64,20 @@ angular.module('ESNApp', [])
           myBody.style.display = 'block';
           console.log("response.status: " + response.status);
           $http.get('/users').then(function (response) {
-              $scope.users = response.data.users;
+              var users_temp = [];
+              users_temp = response.data.users;
+              console.log(response.data.users);
+              console.log(users_temp);
+              console.log(users_temp.length);
+              //$scope.users = response.data.users;
+              for(var i = 0;i < users_temp.length;i++){
+                  if(users_temp[i].onlinestatus == 1){
+                      users_temp[i].onlinestatus = "Online";
+                  }else{
+                      users_temp[i].onlinestatus = "Offline";
+                  }
+              }
+              $scope.users = users_temp;
           });
       }, function errorCallback(response){
           window.location.href = "http://localhost:3000/index.html";

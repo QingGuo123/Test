@@ -35,7 +35,7 @@ module.exports = {
     },
 
     insertAdminUser: function(adminpwd) {
-        var sql = "INSERT INTO User (username, password, onlinestatus, accountstatus, privilege) VALUES ('admin','" + adminpwd + "', 1, 0, 0)";
+        var sql = "INSERT INTO User (username, password, onlinestatus, accountstatus, privilege) VALUES ('admin','" + adminpwd + "', 0, 0, 0)";
         return sql;
     },
 

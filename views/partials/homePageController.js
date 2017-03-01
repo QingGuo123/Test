@@ -1,4 +1,4 @@
-angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
+angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$scope', '$http', '$location', 'md5', function ($scope, $http, $location, md5) {
 
 	var socket = io();
 
@@ -48,7 +48,7 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 		$scope.login_or_signup = function() {
 			//console.log("hello");
 			var username = $scope.username;
-			var password = $scope.password;
+			var password = md5.createHash($scope.password);
 			//console.log("$rootScope.curUsername: " + $rootScope.curUsername);
 			$http({
 			  method: 'GET',
@@ -119,4 +119,4 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 
 			
 		};
-	});
+	}]);
