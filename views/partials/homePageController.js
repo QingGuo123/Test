@@ -68,17 +68,17 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 				});
 			    
 			  }, function errorCallback(response) {
-			    //console.log(response);
+			    console.log("404:"+response);
 			    
 		    	if (confirm("Are you sure to create a new user?")) {
-		        	window.location.href = "http://localhost:3000/landingPage.html";
-		        	alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");
 				    $http.post('/users', {
 						"username": username,
 						"password": password
 					}).then(function successCallback(response) {
 						// Take in the response information
 						console.log("post successfully");
+						alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");
+						window.location.href = "http://localhost:3000/landingPage.html";
 						// User.setUsername($scope.username);
 						// User.setPassword($scope.password);
 						// console.log(response.data);

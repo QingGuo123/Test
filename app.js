@@ -36,12 +36,13 @@ app.use(session({
 }));
 
 app.use(function (req, res, next) {
-    if (!(req.method === "POST" && req.url === "/users")) {
+    if (!(req.method === "POST" && req.url === "/users") && !(req.method === "GET" && req.url.match(/\/users\/.*/))) {
         var sess = req.session;
         var loginUser = sess.loginUser;
         var isLogined = !!loginUser;
-        if (isLogined)
+        if (isLogined) {
             next();
+        }
         else
             res.sendStatus(404);
     }
