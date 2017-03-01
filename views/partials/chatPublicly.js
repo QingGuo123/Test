@@ -1,3 +1,4 @@
+
 angular.module('ESNApp',[])
     .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
 
@@ -96,7 +97,7 @@ angular.module('ESNApp')
         //             $scope.navMeasurePerf = "";
         //             break;
         //         default:
-        //             if ($location.$$url === "/measurePerformance" ||
+        //             if ($location.$$url === "/measurePerformance" || 
         //                 $location.$$url === "/administratorPage" ||
         //                 $location.$$url === "/administratorUserProfile") {
         //                 $location.url("/lobby");
