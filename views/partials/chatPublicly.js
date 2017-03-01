@@ -58,7 +58,7 @@ angular.module('ESNApp')
         
         $http.get('/currentUsername').then(function (response) {
             $scope.curUser = response.data.currentUsername;
-            alert($scope.curUser);
+            
         });
 
 

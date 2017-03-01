@@ -53,15 +53,12 @@ angular.module('ESNApp', [])
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
   .controller('navbarController', function ($scope, $location, $http, $timeout) {
         
-        $http.get('/messages/public').then(function (response) {
-          $scope.messages = response.data;
-          // for (var i in $scope.users) {
-          //   $scope.message[i].ONLINE = "Checking online...";
-          //   // socket.emit('check_online', {
-          //   //   "user": $scope.users[i].NAME,
-          //   //   "index": i
-          //   // });
-          // }
+
+
+
+        $http.get('/currentUsername').then(function (response) {
+            $scope.curUser = response.data.currentUsername;
+            
         });
 
 
@@ -81,7 +78,6 @@ angular.module('ESNApp', [])
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
-            alert("Clicked on chatPublicly");
             window.location.href = "http://localhost:3000/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
