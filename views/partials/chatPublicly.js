@@ -35,16 +35,18 @@ angular.module('ESNApp',[])
             }).then(function successCallback(response) {
                 // Take in the response information
                 console.log("post successfully");
-                socket.emit("message",{
-                    "username": $scope.curUsername,
-                    "content": $scope.currentMsg,
-                    "timestamp" : timestamp
-                });
             }, function errorCallback(response) {
                 console.log("Login failed, please check your user name and password.");
             });
-        });
 
+            socket.emit("message",{
+                "username": $scope.curUsername,
+                "content": $scope.currentMsg,
+                "timestamp" : timestamp
+            });
+
+
+        });
 
 
 
@@ -58,12 +60,14 @@ angular.module('ESNApp',[])
     });
 
     
-    socket.on("message1", function(obj){
+    socket.on("message", function(obj){
+        //alert('1');
         $scope.messages.push({
          "username": obj.username,
            "content": obj.content,
            "timestamp": obj.timestamp
        });
+        $scope.currentMsg = " ";
     });
 
 });

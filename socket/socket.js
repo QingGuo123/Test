@@ -4,8 +4,8 @@ var messageSocket = require('./messageSocket');
 
 io.on("connection", function(socket){
     console.log('socket on');
-    userSocket(socket);
-    messageSocket(socket);
+    userSocket(socket, io);
+    messageSocket(socket, io);
 });
 
 exports.listen = function(server) {

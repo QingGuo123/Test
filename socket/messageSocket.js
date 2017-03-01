@@ -1,13 +1,10 @@
-var io = require('socket.io')();
-
-module.exports = function(socket) {
+module.exports = function(socket, io) {
     console.log("invoke messageSocket");
     socket.on("message", function(obj){
-        socket.emit("message1", {
+        io.sockets.emit("message", {
             "username": obj.username,
             "content": obj.content,
             "timestamp": obj.timestamp
         });
-        console.log('finished emit');
     });
 };
