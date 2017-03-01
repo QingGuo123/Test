@@ -23,18 +23,20 @@ angular.module('ESNApp',[])
         var timestamp1 = new Date();
         $http.get('/currentUsername').then(function (response) {
             $scope.currentUsername = response.data.currentUsername;
+
+            $http.post('/messages/public', {
+                "username" : $scope.currentUsername, 
+                "content" : $scope.currentMsg, 
+                "timestamp" : timestamp1
+            }).then(function successCallback(response) {
+                // Take in the response information
+                console.log("post successfully");
+            }, function errorCallback(response) {
+                console.log("Login failed, please check your user name and password.");
+            });
         });
         
-        $http.post('/messages/public', {
-            "username" : $scope.currentUsername, 
-            "content" : $scope.currentMsg, 
-            "timestamp" : timestamp1
-        }).then(function successCallback(response) {
-            // Take in the response information
-            console.log("post successfully");
-        }, function errorCallback(response) {
-            console.log("Login failed, please check your user name and password.");
-        });
+        
     }
 
 
@@ -53,6 +55,15 @@ angular.module('ESNApp')
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
       .controller('navbarController', function ($scope, $location, $http, $timeout) {
         // handle navbar switch
+        $scope.curUser = '';
+        
+        $http.get('/currentUsername').then(function (response) {
+            $scope.curUser = response.data.currentUsername;
+            alert($scope.curUser);
+        });
+
+
+
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
             window.location.href = "http://localhost:3000/landingPage.html";
@@ -110,19 +121,7 @@ angular.module('ESNApp')
 
         $scope.logout = function () {
             console.log("Clicked on logout");
-            // $http.get('/logout').then(function(response) {
-            // }, function(response) {
-            //     console.log(response.status);
-            //     console.log(response.status === 302);
-            //     if (response.status === 302) {
-            //         socket.emit("logout", {
-            //             user: User.getUsername()
-            //         });
-            //         $location.path('/index');
-            //     } else {
-            //         console.log("Log out failed.");
-            //     }
-            // });
+            window.location.href = "http://localhost:3000/index.html";
         };
 
         // socket.on("logout", function() {
