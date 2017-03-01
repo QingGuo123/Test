@@ -1,5 +1,7 @@
 angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
-		
+
+	var socket = io();
+
 		$scope.username = '';
 		$scope.password = '';
 		$scope.validation = {
@@ -58,6 +60,7 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 					"password": password
 				}).then(function successCallback(response) {
 					//console.log(response);
+					socket.emit("userLogin", {"username": username});
 					if(response.data.regOrLoginResult === 1){
 						alert("Incorrect password!");
 				    }else if(response.data.regOrLoginResult === 2){
@@ -75,6 +78,7 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 						"username": username,
 						"password": password
 					}).then(function successCallback(response) {
+						socket.emit("userLogin", {"username": username});
 						// Take in the response information
 						console.log("post successfully");
 						alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");

@@ -15,7 +15,6 @@ router.get('/currentUsername', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
     req.session.destroy(function(err) {
-        console.log('fuck');
         if(err)
             res.sendStatus(500);
         res.clearCookie("session");

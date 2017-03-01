@@ -44,11 +44,9 @@ angular.module('ESNApp',[])
                 "content": $scope.currentMsg,
                 "timestamp" : timestamp
             });
-
+            $scope.currentMsg = "";
 
         });
-
-
 
     };
 
@@ -61,13 +59,12 @@ angular.module('ESNApp',[])
 
     
     socket.on("message", function(obj){
-        //alert('1');
         $scope.messages.push({
          "username": obj.username,
            "content": obj.content,
            "timestamp": obj.timestamp
        });
-        $scope.currentMsg = " ";
+        $scope.$apply();
     });
 
 });

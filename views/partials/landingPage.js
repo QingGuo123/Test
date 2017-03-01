@@ -14,10 +14,15 @@ angular.module('ESNApp', [])
     // });
 	})
   .controller('userDirectoryController', function ($scope, $http, $location) {
-    
+
+      var socket = io();
+
     $http.get('/users').then(function (response) {
       $scope.users = response.data.users;
-      
+
+
+
+
       //console.log(response.data.users);
       // for (var i in $scope.users) {
       //   $scope.users[i].ONLINE = "Checking online...";
@@ -28,6 +33,15 @@ angular.module('ESNApp', [])
       // }
     });
 
+      socket.on("updateDirectory", function(){
+          $http.get('/users').then(function (response) {
+              $scope.users = response.data.users;
+          });
+      });
+
+      socket.on("error", function(){
+          alert("Update directory error.");
+      });
     // $scope.sendUserName = function(targetUser){
     //   ChatPrivately.setUsername(targetUser);
     //   console.log("here is used to send username!");
@@ -52,8 +66,8 @@ angular.module('ESNApp', [])
 })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
   .controller('navbarController', function ($scope, $location, $http, $timeout) {
-        
 
+      var socket = io();
 
 
         $http.get('/currentUsername').then(function (response) {
@@ -90,8 +104,10 @@ angular.module('ESNApp', [])
 
         $scope.logout = function () {
             $http.get('/logout').then(function (response) {
+                socket.emit("userLogout", {"username": $scope.curUser});
                 window.location.href = "http://localhost:3000/index.html";
             }, function errorCallback(response) {
+                socket.emit("userLogout", {"username": $scope.curUser});
                 window.location.href = "http://localhost:3000/index.html";
             });
             // $http.get('/logout').then(function(response) {

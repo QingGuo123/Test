@@ -10,7 +10,7 @@ var db_config = {
 };
 
 var console_log_config = {
-    "controller_log": false,
+    "controller_log": true,
     "model_log": false,
     "response_log": false,
     "session_log": false

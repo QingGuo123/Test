@@ -3,7 +3,6 @@ var userSocket = require('./userSocket');
 var messageSocket = require('./messageSocket');
 
 io.on("connection", function(socket){
-    console.log('socket on');
     userSocket(socket, io);
     messageSocket(socket, io);
 });
