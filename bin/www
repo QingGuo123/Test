@@ -92,5 +92,4 @@ function onListening() {
 /**
  * Require socket modules
  */
-require('../socket/userSocket').listen(server);
-require('../socket/messageSocket').listen(server);
+require('../socket/socket').listen(server);

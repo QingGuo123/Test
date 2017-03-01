@@ -1,14 +1,8 @@
 var io = require('socket.io')();
 
-io.on("connection", function(socket){
-    socket.on("message", function(){
-        console.log("got message");
-        io.emit("message", {
-            "result": 0
-        });
-    });
-});
+module.exports = function(socket) {
+    console.log("invoke userSocket");
+    socket.on("123", function(obj){
 
-exports.listen = function(server) {
-    return io.listen(server);
-};
+    });
+}
