@@ -46,6 +46,11 @@
             font-size: 22px;
         }
 
+        #sendMsg{
+            border: solid 1px lightslategray;
+            color: lightslategray;
+        }
+
 
 
     </style>
@@ -188,12 +193,12 @@
                             <div class="input-group"><span class="input-group-addon"><i class="material-icons">question_answer</i><input name="message" type="text" ng-model="currentMsg" class="form-control ng-pristine ng-untouched ng-valid ng-empty"></span></div>
                         </div>
                         <div class="form-group has-feedback has-feedback-left">
-                            <input autocomplete="off" value="Send Message" type="submit" ng-click="sendMessage()" class="btn btn-success btn-block">
+                            <input id="sendMsg" autocomplete="off" value="Send Message" type="submit" ng-click="sendMessage()" class="btn btn-success btn-block">
                         </div>
-                        <div class="form-group has-feedback has-feedback-left">
-                            <input value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image" class="ng-isolate-scope">
-                            <input autocomplete="off" value="Take Picture" type="submit" class="btn btn-info btn-block">
-                        </div>
+                        <!--<div class="form-group has-feedback has-feedback-left">-->
+                            <!--<input value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image" class="ng-isolate-scope">-->
+                            <!--<input autocomplete="off" value="Take Picture" type="submit" class="btn btn-info btn-block">-->
+                        <!--</div>-->
                         <div class="btn-group btn-group-justified">
                             <div class="btn-group">
                                 <!-- ngIf: data.image -->
