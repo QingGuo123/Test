@@ -52,5 +52,15 @@ module.exports = {
     validUsernameAndPassword: function () {
         var sql = "SELECT * FROM User WHERE username = ? AND password = ?;";
         return sql;
+    },
+
+    updateUserOnline: function () {
+        var sql = "UPDATE User SET onlinestatus = 1 WHERE username = ?;";
+        return sql;
+    },
+
+    updateUserOffline: function () {
+        var sql = "UPDATE User SET onlinestatus = 0 WHERE username = ?;";
+        return sql;
     }
 };

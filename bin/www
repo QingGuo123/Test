@@ -88,3 +88,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ * Require socket modules
+ */
+require('../socket/userSocket').listen(server);
+require('../socket/messageSocket').listen(server);
