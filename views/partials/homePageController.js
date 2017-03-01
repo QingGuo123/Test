@@ -1,4 +1,5 @@
 angular.module('ESNApp', []).controller('homePageController', function ($scope, $http, $location) {
+		
 		$scope.username = '';
 		$scope.password = '';
 		$scope.validation = {
@@ -44,34 +45,48 @@ angular.module('ESNApp', []).controller('homePageController', function ($scope, 
 
 		$scope.login_or_signup = function() {
 			//console.log("hello");
-			
 			var username = $scope.username;
 			var password = $scope.password;
-			//console.log("response");
+			//console.log("$rootScope.curUsername: " + $rootScope.curUsername);
 			$http({
 			  method: 'GET',
 			  url: ('/users/' + username)
 			}).then(function successCallback(response) {
-			    //console.log(response);
-			    window.location.href = "http://localhost:3000/landingPage.html";
-				var curUrl = $location.absUrl();
-				console.log(curUrl);
-			  }, function errorCallback(response) {
-			    //console.log(response);
-			    window.location.href = "http://localhost:3000/landingPage.html";
+			    console.log(response);
 			    $http.post('/users', {
 					"username": username,
 					"password": password
 				}).then(function successCallback(response) {
-					// Take in the response information
-					console.log("post successfully");
-					User.setUsername($scope.username);
-					User.setPassword($scope.password);
-					console.log(response.data);
-					User.setLoginorSignup(response.data);
+					console.log(response);
+					if(response.data.regOrLoginResult === 1){
+				    	alert("臭傻逼");
+				    }else if(response.data.regOrLoginResult === 2){
+				    	window.location.href = "http://localhost:3000/landingPage.html";
+				    }
 				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
 				});
+			    
+			  }, function errorCallback(response) {
+			    //console.log(response);
+			    
+		    	if (confirm("Are you sure to create a new user?")) {
+		        	window.location.href = "http://localhost:3000/landingPage.html";
+		        	alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");
+				    $http.post('/users', {
+						"username": username,
+						"password": password
+					}).then(function successCallback(response) {
+						// Take in the response information
+						console.log("post successfully");
+						// User.setUsername($scope.username);
+						// User.setPassword($scope.password);
+						// console.log(response.data);
+						// User.setLoginorSignup(response.data);
+					}, function errorCallback(response) {
+						$scope.message="Login failed, please check your user name and password.";
+					});
+		    	}
 			  });
 
 
