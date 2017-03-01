@@ -1,64 +1,64 @@
 
 angular.module('ESNApp',[])
     .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
+    
+    // socket.on("connect", function (){
+    //         console.log("User connected via Socket io!");
+    // });
+    var timestamp = new Date();
+    $scope.currentMsg;
+    $scope.curUsername;
 
-        // socket.on("connect", function (){
-        //         console.log("User connected via Socket io!");
-        // });
-        var timestamp = new Date();
-        $scope.currentMsg;
-        $scope.curUsername;
+    // $http.post('/messages/public', {
+    //     "username" : "eric", 
+    //     "content" : "hello", 
+    //     "timestamp" : timestamp
+    // }).then(function successCallback(response) {
+    //     // Take in the response information
+    //     console.log("post successfully");
+    // }, function errorCallback(response) {
+    //     console.log("Login failed, please check your user name and password.");
+    // });
+    $scope.sendMessage = function(){
+        var timestamp1 = new Date();
+        $http.get('/currentUsername').then(function (response) {
 
-        // $http.post('/messages/public', {
-        //     "username" : "eric",
-        //     "content" : "hello",
-        //     "timestamp" : timestamp
-        // }).then(function successCallback(response) {
-        //     // Take in the response information
-        //     console.log("post successfully");
-        // }, function errorCallback(response) {
-        //     console.log("Login failed, please check your user name and password.");
-        // });
-        $scope.sendMessage = function(){
-            var timestamp1 = new Date();
-            $http.get('/currentUsername').then(function (response) {
+            $scope.curUsername = response.data.currentUsername;
 
-                $scope.curUsername = response.data.currentUsername;
-
-                $http.post('/messages/public', {
-                    "username" : $scope.curUsername,
-                    "content" : $scope.currentMsg,
-                    "timestamp" : timestamp1
-                }).then(function successCallback(response) {
-                    // Take in the response information
-                    console.log("post successfully");
-                }, function errorCallback(response) {
-                    console.log("Login failed, please check your user name and password.");
-                });
+            $http.post('/messages/public', {
+                "username" : $scope.curUsername,
+                "content" : $scope.currentMsg,
+                "timestamp" : timestamp1
+            }).then(function successCallback(response) {
+                // Take in the response information
+                console.log("post successfully");
+            }, function errorCallback(response) {
+                console.log("Login failed, please check your user name and password.");
             });
-        }
-
-
-        $http.get('/messages/public').then(function (response) {
-            //$scope.users = response.data.users;
-            console.log(response.data.messages);
-            $scope.messages = response.data.messages;
         });
+    }
 
 
-
-
+    $http.get('/messages/public').then(function (response) {
+      //$scope.users = response.data.users;
+      console.log(response.data.messages);
+      $scope.messages = response.data.messages;
     });
 
+    
+
+
+});
+
 angular.module('ESNApp')
-//.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
-    .controller('navbarController', function ($scope, $location, $http, $timeout) {
+    //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
+      .controller('navbarController', function ($scope, $location, $http, $timeout) {
         // handle navbar switch
         $scope.curUser = '';
-
+        
         $http.get('/currentUsername').then(function (response) {
             $scope.curUser = response.data.currentUsername;
-
+            
         });
 
 

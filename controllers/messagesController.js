@@ -6,6 +6,7 @@ var config = require('../config/global.js');
 
 var controller_log = config.console_log_config.controller_log;
 var response_log = config.console_log_config.response_log;
+var session_log = config.console_log_config.session_log;
 
 module.exports = {
 
@@ -52,20 +53,27 @@ module.exports = {
         var timestamp = req.body.timestamp;
         if (controller_log)
             console.log('~/controllers/messagesController: postPublicMessage ' + username + ' ' + content + ' ' + timestamp);
-        var message = new Message(username, content, timestamp);
-        message.postPublicMessage(function(postPublicMessageResult, error) {
-            if (error) {
-                if (error instanceof AppErrors.UserNotExisted)
-                    res.sendStatus(404);
-                else
-                    res.sendStatus(500);
-            }
-            else {
-                if (response_log)
-                    console.log(postPublicMessageResult);
-                res.status(200).send(postPublicMessageResult);
-            }
-        });
+        if (req.session.loginUser != username) {
+            if (session_log)
+                console.log('session: ' + req.session.loginUser + ', username: ' + username);
+            res.sendStatus(404);
+        }
+        else {
+            var message = new Message(username, content, timestamp);
+            message.postPublicMessage(function(postPublicMessageResult, error) {
+                if (error) {
+                    if (error instanceof AppErrors.UserNotExisted)
+                        res.sendStatus(404);
+                    else
+                        res.sendStatus(500);
+                }
+                else {
+                    if (response_log)
+                        console.log(postPublicMessageResult);
+                    res.status(200).send(postPublicMessageResult);
+                }
+            });
+        }
     }
 
 };

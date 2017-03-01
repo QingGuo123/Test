@@ -129,8 +129,8 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal"><span class="glyphicon glyphicon-search"></span></a></li>
-                            <li><a href="javascript:void(0)" class="ng-binding">david</a></li>
-                            <li><a id="logout" href="javascript:void(0)">Log out</a></li>
+                            <li><a href="javascript:void(0)">{{curUser}}</a></li>
+                            <li><a id="logout" href="javascript:void(0)" ng-click="logout()">Log out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                 <div class="col-md-12 col-lg-12 col-xs-12 well">
                     <ul class="list-group">
                         <li ng-repeat="message in messages" class="list-group-item">
-                        	<span >{{message.username}}</span><b class="badge">{{message.timestamp}}</b> says:
+                        	<span >{{message.username}}</span><b class="badge">{{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
                             <span>{{message.content}}</span>
                         </li>
                     </ul>

@@ -10,9 +10,10 @@ var db_config = {
 };
 
 var console_log_config = {
-    "controller_log": true,
-    "model_log": true,
-    "response_log": true
+    "controller_log": false,
+    "model_log": false,
+    "response_log": false,
+    "session_log": false
 };
 
 module.exports = {

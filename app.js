@@ -1,9 +1,14 @@
+"use strict";
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
 var app = express();
 
 // view engine setup
@@ -20,6 +25,30 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views/partials')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+
+app.use(session({
+    name: 'session',
+    secret: 'secret',
+    store: new FileStore({logFn: function(){}}),
+    cookie: {maxAge: 3600 * 1000},
+    saveUninitialized: false,
+    resave: false
+}));
+
+app.use(function (req, res, next) {
+    if (!(req.method === "POST" && req.url === "/users") && !(req.method === "GET" && req.url.match(/\/users\/.*/))) {
+        var sess = req.session;
+        var loginUser = sess.loginUser;
+        var isLogined = !!loginUser;
+        if (isLogined) {
+            next();
+        }
+        else
+            res.sendStatus(404);
+    }
+    else
+        next();
+});
 
 // routes
 var index = require('./routes/index');
