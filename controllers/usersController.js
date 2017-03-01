@@ -64,14 +64,21 @@ module.exports = {
                 } else {
                     if (response_log)
                         console.log(regOrLoginResult);
-                    if (regOrLoginResult.regOrLoginResult == 0)
-                        res.status(201).send(regOrLoginResult);
+                    if (regOrLoginResult.regOrLoginResult == 0 || regOrLoginResult.regOrLoginResult == 2) {
+                        req.session.regenerate(function(err) {
+                            if(err)
+                                res.sendStatus(500);
+                            req.session.loginUser = username;
+                            var statusCode = 0;
+                            if (regOrLoginResult.regOrLoginResult == 0)
+                                statusCode = 201;
+                            else
+                                statusCode = 200;
+                            res.status(statusCode).send(regOrLoginResult);
+                        });
+                    }
                     else if (regOrLoginResult.regOrLoginResult == 1)
                         res.status(200).send(regOrLoginResult);
-                    else if (regOrLoginResult.regOrLoginResult == 2) {
-                        res.status(200).send(regOrLoginResult);
-                        // render page after login
-                    }
                 }
             }
         );

@@ -1,4 +1,5 @@
 node_modules
 bower_components
+sessions/*.json
 .idea
 db/*.db
