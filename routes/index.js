@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/currentUsername', function(req, res, next) {
+    console.log('get session name' + req.session.loginUser);
     res.status(200).send({"currentUsername": req.session.loginUser});
 });
 

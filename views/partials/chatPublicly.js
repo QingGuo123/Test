@@ -7,7 +7,7 @@ angular.module('ESNApp',[])
     // });
     var timestamp = new Date();
     $scope.currentMsg;
-    $scope.currentUsername;
+    $scope.curUsername;
 
     // $http.post('/messages/public', {
     //     "username" : "eric", 
@@ -22,11 +22,12 @@ angular.module('ESNApp',[])
     $scope.sendMessage = function(){
         var timestamp1 = new Date();
         $http.get('/currentUsername').then(function (response) {
-            $scope.currentUsername = response.data.currentUsername;
+
+            $scope.curUsername = response.data.currentUsername;
 
             $http.post('/messages/public', {
-                "username" : $scope.currentUsername, 
-                "content" : $scope.currentMsg, 
+                "username" : $scope.curUsername,
+                "content" : $scope.currentMsg,
                 "timestamp" : timestamp1
             }).then(function successCallback(response) {
                 // Take in the response information
@@ -35,8 +36,6 @@ angular.module('ESNApp',[])
                 console.log("Login failed, please check your user name and password.");
             });
         });
-        
-        
     }
 
 
