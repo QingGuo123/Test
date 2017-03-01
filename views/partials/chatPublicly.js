@@ -1,56 +1,66 @@
 angular.module('ESNApp',[])
-    .controller('chatPublicController', function ( $location, $http, $scope,$timeout) {
-
+    .controller('chatPublicController', function ($scope, $location, $http, $timeout) {
 
         var socket = io();
 
-    socket.on("connect", function (){
-        console.log("User connected via Socket io!");
+    $scope.currentMsg = "";
 
+    socket.on("connect",function () {
+        console.log("socket has connected.");
     });
 
-    //real-time display message
+
     socket.on("message", function (message) {
-        $scope.messages.push({
-            username: message.username,
-            timestamp: message.timestamp,
-            message: message.message
-        });
-        console.log("send message using socket.io successfully");
-    });
+            console.log("send message using socket.io successfully");
+            $scope.messages.push({
+                username: message.username,
+                content: message.content,
+                timestamp: message.timestamp
+            });
 
-    $scope.sendMessage = function () {
-        console.log("send message activate!");
-        var username = User.getUser().userdata["username"];//need to consider.
-        var content = $scope.currentMsg;
-        var timestamp = new Date();
-        $http.post('/messages/public', {
-            "username" : username,
-            "content" : content,
-            "timestamp" : timestamp
-        }).then(function successCallback(response) {
-            // Take in the response information
-            console.log("post successfully");
-
-        }, function errorCallback(response) {
-            console.log("Post failed.");
         });
+
+$scope.sendMessage = function(){
+    var timestamp = new Date();
+    console.log($scope.currentMsg);
+    $http.post('/messages/public', {
+        "username" : "jinliang",
+        "content" : $scope.currentMsg,
+        "timestamp" : timestamp
+    }).then(function successCallback(response) {
+        // Take in the response information
+        console.log("post successfully");
+    }, function errorCallback(response) {
+            console.log("Login failed, please check your user name and password.");
+        });
+
+    console.log("test");
 
         socket.emit("message",{
-            "username": username,
-            "content": content,
+            "username": "jinliang",
+            "content": $scope.currentMsg,
             "timestamp": timestamp
         });
     };
 
 
-
-
     $http.get('/messages/public').then(function (response) {
-      //$scope.users = response.data.users;
-      console.log(response.data);
-      $scope.messages = response.data;
+      console.log(response.data.messages);
+      for(var i = 0; i < 10; i++){
+          $scope.messages.push({
+              username: response.data.messages.username,
+              content: response.data.messages.content,
+              timestamp: response.data.messages.timestamp
+          });
+      }
     });
+    
+    $scope.logout = function () {
+        console.log("click logout button.");
+        $http.get("/index").then(function (response) {
+            
+        })
+    }
 
     
 
@@ -58,9 +68,7 @@ angular.module('ESNApp',[])
 });
 
 angular.module('ESNApp')
-//.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
     .controller('navbarController', function ($scope, $location, $http, $timeout) {
-        // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
             window.location.href = "http://localhost:3000/landingPage.html";

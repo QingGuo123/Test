@@ -64,7 +64,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script type="text/javascript" src="chatPublicly.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Baloo|Roboto" rel="stylesheet">
-    <script src="/javascript/socket.io.min.js"></script>
+    <script src="socket.io.js"></script>
 
 </head>
 
@@ -180,7 +180,7 @@
                     <ul class="list-group">
                         <li ng-repeat="message in messages" class="list-group-item">
                         	<span >{{message.username}}</span><b class="badge">{{message.timestamp}}</b> says:
-                            <span>{{message.message}}</span>
+                            <span>{{message.content}}</span>
                         </li>
                     </ul>
                     <form id="chatForm" name="chatForm" class="form-horizontal ng-pristine ng-valid">
