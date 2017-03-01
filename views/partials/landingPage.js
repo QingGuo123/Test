@@ -1,7 +1,7 @@
 
 
 angular.module('ESNApp', [])
-  .controller('lobbyPageController', function($scope, $state, $location, User, socket) {
+  .controller('lobbyPageController', function($scope, $state, $location) {
     $scope.username = User.getUsername();
     // console.log(User.getLoginorSignup());
     // console.log(User.getLoginorSignup() == "login");
@@ -11,21 +11,22 @@ angular.module('ESNApp', [])
       $scope.signuporlogin = "newcomer"
     }
 
-    socket.emit('login', {
-      user: $scope.username
-    });
+    // socket.emit('login', {
+    //   user: $scope.username
+    // });
 	})
-  .controller('userDirectoryController', function ($scope, $http, $location, User, socket) {
+  .controller('userDirectoryController', function ($scope, $http, $location) {
 
     $http.get('/users').then(function (response) {
-      $scope.users = response.data;
-      for (var i in $scope.users) {
-        $scope.users[i].ONLINE = "Checking online...";
-        // socket.emit('check_online', {
-        //   "user": $scope.users[i].NAME,
-        //   "index": i
-        // });
-      }
+      $scope.users = response.data.users;
+      //console.log(response.data.users);
+      // for (var i in $scope.users) {
+      //   $scope.users[i].ONLINE = "Checking online...";
+      //   // socket.emit('check_online', {
+      //   //   "user": $scope.users[i].NAME,
+      //   //   "index": i
+      //   // });
+      // }
     });
 
     // $scope.sendUserName = function(targetUser){
@@ -38,20 +39,20 @@ angular.module('ESNApp', [])
     //   $scope.users[user.index].ONLINE = user.online;
     // });
 
-    socket.on('update_status', function(user) {
-      for (var i in $scope.users) {
-        if ($scope.users[i].NAME === user.user_name) {
-          $scope.users[i].STATUS = user.status;
-          break;
-        }
-      }
-    })
+    // socket.on('update_status', function(user) {
+    //   for (var i in $scope.users) {
+    //     if ($scope.users[i].NAME === user.user_name) {
+    //       $scope.users[i].STATUS = user.status;
+    //       break;
+    //     }
+    //   }
+    // })
   })
   .controller('statusController', function($scope, $location, $http, $timeout){
 
 })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
-  .controller('navbarController', function ($scope, $location, $http, $timeout, User) {
+  .controller('navbarController', function ($scope, $location, $http, $timeout) {
         
         $http.get('/messages/public').then(function (response) {
           $scope.messages = response.data;
@@ -68,12 +69,21 @@ angular.module('ESNApp', [])
         // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
-            alert("Clicked on landingPage");
-            //$location.path('/lobby');
+            window.location.href = "http://localhost:3000/landingPage.html";
+            // $http.post('/land', {
+            //   'type':'land'
+            // }).then(function successCallback(response) {
+            //   // Take in the response information
+            //   console.log("post successfully");
+            // }, function errorCallback(response) {
+            //   console.log("post error");
+            // });
+              //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
             alert("Clicked on chatPublicly");
+            window.location.href = "http://localhost:3000/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');

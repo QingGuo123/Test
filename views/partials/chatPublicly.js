@@ -1,61 +1,61 @@
 angular.module('ESNApp',[])
-    .factory('socket', function(socketFactory) {
-        return socketFactory();
-    }).value('version', '0.1')
-    .controller('chatPublicController', function ($scope, $location, $http, $timeout, socket) {
-
-        socket.on("connect", function (){
-            console.log("User connected via Socket io!");
-
-        });
-
-        socket.on("message", function (message) {
-            $scope.messages.push({
-                username: message.username,
-                timestamp: message.timestamp,
-                message: message.message
-            });
-        });
-
-        $scope.sendMessage = function () {
-            var username =  ;
-            var message =  ;
-            var timestamp = new Date();
-
-            socket.emit("message", {
-                "name": username,
-                "content": message,
-                "time": timestamp
-            });
-
-            $http.post(url,{},function () {
-                console.log();
-            });
-        };
-
-        $http.get(url).then(function (res) {
-            $scope.message = [];
-
-        });
+    .controller('chatPublicController', function ( $location, $http, $scope,$timeout) {
 
 
+        var socket = io();
 
-
-
-
-
-
-
-
-
-        $scope.messages = [];
-        $scope.messages.push({
-            username: 'David',
-            timestamp: '02/25/2017 18:05:14',
-            message: 'hello, David!'
-        });
+    socket.on("connect", function (){
+        console.log("User connected via Socket io!");
 
     });
+
+    //real-time display message
+    socket.on("message", function (message) {
+        $scope.messages.push({
+            username: message.username,
+            timestamp: message.timestamp,
+            message: message.message
+        });
+        console.log("send message using socket.io successfully");
+    });
+
+    $scope.sendMessage = function () {
+        console.log("send message activate!");
+        var username = User.getUser().userdata["username"];//need to consider.
+        var content = $scope.currentMsg;
+        var timestamp = new Date();
+        $http.post('/messages/public', {
+            "username" : username,
+            "content" : content,
+            "timestamp" : timestamp
+        }).then(function successCallback(response) {
+            // Take in the response information
+            console.log("post successfully");
+
+        }, function errorCallback(response) {
+            console.log("Post failed.");
+        });
+
+        socket.emit("message",{
+            "username": username,
+            "content": content,
+            "timestamp": timestamp
+        });
+    };
+
+
+
+
+    $http.get('/messages/public').then(function (response) {
+      //$scope.users = response.data.users;
+      console.log(response.data);
+      $scope.messages = response.data;
+    });
+
+    
+
+
+});
 
 angular.module('ESNApp')
 //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
@@ -63,10 +63,12 @@ angular.module('ESNApp')
         // handle navbar switch
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
+            window.location.href = "http://localhost:3000/landingPage.html";
             //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
+            window.location.href = "http://localhost:3000/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');
@@ -76,43 +78,6 @@ angular.module('ESNApp')
         $scope.navAdministerPage = "hide";
         $scope.navMeasurePerf = "hide";
 
-        // $http.post("/users/current_user").then(function (response) {
-        //     var username = response.data.username;
-        //     var privilegeLevel = response.data.privilege_level;
-        //     User.setUsername(username);
-        //     User.setLoginorSignup("login");
-        //     User.setPrivilegeLevel(privilegeLevel);
-        //     $scope.currentUser = username;
-        //     $scope.privilegeLevel = privilegeLevel;
-        //     switch (privilegeLevel) {
-        //         case "Administrator":
-        //             $scope.navAdministerPage = "";
-        //             $scope.navMeasurePerf = "";
-        //             break;
-        //         case "Monitor":
-        //             $scope.navMeasurePerf = "";
-        //             break;
-        //         default:
-        //             if ($location.$$url === "/measurePerformance" || 
-        //                 $location.$$url === "/administratorPage" ||
-        //                 $location.$$url === "/administratorUserProfile") {
-        //                 $location.url("/lobby");
-        //             }
-        //             break;
-        //     }
-
-        //     if (User.getLoginorSignup() === "login") {
-        //         Notification.postNotification($scope, "Welcome back "+User.getUsername()+", what do you wanna do today?", "info");
-        //     } else {
-        //         Notification.postNotification($scope, "Welcome new user "+User.getUsername()+", what do you wanna do today?", "info");
-        //     }
-
-        //     socket.emit('login', {
-        //         user: User.getUsername()
-        //     });
-        // }, function () {
-        //     $location.path('/index');
-        // });
 
         $scope.logout = function () {
             console.log("Clicked on logout");
