@@ -51,15 +51,16 @@ module.exports = {
         var username = req.body.username;
         var content = req.body.content;
         var timestamp = req.body.timestamp;
+        var location = req.body.location;
         if (controller_log)
-            console.log('~/controllers/messagesController: postPublicMessage ' + username + ' ' + content + ' ' + timestamp);
+            console.log('~/controllers/messagesController: postPublicMessage ' + username + ' ' + content + ' ' + timestamp + ' ' + location);
         if (req.session.loginUser != username) {
             if (session_log)
                 console.log('session: ' + req.session.loginUser + ', username: ' + username);
             res.sendStatus(404);
         }
         else {
-            var message = new Message(username, content, timestamp);
+            var message = new Message(username, content, timestamp, location);
             message.postPublicMessage(function(postPublicMessageResult, error) {
                 if (error) {
                     if (error instanceof AppErrors.UserNotExisted)

@@ -8,41 +8,43 @@ var config = require('../config/global.js');
 
 var model_log = config.console_log_config.model_log;
 
-var Message = function(username, content, timestamp) {
+var Message = function(username, content, timestamp, location) {
     this.username = username;
     this.content = content;
     this.timestamp = timestamp;
+    this.location = location;
+};
 
-    this.postPublicMessage = function(callback) {
-        var username = this.username;
-        var content = this.content;
-        var timestamp = this.timestamp;
-        if (model_log)
-            console.log('~/models/message: postPublicMessage ' + username + ' ' + content + ' ' + timestamp);
-        db.serialize(function () {
-            db.all(sql_user.getUser(), [username],
-                function (error, rows) {
-                    if (error) {
-                        callback(null, error);
-                    } else if (rows.length == 0) {
-                        callback(null, new AppErrors.UserNotExisted("User not existed."));
-                    } else if (rows.length == 1) {
-                        db.run(sql_message.insertMessage(), [username, content, timestamp],
-                            function (error) {
-                                if (error) {
-                                    callback(null, error);
-                                } else {
-                                    callback({"postPublicMessageResult": 0}, null);
-                                }
+Message.prototype.postPublicMessage = function(callback) {
+    var username = this.username;
+    var content = this.content;
+    var timestamp = this.timestamp;
+    var location = this.location;
+    if (model_log)
+        console.log('~/models/message: postPublicMessage ' + username + ' ' + content + ' ' + timestamp + ' ' + location);
+    db.serialize(function () {
+        db.all(sql_user.getUser(), [username],
+            function (error, rows) {
+                if (error) {
+                    callback(null, error);
+                } else if (rows.length == 0) {
+                    callback(null, new AppErrors.UserNotExisted("User not existed."));
+                } else if (rows.length == 1) {
+                    db.run(sql_message.insertMessage(), [username, content, timestamp, location],
+                        function (error) {
+                            if (error) {
+                                callback(null, error);
+                            } else {
+                                callback({"postPublicMessageResult": 0}, null);
                             }
-                        );
-                    } else if (rows.length > 1) {
-                        callback(null, new AppErrors.RepeatedUsername("This username has over than 1 query results."));
-                    }
+                        }
+                    );
+                } else if (rows.length > 1) {
+                    callback(null, new AppErrors.RepeatedUsername("This username has over than 1 query results."));
                 }
-            );
-        });
-    };
+            }
+        );
+    });
 };
 
 Message.getAllPublicMessages = function(callback) {

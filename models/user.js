@@ -10,49 +10,48 @@ var model_log = config.console_log_config.model_log;
 var User = function(username, password) {
     this.username = username;
     this.password = password;
+};
 
-    this.regOrLogin = function(callback) {
-        var username = this.username;
-        var password = this.password;
-        if (model_log)
-            console.log('~/models/user: regOrLogin ' + username + ' ' + password);
-        db.serialize(function () {
-            db.all(sql_user.getUser(), [username],
-                function (error, rows) {
-                    if (error) {
-                        callback(null, error);
-                    } else if (rows.length == 0) {
-                        db.run(sql_user.insertUser(), [username, password],
-                            function (error) {
-                                if (error) {
-                                    callback(null, error);
-                                } else {
-                                    callback({"regOrLoginResult": 0}, null);
-                                }
+User.prototype.regOrLogin = function(callback) {
+    var username = this.username;
+    var password = this.password;
+    if (model_log)
+        console.log('~/models/user: regOrLogin ' + username + ' ' + password);
+    db.serialize(function () {
+        db.all(sql_user.getUser(), [username],
+            function (error, rows) {
+                if (error) {
+                    callback(null, error);
+                } else if (rows.length == 0) {
+                    db.run(sql_user.insertUser(), [username, password],
+                        function (error) {
+                            if (error) {
+                                callback(null, error);
+                            } else {
+                                callback({"regOrLoginResult": 0}, null);
                             }
-                        );
-                    } else if (rows.length == 1) {
-                        db.all(sql_user.validUsernameAndPassword(), [username, password],
-                            function (error, rows) {
-                                if (error)
-                                    callback(null, error);
-                                else if (rows.length == 0) {
-                                    callback({"regOrLoginResult": 1}, null);
-                                }
-                                else if (rows.length == 1) {
-                                    callback({"regOrLoginResult": 2}, null);
-                                }
+                        }
+                    );
+                } else if (rows.length == 1) {
+                    db.all(sql_user.validUsernameAndPassword(), [username, password],
+                        function (error, rows) {
+                            if (error)
+                                callback(null, error);
+                            else if (rows.length == 0) {
+                                callback({"regOrLoginResult": 1}, null);
                             }
-                        );
-                    
-                    } else if (rows.length > 1) {
-                        callback(null, new AppErrors.RepeatedUsername("This username has over than 1 query results."));
-                    }
+                            else if (rows.length == 1) {
+                                callback({"regOrLoginResult": 2}, null);
+                            }
+                        }
+                    );
+
+                } else if (rows.length > 1) {
+                    callback(null, new AppErrors.RepeatedUsername("This username has over than 1 query results."));
                 }
-            );
-        });
-    };
-
+            }
+        );
+    });
 };
 
 User.getAllUsers = function(callback) {
