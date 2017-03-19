@@ -178,10 +178,47 @@
                             div.btn-group
 
  -->
+        <div id="announcementPage" ng-controller="announcementPageCtrl" class="container center_div">
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12 well">
+                    <h3 id="announcementHeader" align="center">Announcements</h3>
+                    <ul class="list-group">
+                        <li ng-repeat="announcement in announcements" class="list-group-item">
+                            <!-- <span >{{announcement.username}}</span><b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
+                            <span>{{announcement.content}}</span> -->
+                            <span>{{announcement}}</span>
+                        </li>
+                    </ul>
+
+                    <form id="announcementForm" name="announcementForm" class="form-horizontal ng-pristine ng-valid">
+                        <div class="form-group has-feedback has-feedback-left is-empty">
+                            <div class="input-group"><span class="input-group-addon"><i class="material-icons">question_answer</i><input name="message" type="text" ng-model="currentAnnouncement" class="form-control ng-pristine ng-untouched ng-valid ng-empty"></span></div>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input id="sendAnnouncement" autocomplete="off" value="Post Announcement" type="submit" ng-click="postAnnouncement()" class="btn btn-success btn-block">
+                        </div>
+                        <!--<div class="form-group has-feedback has-feedback-left">-->
+                            <!--<input value="Picture" type="file" accept="image/*" capture="camera" fileread="data.image" class="ng-isolate-scope">-->
+                            <!--<input autocomplete="off" value="Take Picture" type="submit" class="btn btn-info btn-block">-->
+                        <!--</div>-->
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                            <div class="btn-group">
+                                <!-- ngIf: data.image -->
+                            </div>
+                        </div>
+                    </form> 
+
+
+                </div>
+            </div>
+        </div>
 
         <div id="chatPublicly" ng-controller="chatPublicController" class="container center_div">
             <div class="row">
-                <div class="col-md-12 col-lg-12 col-xs-12 well">
+                <div class="col-xs-12 col-md-12 col-lg-12 well">
                     <ul class="list-group">
                         <li ng-repeat="message in messages" class="list-group-item">
                         	<span >{{message.username}}</span><b class="badge">{{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:

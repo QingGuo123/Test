@@ -47,25 +47,24 @@ angular.module('ESNApp',[])
             });
             $scope.currentMsg = "";
 
-        },
-            function errorCallback(response){
+        },function errorCallback(response){
                 window.location.href = "http://localhost:3000/index.html";
-            });
+        });
 
     };
 
-        $http.get('/currentUsername').then(function successCallback(response) {
-            console.log("response.status: " + response.status);
-            var myBody = document.getElementById('chatPubliclyBody');
-            myBody.style.display = 'block';
-            $http.get('/messages/public').then(function (response) {
-                //$scope.users = response.data.users;
-                console.log(response.data.messages);
-                $scope.messages = response.data.messages;
-            });
-        }, function errorCallback(response){
-            window.location.href = "http://localhost:3000/index.html";
+    $http.get('/currentUsername').then(function successCallback(response) {
+        console.log("response.status: " + response.status);
+        var myBody = document.getElementById('chatPubliclyBody');
+        myBody.style.display = 'block';
+        $http.get('/messages/public').then(function (response) {
+            //$scope.users = response.data.users;
+            console.log(response.data.messages);
+            $scope.messages = response.data.messages;
         });
+    }, function errorCallback(response){
+        window.location.href = "http://localhost:3000/index.html";
+    });
 
     
     socket.on("message", function(obj){
@@ -77,7 +76,15 @@ angular.module('ESNApp',[])
         $scope.$apply();
     });
 
-});
+    })
+    .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
+
+        $scope.announcements = ["one", "two", "three"];
+
+        $scope.postAnnouncement = function(){
+            alert($scope.currentAnnouncement);
+        }
+    })
 
 angular.module('ESNApp')
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
@@ -182,3 +189,10 @@ angular.module('ESNApp')
         //     message: ""
         // };
     });
+// angular.module('ESNApp')
+//     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
+//       .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
+//         alert("$scope.currentAnnouncement");
+//       });
+
+
