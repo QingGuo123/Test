@@ -82,8 +82,27 @@ angular.module('ESNApp', [])
       }, function errorCallback(response){
           window.location.href = "http://localhost:3000/index.html";
       });
+
+      
+      $scope.chatWithSb = function(chatUsername){
+        alert(chatUsername);
+        $scope.chatPrivateBool = true;
+        
+      }
+
+      $scope.exit = function(){
+        $scope.chatPrivateBool = false;
+      }
+      
+
+
   })
   .controller('statusController', function($scope, $location, $http, $timeout){
+
+    $scope.updateStatus = function(){
+      alert($scope.status);
+    }
+
 
 })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
@@ -96,7 +115,6 @@ angular.module('ESNApp', [])
             $scope.curUser = response.data.currentUsername;
             
         });
-
 
         // handle navbar switch
         $scope.landingPage = function () {
