@@ -184,12 +184,12 @@
                     <h3 id="announcementHeader" align="center">Announcements</h3>
                     <ul class="list-group">
                         <li ng-repeat="announcement in announcements" class="list-group-item">
-                            <!-- <span >{{announcement.username}}</span><b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
-                            <span>{{announcement.content}}</span> -->
-                            <span>{{announcement}}</span>
+                            <span >{{announcement.username}}</span> says:
+                            <span>{{announcement.content}}</span>
+                            <b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
+                            <span>{{announcement.location}}</span>
                         </li>
                     </ul>
-
                     <form id="announcementForm" name="announcementForm" class="form-horizontal ng-pristine ng-valid">
                         <div class="form-group has-feedback has-feedback-left is-empty">
                             <div class="input-group"><span class="input-group-addon"><i class="material-icons">question_answer</i><input name="message" type="text" ng-model="currentAnnouncement" class="form-control ng-pristine ng-untouched ng-valid ng-empty"></span></div>
@@ -210,8 +210,6 @@
                             </div>
                         </div>
                     </form> 
-
-
                 </div>
             </div>
         </div>
