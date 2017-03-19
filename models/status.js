@@ -89,7 +89,7 @@ Status.getStatus = function(callback, userdata) {
                             if (error) {
                                 callback(null, error);
                             } else {
-                                callback(status, null);
+                                callback(status[0], null);
                             }
                         }
                     );

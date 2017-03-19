@@ -1,8 +1,9 @@
 Description,HTTP Method,Partial URI,Request Data,Response Data,Success Status Code,Location Header Needed?,Failure Status Code,Associated Use Case,Notes
 Register a user,POST,/users,"username, password",,If new user is created: 201 Created,Yes,,Join Community,Timestamps must be passed from client. Server does not have a clock or time server. 
-Retrieve all users,GET,/users,,Array of users,If user exist: 200 Ok,No,,Join Community,
+Retrieve all users,GET,/users,,Array of users,If user exists: 200 Ok,No,,Join Community,
 Retrieve a user's record,GET,/users/{userName},,User,If user is found: 200 Ok,No,If user does not exist: 404 Not Found,Join Community,
-Logout a user,GET,/logout,,,If user is logout: 200 OK,No,,Join Community,
-Post a message on public wall from a user,POST,/messages/public,"username, content, timestamp",full URI of created location breadcrumb if Location was specified in request,If new message created: 201 Created,If new message created: 201 Created,Yes.  If user does not exist: 404 Not Found,Chat Publicly,
-Retrieve all messages posted on public wall,GET,/messages/public,,Array of Messages,If messages found: 200 Ok,No,,Chat Publicly,
-Retrieve all messages posted on public wall by a user,GET,/messages/public/{userName},,Array of Messages,If a user and messages found: 200 Ok,No,,Chat Publicly,
+Logout a user,GET,/logout,,,Logout succeed: 200 OK,No,,Join Community,
+Post a message on public wall from a user,POST,/messages/public,"username, content, timestamp, location",full URI of created location breadcrumb if Location was specified in request,If new message created: 201 Created,If new message created: 201 Created,Yes.  If user does not exist: 404 Not Found,Chat Publicly,
+Retrieve all messages posted on public wall,GET,/messages/public,,Array of Messages,Retrieve succeed: 200 Ok,No,,Chat Publicly,
+Retrieve all messages posted on public wall by a user,GET,/messages/public/{userName},,Array of Messages,If a user and retrieve succeed: 200 Ok,No,,Chat Publicly,
+Retrieve all announcements posted on public wall,GET,/messages/announcements,,Array of Announcements,Retrieve succeed: 200 Ok,No,,Post Announcement,
