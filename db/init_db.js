@@ -6,6 +6,7 @@ var sqlite3 = require('sqlite3').verbose();
 var sql_user = require('../db/sql_user');
 var sql_message = require('../db/sql_message');
 var sql_announcement = require('../db/sql_announcement');
+var sql_status = require('../db/sql_status');
 
 module.exports = {
 
@@ -20,6 +21,7 @@ module.exports = {
                 db.run(sql_user.insertAdminUser("adminpwd"));
                 db.run(sql_message.createTable());
                 db.run(sql_announcement.createTable());
+                db.run(sql_status.createTable());
             });
             console.log("create tables succeed");
         }

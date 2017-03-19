@@ -54,9 +54,11 @@ app.use(function (req, res, next) {
 var index = require('./routes/index');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
+var status = require('./routes/status');
 app.use('/', index);
 app.use('/users', users);
 app.use('/messages', messages);
+app.use('/status', status);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

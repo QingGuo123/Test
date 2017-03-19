@@ -19,7 +19,14 @@ var RepeatedUsernameError = function (msg) {
 util.inherits(RepeatedUsernameError, AbstractError)
 RepeatedUsernameError.prototype.name = 'RepeatedUsername Error'
 
+var RepeatedStatusError = function (msg) {
+    RepeatedStatusError.super_.call(this, msg, this.constructor)
+}
+util.inherits(RepeatedStatusError, AbstractError)
+RepeatedStatusError.prototype.name = 'RepeatedStatus Error'
+
 module.exports = {
     UserNotExisted: UserNotExistedError,
-    RepeatedUsername: RepeatedUsernameError
+    RepeatedUsername: RepeatedUsernameError,
+    RepeatedStatus: RepeatedStatusError
 }

@@ -11,7 +11,7 @@ var db_config = {
 
 var console_log_config = {
     "controller_log": true,
-    "model_log": false,
+    "model_log": true,
     "response_log": false,
     "session_log": false
 };

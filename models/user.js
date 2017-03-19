@@ -2,6 +2,7 @@
 
 var db = require("../db/db.js");
 var sql_user = require("../db/sql_user");
+var sql_status = require("../db/sql_status");
 var AppErrors = require("../AppErrors");
 var config = require('../config/global.js');
 
@@ -28,7 +29,15 @@ User.prototype.regOrLogin = function(callback) {
                             if (error) {
                                 callback(null, error);
                             } else {
-                                callback({"regOrLoginResult": 0}, null);
+                                db.run(sql_status.insertStatus(), [username, -1, '', ''],
+                                    function(error) {
+                                        if (error) {
+                                            callback(null, error);
+                                        } else {
+                                            callback({"regOrLoginResult": 0}, null);
+                                        }
+                                    }
+                                );
                             }
                         }
                     );
