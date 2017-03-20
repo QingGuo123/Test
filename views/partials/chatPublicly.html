@@ -184,10 +184,10 @@
                     <h3 id="announcementHeader" align="center">Announcements</h3>
                     <ul class="list-group">
                         <li ng-repeat="announcement in announcements" class="list-group-item">
-                            <span >{{announcement.username}}</span> says:
+                            <span >{{announcement.username}}</span> posted :
                             <span>{{announcement.content}}</span>
-                            <b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
-                            <span>{{announcement.location}}</span>
+                            <b class="badge">{{announcement.location}},  {{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> 
+                            <!-- <span align="right"><b class="badge">{{announcement.location}}</b></span> -->
                         </li>
                     </ul>
                     <form id="announcementForm" name="announcementForm" class="form-horizontal ng-pristine ng-valid">

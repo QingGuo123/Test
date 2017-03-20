@@ -80,27 +80,38 @@ angular.module('ESNApp',[])
     .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
 
         $http.get('/messages/announcements').then(function successCallback(response) {
-            $scope.announcements = response.announcements;
+            console.log(response.data.announcements);
+            $scope.announcements = response.data.announcements;
         }, function errorCallback(response){
             window.location.href = "http://localhost:3000/index.html";
         });
 
 
         //$scope.announcements = ["one", "two", "three"];
-
         $scope.postAnnouncement = function(){
-            $http.post('/messages/announcements', {
-                "username" : "eric",
-                "content" : "$scope.currentMsg",
-                "timestamp" : "2016.10.11",
-                "location" : "Mountain View"
-            }).then(function successCallback(response) {
-                // Take in the response information
-                console.log("post successfully");
-            }, function errorCallback(response) {
-                console.log("Login failed, please check your user name and password.");
+            var timestamp = new Date();
+            $http.get('/currentUsername').then(function successCallback(response) {
+
+                $scope.curUsername = response.data.currentUsername;
+                alert($scope.currentAnnouncement);
+                $http.post('/messages/announcements', {
+                    "username" : $scope.curUsername,
+                    "content" : $scope.currentAnnouncement,
+                    "timestamp" : timestamp,
+                    "location" : "Mountain View"
+                }).then(function successCallback(response) {
+                    // Take in the response information
+                    console.log("post successfully");
+                }, function errorCallback(response) {
+                    console.log("Login failed, please check your user name and password.");
+                });
+
+                $scope.currentAnnouncement = "";
+
+            },function errorCallback(response){
+                    window.location.href = "http://localhost:3000/index.html";
             });
-        }
+        }  
     })
 
 angular.module('ESNApp')
