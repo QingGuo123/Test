@@ -127,29 +127,30 @@ angular.module('ESNApp', [])
               }
 
               $http.get('/currentUsername').then(function successCallback(response) {
-                curUsername = response.data.currentUsername;
-                alert(curUsername + curStatus_code + timestamp + location);
-              },function errorCallback(response) {
-                window.location.href = "http://localhost:3000/index.html";
-              });
-
-
-
-              $http.post('/status', {
+                var curUsername = response.data.currentUsername;
+                //alert(curUsername + curStatus_code + timestamp + location);
+                $http.post('/status', {
                   "username" : curUsername,
                   "status_code" : curStatus_code,
                   "timestamp" : timestamp,
                   "location" : location
-              }).then(function successCallback(response) {
-                  // Take in the response information
-                  console.log("post successfully");
-              }, function errorCallback(response) {
-                  console.log("Login failed, please check your user name and password.");
+                }).then(function successCallback(response) {
+                    // Take in the response information
+                    console.log("post successfully");
+                }, function errorCallback(response) {
+                    console.log("Login failed, please check your user name and password.");
+                });
+              },function errorCallback(response) {
+                window.location.href = "http://localhost:3000/index.html";
               });
             }
     })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
     .controller('navbarController', function($scope, $location, $http, $timeout) {
+
+        // $scope.click = function(){
+        //   alert("cnm");
+        // }
 
         var socket = io();
 
