@@ -57,39 +57,37 @@ angular.module('ESNApp', [])
             //   }
             // })
             $http.get('/currentUsername').then(function successCallback(response) {
-                    var myBody = document.getElementById('landingPageBody');
-                    myBody.style.display = 'block';
-                    console.log("response.status: " + response.status);
-                    $http.get('/users').then(function successCallback(response) {
-                          
-                      var users_temp = [];
-                      users_temp = response.data.users;
+                var myBody = document.getElementById('landingPageBody');
+                myBody.style.display = 'block';
+                console.log("response.status: " + response.status);
+                $http.get('/users').then(function successCallback(response) {
+                      
+                  var users_temp = [];
+                  users_temp = response.data.users;
 
-                      var temp = [users_temp.length];
-                      //$scope.users = response.data.users;
-                      for (var i = 0; i < users_temp.length; i++) {
-                          if (users_temp[i].onlinestatus == 1) {
-                              users_temp[i].onlinestatus = "Online";
-                          } else {
-                              users_temp[i].onlinestatus = "Offline";
-                          }
-                          if(users_temp[i].status.status_code == -1){
-                            users_temp[i].status.status_code = "Undefined";
-                          }else if(users_temp[i].status.status_code == 0){
-                            users_temp[i].status.status_code = "Normal";
-                          }else if(users_temp[i].status.status_code == 1){
-                            users_temp[i].status.status_code = "Help";
-                          }else{
-                            users_temp[i].status.status_code = "Emergency";
-                          }
+                  var temp = [users_temp.length];
+                  //$scope.users = response.data.users;
+                  for (var i = 0; i < users_temp.length; i++) {
+                      if (users_temp[i].onlinestatus == 1) {
+                          users_temp[i].onlinestatus = "Online";
+                      } else {
+                          users_temp[i].onlinestatus = "Offline";
                       }
-                      $scope.users = users_temp;
-                    },
-                    function errorCallback(response) {
-                        window.location.href = "http://localhost:3000/index.html";
-                    });
-            },
-            function errorCallback(response) {
+                      if(users_temp[i].status.status_code == -1){
+                        users_temp[i].status.status_code = "Undefined";
+                      }else if(users_temp[i].status.status_code == 0){
+                        users_temp[i].status.status_code = "Normal";
+                      }else if(users_temp[i].status.status_code == 1){
+                        users_temp[i].status.status_code = "Help";
+                      }else{
+                        users_temp[i].status.status_code = "Emergency";
+                      }
+                  }
+                  $scope.users = users_temp;
+                },function errorCallback(response) {
+                    window.location.href = "http://localhost:3000/index.html";
+                });
+            },function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });
 
@@ -116,7 +114,7 @@ angular.module('ESNApp', [])
               var timestamp = new Date();
               var location = "Mountain View";
 
-              if($scope.status == "OK"){
+              if($scope.status == "Ok"){
                 curStatus_code = 0;
               }else if($scope.status == "Help"){
                 curStatus_code = 1;
