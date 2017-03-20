@@ -72,7 +72,17 @@ User.getAllUsers = function(callback) {
             if (error) {
                 callback(null, error);
             } else if (row) {
-                users.push(row);
+                users.push({
+                    "username": row.username,
+                    "onlinestatus": row.onlinestatus,
+                    "accountstatus": row.accountstatus,
+                    "privilege": row.privilege,
+                    "status": {
+                        "status_code": row.status_code,
+                        "timestamp": row.timestamp,
+                        "location": row.location
+                    }
+                });
             }
         }, function () {
             callback(users, null);
