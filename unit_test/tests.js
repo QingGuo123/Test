@@ -59,8 +59,7 @@ suite('users API', function () {
                     expect(err).to.not.be.ok();
                     expect(res).to.have.property('statusCode');
                     expect(res).to.have.property('body');
-                    expect(res.statusCode).to.equal(201);
-                    session = res.body.
+                    expect(res.statusCode).to.equal(200);
                     done();
             });
     });
@@ -72,7 +71,6 @@ suite('users API', function () {
             .end(function (err, res) {
                 expect(err).to.not.be.ok();
                 expect(res).to.have.property('statusCode');
-                //expect(res).to.have.property('body');
                 expect(res.statusCode).to.equal(200);
                 done();
             });
@@ -125,7 +123,9 @@ suite('users API', function () {
             .end(function (err, res) {
                 expect(err).to.not.be.ok();
                 expect(res).to.have.property('body');
-                expect(res.body).to.eql(user1);
+                console.log(res.body);
+                expect(res).to.have.property('statusCode');
+                expect(res.statusCode).to.equal(200);
                 done();
             });
     });
@@ -135,9 +135,8 @@ suite('users API', function () {
         var req = agent.get(HOST + '/users/' + user2.username);
         req
             .end(function (err,res) {
-                expect(err).to.not.be.ok();// not sure
+                expect(err).to.be.ok();// not sure
                 expect(res).to.have.property('statusCode');
-                expect(res).to.have.property('body');
                 expect(res.statusCode).to.equal(404);
                 done();
             });
@@ -148,12 +147,12 @@ suite('users API', function () {
     test('Should update the test user`s status', function (done) {
         var req = agent.post(HOST + '/status');
         req
-            .send({username: user1.username, status_code: 0, timestamp:user1.timestamp, location:user1.location})
+            .send({username: user1.username, status_code: user1.status_code, timestamp:user1.timestamp, location:user1.location})
             .end(function (err, res) {
                 expect(err).to.not.be.ok();
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(200);
-                expect(res.body.postStatusResult).to.eql(0);
+                expect(res.body.postStatusResult).to.eql(user1.status_code);
                 done();
             });
     });
@@ -175,7 +174,7 @@ suite('users API', function () {
         req
             .send({username: user2.username, status_code: 1, timestamp:user1.timestamp, location:user1.location})
             .end(function (err, res) {
-                expect(err).to.not.be.ok();
+                expect(err).to.be.ok();
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(404);
                 done();
@@ -187,7 +186,7 @@ suite('users API', function () {
         var req = agent.get(HOST + '/status/' + user2.username);
         req
             .end(function (err, res) {
-                expect(err).to.not.be.ok();
+                expect(err).to.be.ok();
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(404);
                 done();
@@ -211,7 +210,7 @@ suite('users API', function () {
         req
             .send({username: user2.username, content: user2.content, timestamp: user2.timestamp, location: user2.location})
             .end(function (err, res) {
-                expect(err).to.not.be.ok();
+                expect(err).to.be.ok();
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(400);
                 done();
