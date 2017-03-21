@@ -60,7 +60,6 @@ angular.module('ESNApp', [])
                 myBody.style.display = 'block';
 
                 socket.emit("startChatPrivately", {"username": response.data.currentUsername});
-                alert("ev_to" + response.data.currentUsername);
                 socket.on("ev_to" + response.data.currentUsername, function(obj){
                     alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
                 });
