@@ -3,3 +3,4 @@ bower_components
 sessions/*.json
 .idea
 db/*.db
+npm-debug.log
