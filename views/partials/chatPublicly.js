@@ -4,10 +4,8 @@ angular.module('ESNApp',[])
 
         var socket = io();
         socket.on("connect", function (){
-                console.log("User connected via Socket io!");
+            console.log("User connected via Socket io!");
         });
-
-
 
         $scope.currentMsg = "";
         $scope.curUsername = "";
@@ -39,7 +37,6 @@ angular.module('ESNApp',[])
                 console.log("Login failed, please check your user name and password.");
             });
 
-
             socket.emit("message",{
                 "username": $scope.curUsername,
                 "content": $scope.currentMsg,
@@ -66,7 +63,7 @@ angular.module('ESNApp',[])
         window.location.href = "http://localhost:3000/index.html";
     });
 
-    
+
     socket.on("message", function(obj){
         $scope.messages.push({
          "username": obj.username,
@@ -79,13 +76,23 @@ angular.module('ESNApp',[])
     })
     .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
 
+        var socket = io();
+
         $http.get('/messages/announcements').then(function successCallback(response) {
             console.log(response.data.announcements);
             $scope.announcements = response.data.announcements;
         }, function errorCallback(response){
             window.location.href = "http://localhost:3000/index.html";
         });
-
+        socket.on("announcement", function(obj){
+            $scope.announcements.push({
+                "username": obj.username,
+                "content": obj.content,
+                "timestamp": obj.timestamp,
+                "location": obj.location
+            });
+            $scope.$apply();
+        });
 
         //$scope.announcements = ["one", "two", "three"];
         $scope.postAnnouncement = function(){
@@ -105,7 +112,12 @@ angular.module('ESNApp',[])
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
                 });
-
+                socket.emit("announcement",{
+                    "username" : $scope.curUsername,
+                    "content" : $scope.currentAnnouncement,
+                    "timestamp" : timestamp,
+                    "location" : "Mountain View"
+                });
                 $scope.currentAnnouncement = "";
 
             },function errorCallback(response){
