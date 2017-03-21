@@ -14,93 +14,92 @@ angular.module('ESNApp', [])
         // });
     })
     .controller('userDirectoryController', function($scope, $http, $location) {
-            var socket = io();
+        var socket = io();
 
-            $scope.users = '';
+        $scope.users = '';
 
-            socket.on("updateDirectory", function() {
-                $http.get('/users').then(function(response) {
-                    var users_temp = [];
-                    users_temp = response.data.users;
-                    //$scope.users = response.data.users;
-                    for (var i = 0; i < users_temp.length; i++) {
-                        if (users_temp[i].onlinestatus == 1) {
-                            users_temp[i].onlinestatus = "Online";
-                        } else {
-                            users_temp[i].onlinestatus = "Offline";
-                        }
+        socket.on("updateDirectory", function() {
+            $http.get('/users').then(function(response) {
+                var users_temp = [];
+                users_temp = response.data.users;
+                //$scope.users = response.data.users;
+                for (var i = 0; i < users_temp.length; i++) {
+                    if (users_temp[i].onlinestatus == 1) {
+                        users_temp[i].onlinestatus = "Online";
+                    } else {
+                        users_temp[i].onlinestatus = "Offline";
                     }
-                    $scope.users = users_temp;
-                });
+                }
+                $scope.users = users_temp;
+            });
+        });
+
+        socket.on("error", function() {
+            alert("Update directory error.");
+        });
+        // $scope.sendUserName = function(targetUser){
+        //   ChatPrivately.setUsername(targetUser);
+        //   console.log("here is used to send username!");
+        //   $location.path('/chatprivately');
+        // }
+
+        // socket.on('check_online', function(user) {
+        //   $scope.users[user.index].ONLINE = user.online;
+        // });
+
+        // socket.on('update_status', function(user) {
+        //   for (var i in $scope.users) {
+        //     if ($scope.users[i].NAME === user.user_name) {
+        //       $scope.users[i].STATUS = user.status;
+        //       break;
+        //     }
+        //   }
+        // })
+        $http.get('/currentUsername').then(function successCallback(response) {
+            var myBody = document.getElementById('landingPageBody');
+            myBody.style.display = 'block';
+
+            socket.emit("startChatPrivately", {"username": response.data.currentUsername});
+            socket.on("ev_to" + response.data.currentUsername, function(obj){
+                alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
             });
 
-            socket.on("error", function() {
-                alert("Update directory error.");
-            });
-            // $scope.sendUserName = function(targetUser){
-            //   ChatPrivately.setUsername(targetUser);
-            //   console.log("here is used to send username!");
-            //   $location.path('/chatprivately');
-            // }
+            console.log("response.status: " + response.status);
+            $http.get('/users').then(function successCallback(response) {
 
-            // socket.on('check_online', function(user) {
-            //   $scope.users[user.index].ONLINE = user.online;
-            // });
+                var users_temp = [];
+                users_temp = response.data.users;
 
-            // socket.on('update_status', function(user) {
-            //   for (var i in $scope.users) {
-            //     if ($scope.users[i].NAME === user.user_name) {
-            //       $scope.users[i].STATUS = user.status;
-            //       break;
-            //     }
-            //   }
-            // })
-            $http.get('/currentUsername').then(function successCallback(response) {
-                var myBody = document.getElementById('landingPageBody');
-                myBody.style.display = 'block';
-
-                socket.emit("startChatPrivately", {"username": response.data.currentUsername});
-                socket.on("ev_to" + response.data.currentUsername, function(obj){
-                    alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
-                });
-
-                console.log("response.status: " + response.status);
-                $http.get('/users').then(function successCallback(response) {
-                      
-                  var users_temp = [];
-                  users_temp = response.data.users;
-
-                  var temp = [users_temp.length];
-                  //$scope.users = response.data.users;
-                  for (var i = 0; i < users_temp.length; i++) {
-                      if (users_temp[i].onlinestatus == 1) {
-                          users_temp[i].onlinestatus = "Online";
-                      } else {
-                          users_temp[i].onlinestatus = "Offline";
-                      }
-                      if(users_temp[i].status.status_code == -1){
+                var temp = [users_temp.length];
+                //$scope.users = response.data.users;
+                for (var i = 0; i < users_temp.length; i++) {
+                    if (users_temp[i].onlinestatus == 1) {
+                        users_temp[i].onlinestatus = "Online";
+                    } else {
+                        users_temp[i].onlinestatus = "Offline";
+                    }
+                    if(users_temp[i].status.status_code == -1){
                         users_temp[i].status.status_code = "Undefined";
-                      }else if(users_temp[i].status.status_code == 0){
+                    }else if(users_temp[i].status.status_code == 0){
                         users_temp[i].status.status_code = "Normal";
-                      }else if(users_temp[i].status.status_code == 1){
+                    }else if(users_temp[i].status.status_code == 1){
                         users_temp[i].status.status_code = "Help";
-                      }else{
+                    }else{
                         users_temp[i].status.status_code = "Emergency";
-                      }
-                  }
-                  $scope.users = users_temp;
-                },function errorCallback(response) {
-                    window.location.href = "http://localhost:3000/index.html";
-                });
+                    }
+                }
+                $scope.users = users_temp;
             },function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });
-
+        },function errorCallback(response) {
+            window.location.href = "http://localhost:3000/index.html";
+        });
 
         $scope.sendPrivateMsg = function () {
 
         }
-        
+
         $scope.chatWithSb = function(chatUsername) {
             $scope.chatPrivateBool = true;
             $http.get('/currentUsername').then(function successCallback(response) {
@@ -117,50 +116,48 @@ angular.module('ESNApp', [])
             });
         }
 
-            }
-
-            $scope.exit = function() {
-                $scope.chatPrivateBool = false;
-            }
+        $scope.exit = function() {
+            $scope.chatPrivateBool = false;
+        }
 
     })
     .controller('statusController', function($scope, $location, $http, $timeout) {
 
-            $scope.updateStatus = function() {
+        $scope.updateStatus = function() {
 
-              var curUsername;
-              var curStatus_code;
-              var timestamp = new Date();
-              var location = "Mountain View";
+            var curUsername;
+            var curStatus_code;
+            var timestamp = new Date();
+            var location = "Mountain View";
 
-              if($scope.status == "Ok"){
+            if($scope.status == "Ok"){
                 curStatus_code = 0;
-              }else if($scope.status == "Help"){
+            }else if($scope.status == "Help"){
                 curStatus_code = 1;
-              }else if($scope.status == "Emergency"){
+            }else if($scope.status == "Emergency"){
                 curStatus_code = 2;
-              }else{
+            }else{
                 curStatus_code = -1;
-              }
+            }
 
-              $http.get('/currentUsername').then(function successCallback(response) {
+            $http.get('/currentUsername').then(function successCallback(response) {
                 var curUsername = response.data.currentUsername;
                 //alert(curUsername + curStatus_code + timestamp + location);
                 $http.post('/status', {
-                  "username" : curUsername,
-                  "status_code" : curStatus_code,
-                  "timestamp" : timestamp,
-                  "location" : location
+                    "username" : curUsername,
+                    "status_code" : curStatus_code,
+                    "timestamp" : timestamp,
+                    "location" : location
                 }).then(function successCallback(response) {
                     // Take in the response information
                     console.log("post successfully");
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
                 });
-              },function errorCallback(response) {
+            },function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
-              });
-            }
+            });
+        }
     })
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
     .controller('navbarController', function($scope, $location, $http, $timeout) {
