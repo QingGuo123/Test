@@ -6,6 +6,7 @@ var config = require('../config/global.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log("fuck2");
     res.sendFile('index.html');
 });
 
