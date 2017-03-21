@@ -22,6 +22,7 @@ module.exports = {
                 db.run(sql_message.createTable());
                 db.run(sql_announcement.createTable());
                 db.run(sql_status.createTable());
+                db.run(sql_status.createTable());
             });
             console.log("create tables succeed");
         }
