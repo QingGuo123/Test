@@ -226,7 +226,8 @@
                 <div class="col-xs-12 col-md-12 col-lg-12 well">
                     <ul class="list-group">
                         <li ng-repeat="message in messages" class="list-group-item">
-                        	<span >{{message.username}}</span><b class="badge">{{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
+                        	<span><!-- <img src={{message.status_code}} style="width: 5%;"> -->
+                            <i class="{{message.status_code}}" style="color:{{message.iconcolor}};">  </i>  {{message.username}}</span><b class="badge">{{message.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
                             <span>{{message.content}}</span>
                         </li>
                     </ul>

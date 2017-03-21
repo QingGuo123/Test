@@ -25,7 +25,7 @@ angular.module('ESNApp',[])
         $http.get('/currentUsername').then(function successCallback(response) {
 
             $scope.curUsername = response.data.currentUsername;
-
+            console.log($scope.curUsername + " + " + $scope.currentMsg + " + " + timestamp);
             $http.post('/messages/public', {
                 "username" : $scope.curUsername,
                 "content" : $scope.currentMsg,
@@ -56,8 +56,26 @@ angular.module('ESNApp',[])
         myBody.style.display = 'block';
         $http.get('/messages/public').then(function (response) {
             //$scope.users = response.data.users;
-            console.log(response.data.messages);
+            
+            for(var index = 0; index < response.data.messages.length;index++){
+                if(response.data.messages[index].status_code == -1){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "white";
+                }else if(response.data.messages[index].status_code == 0){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "green";
+                }else if(response.data.messages[index].status_code == 0){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "yellow";
+                }else{
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "red";
+                }
+                
+            }
+
             $scope.messages = response.data.messages;
+            console.log($scope.messages);
         });
     }, function errorCallback(response){
         window.location.href = "http://localhost:3000/index.html";
@@ -67,8 +85,8 @@ angular.module('ESNApp',[])
     socket.on("message", function(obj){
         $scope.messages.push({
          "username": obj.username,
-           "content": obj.content,
-           "timestamp": obj.timestamp
+         "content": obj.content,
+         "timestamp": obj.timestamp
        });
         $scope.$apply();
     });
