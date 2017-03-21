@@ -38,7 +38,8 @@ suite('db_user', function () {
     test('Identify whether able to validate a user`s username and password', function (done) {
         db.all(sql_user.validUsernameAndPassword(), [test_user.username, test_user.password], function (res, err) {
             expect(err).to.not.be.ok();
-            expect(res);
+
+
             done();
         });
     });
