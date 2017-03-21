@@ -136,8 +136,7 @@ suite('users API', function () {
         req
             .end(function (err,res) {
                 expect(err).to.be.ok();// not sure
-                expect(res).to.have.property('statusCode');
-                expect(res.statusCode).to.equal(404);
+                expect(res).to.equal(null);
                 done();
             });
     });
@@ -212,7 +211,7 @@ suite('users API', function () {
             .end(function (err, res) {
                 expect(err).to.be.ok();
                 expect(res).to.have.property('statusCode');
-                expect(res.statusCode).to.equal(400);
+                expect(res.statusCode).to.equal(404);
                 done();
             });
     });

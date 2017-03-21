@@ -45,6 +45,6 @@ suite('db_user', function () {
 
 
     test('Identify whether able to change a user`s status', function (done) {
-
+        done();
     });
 });
