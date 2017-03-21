@@ -1,0 +1,14 @@
+Description,HTTP Method,Partial URI,Request Data,Response Data,Success Status Code,Location Header Needed?,Failure Status Code,Associated Use Case,Notes
+Register a user,POST,/users,"username, password",,If new user is created: 201 Created,Yes,,Join Community,Timestamps must be passed from client. Server does not have a clock or time server. 
+Retrieve all users,GET,/users,,Array of users,If user exist: 200 Ok,No,,Join Community,
+Retrieve a user's record,GET,/users/{userName},,User,If user is found: 200 Ok,No,If user does not exist: 404 Not Found,Join Community,
+Post a message on public wall from a user,POST,/messages/public,"username, message, timestamp",full URI of created location breadcrumb if Location was specified in request,If new message created: 201 Created,If new message created: 201 Created,Yes.  If user does not exist: 404 Not Found,Chat Publicly,
+Retrieve all messages posted on public wall,GET,/messages/public,,Array of Messages,If messages found: 200 Ok,No,,Chat Publicly,
+Retrieve all messages posted on public wall by a user,GET,/messages/public/{userName},,Array of Messages,If a user and messages found: 200 Ok,No,,Chat Publicly,
+Update a user's status,POST,/status,"username, password",full URI of created location breadcrumb if Location was specified in request,,Yes,If user does not exist: 404 Not Found,Share Status,
+Retrieve a user's status,GET,/status/{user_name},,status,,No,If user does not exist: 404 Not Found,Share Status,
+Post an announcement,POST,/messages/announcements,"content, username",,If new message is created: 201 Created,Yes,If one of the users does not exist: 404 Not Found,Post Announcement,
+Retrieve all announcements ,GET,/messages/announcements,,Array of Messages,200 OK,No,,Post Announcement,
+Send a chat message to another user,POST,/messages/private/{username1}/{username2},"sendignUserName, receivingUserName, content, postedAt",full URI of created location breadcrumb if Location was specified in request,If new message is created: 201 Created,Yes,If one of the users does not exist: 404 Not Found,Chat Privatly,
+Retrieve all private chat messages between two users,GET,/messages/private/{username1}/{username2},userName content,Array of Messages,,No,If one of the users does not exist: 404 Not Found,Chat Privatly,
+Retrieve all users with whom a user has privately chatted with,GET,/users/{userName}/private,,Array of Users,,No,If user does not exist: 404 Not Found,Chat Privatly,
