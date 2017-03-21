@@ -5,12 +5,18 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
 [0m  db_user[0m
 [2K[0G  [31m  2) Identify whether able to search a user in db[0m
 [2K[0G  [32m  ✓[0m[90m Identify whether able to insert a user[0m
+<<<<<<< HEAD
 [2K[0G  [31m  3) Identify whether able to validate a user`s username and password[0m
 [2K[0G  [31m  4) Identify whether able to change a user`s status[0m
+=======
+[2K[0G  [31m  2) Identify whether able to validate a user`s username and password[0m
+[2K[0G  [32m  ✓[0m[90m Identify whether able to change a user`s status[0m
+>>>>>>> 23c751f49c16c097f41bd8e205aafdbafacab6ba
 
 [0m  users API[0m
 ~/controllers/usersController: regOrLogin Eric2 123123123
 ~/models/user: regOrLogin Eric2 123123123
+<<<<<<< HEAD
 [0mPOST /users [32m200 [0m32.758 ms - 22[0m
 [2K[0G  [31m  5) Should register a user if username not exists[0m
 ~/controllers/usersController: regOrLogin Eric2 123123123
@@ -51,6 +57,54 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
 
 [92m [0m[32m 4 passing[0m[90m (2s)[0m
 [31m  14 failing[0m
+=======
+[0mPOST /users [32m200 [0m22.810 ms - 22[0m
+[2K[0G  [32m  ✓[0m[90m Should register a user if username not exists[0m[33m (53ms)[0m
+~/controllers/usersController: regOrLogin Eric2 123123123
+~/models/user: regOrLogin Eric2 123123123
+[0mPOST /users [32m200 [0m3.362 ms - 22[0m
+[2K[0G  [32m  ✓[0m[90m Should login a user if the username exists[0m
+~/controllers/usersController: regOrLogin Minghao2 123123123
+~/models/user: regOrLogin Minghao2 123123123
+[0mPOST /users [32m200 [0m1.722 ms - 22[0m
+[2K[0G  [32m  ✓[0m[90m Should not login a user if the username not exist[0m
+~/controllers/usersController: getUser Eric2
+~/models/user: getUser Eric2
+[0mGET /users/Eric2 [32m200 [0m5.382 ms - 99[0m
+[2K[0G  [32m  ✓[0m[90m Validate the user if exists[0m
+~/controllers/usersController: getUser Eric2
+~/models/user: getUser Eric2
+[0mGET /users/Eric2 [32m200 [0m1.187 ms - 99[0m
+{ id: 6,
+  username: 'Eric2',
+  password: '123123123',
+  onlinestatus: 1,
+  accountstatus: 0,
+  privilege: 0 }
+[2K[0G  [32m  ✓[0m[90m Validate user data[0m
+~/controllers/usersController: getUser Minghao2
+~/models/user: getUser Minghao2
+[0mGET /users/Minghao2 [32m200 [0m1.598 ms - 102[0m
+[2K[0G  [31m  3) Validate a non-exist user if not exist[0m
+[0mPOST /status [33m404 [0m0.730 ms - 9[0m
+[2K[0G  [31m  4) Should update the test user`s status[0m
+[0mGET /status/Eric2 [33m404 [0m0.996 ms - 9[0m
+[2K[0G  [31m  5) Should retrieve the test user`s status[0m
+[0mPOST /status [33m404 [0m0.463 ms - 9[0m
+[2K[0G  [32m  ✓[0m[90m Should return 404 when update a non-existing user`s status[0m
+[0mGET /status/Minghao2 [33m404 [0m0.519 ms - 9[0m
+[2K[0G  [32m  ✓[0m[90m Should return 404 when retrieve a non-existing user`s status[0m
+[0mPOST /messages/announcements [33m404 [0m1.519 ms - 9[0m
+[2K[0G  [31m  6) Should post a announcement successfully[0m
+[0mPOST /messages/announcements [33m404 [0m0.422 ms - 9[0m
+[2K[0G  [32m  ✓[0m[90m Should return 404 for non-exist user post announcement[0m
+[0mGET /messages/announcements [33m404 [0m1.054 ms - 9[0m
+[2K[0G  [31m  7) Should get all announcements[0m
+
+
+[92m [0m[32m 10 passing[0m[90m (144ms)[0m
+[31m  7 failing[0m
+>>>>>>> 23c751f49c16c097f41bd8e205aafdbafacab6ba
 
 [0m  1)  Uncaught error outside test suite:
 [0m[31m     Uncaught ReferenceError: debug is not defined[0m[90m
@@ -95,6 +149,7 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
     at Context.<anonymous> (unit_test/table_users.js:39:12)
   
 [0m
+<<<<<<< HEAD
 [0m  4) db_user Identify whether able to change a user`s status:
 [0m[31m     Error: timeout of 2000ms exceeded. Ensure the done() callback is being called in this test.[0m[90m
   
@@ -165,10 +220,27 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
 [0m
 [0m  8) users API Should update the test user`s status:
 [0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
+=======
+[0m  3) users API Validate a non-exist user if not exist:
+[0m[31m     Uncaught Error: expected null to be truthy[0m[90m
+>>>>>>> 23c751f49c16c097f41bd8e205aafdbafacab6ba
     at Assertion.assert (node_modules/expect.js/index.js:96:13)
     at Assertion.ok (node_modules/expect.js/index.js:115:10)
     at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:153:39
+    at unit_test/tests.js:138:35
+    at Request.callback (node_modules/superagent/lib/node/index.js:691:12)
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
+    at endReadableNT (_stream_readable.js:974:12)
+    at _combinedTickCallback (internal/process/next_tick.js:74:11)
+    at process._tickDomainCallback (internal/process/next_tick.js:122:9)
+  
+[0m
+[0m  4) users API Should update the test user`s status:
+[0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
+    at Assertion.assert (node_modules/expect.js/index.js:96:13)
+    at Assertion.ok (node_modules/expect.js/index.js:115:10)
+    at Function.ok (node_modules/expect.js/index.js:499:17)
+    at unit_test/tests.js:151:39
     at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
     at endReadableNT (_stream_readable.js:974:12)
@@ -176,12 +248,12 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
     at process._tickDomainCallback (internal/process/next_tick.js:122:9)
   
 [0m
-[0m  9) users API Should retrieve the test user`s status:
+[0m  5) users API Should retrieve the test user`s status:
 [0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
     at Assertion.assert (node_modules/expect.js/index.js:96:13)
     at Assertion.ok (node_modules/expect.js/index.js:115:10)
     at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:165:39
+    at unit_test/tests.js:163:39
     at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
     at endReadableNT (_stream_readable.js:974:12)
@@ -189,12 +261,12 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
     at process._tickDomainCallback (internal/process/next_tick.js:122:9)
   
 [0m
-[0m  10) users API Should return 404 when update a non-existing user`s status:
+[0m  6) users API Should post a announcement successfully:
 [0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
     at Assertion.assert (node_modules/expect.js/index.js:96:13)
     at Assertion.ok (node_modules/expect.js/index.js:115:10)
     at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:178:39
+    at unit_test/tests.js:200:43
     at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
     at endReadableNT (_stream_readable.js:974:12)
@@ -202,51 +274,12 @@ initialize database /Users/GuoJianFeng/Desktop/s17-ESN-SV2/db/ESN_db.db
     at process._tickDomainCallback (internal/process/next_tick.js:122:9)
   
 [0m
-[0m  11) users API Should return 404 when retrieve a non-existing user`s status:
+[0m  7) users API Should get all announcements:
 [0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
     at Assertion.assert (node_modules/expect.js/index.js:96:13)
     at Assertion.ok (node_modules/expect.js/index.js:115:10)
     at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:190:39
-    at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
-    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
-    at endReadableNT (_stream_readable.js:974:12)
-    at _combinedTickCallback (internal/process/next_tick.js:74:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:122:9)
-  
-[0m
-[0m  12) users API Should post a announcement successfully:
-[0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
-    at Assertion.assert (node_modules/expect.js/index.js:96:13)
-    at Assertion.ok (node_modules/expect.js/index.js:115:10)
-    at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:202:43
-    at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
-    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
-    at endReadableNT (_stream_readable.js:974:12)
-    at _combinedTickCallback (internal/process/next_tick.js:74:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:122:9)
-  
-[0m
-[0m  13) users API Should return 404 for non-exist user post announcement:
-[0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
-    at Assertion.assert (node_modules/expect.js/index.js:96:13)
-    at Assertion.ok (node_modules/expect.js/index.js:115:10)
-    at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:214:39
-    at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
-    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
-    at endReadableNT (_stream_readable.js:974:12)
-    at _combinedTickCallback (internal/process/next_tick.js:74:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:122:9)
-  
-[0m
-[0m  14) users API Should get all announcements:
-[0m[31m     Uncaught Error: expected [Error: Not Found] to be falsy[0m[90m
-    at Assertion.assert (node_modules/expect.js/index.js:96:13)
-    at Assertion.ok (node_modules/expect.js/index.js:115:10)
-    at Function.ok (node_modules/expect.js/index.js:499:17)
-    at unit_test/tests.js:225:39
+    at unit_test/tests.js:223:39
     at Request.callback (node_modules/superagent/lib/node/index.js:703:3)
     at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/index.js:922:12)
     at endReadableNT (_stream_readable.js:974:12)
