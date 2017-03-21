@@ -82,7 +82,7 @@ PrivateMessage.getPrivateMessage = function(callback, userdata) {
                                 callback(null, new AppErrors.UserNotExisted("Receiver not existed."));
                             } else if (rows.length == 1)  {
                                 var privateMessages = [];
-                                db.each(sql_privateMessage.getPrivateMessageBySenderAndReceiver(), [sender, receiver],
+                                db.each(sql_privateMessage.getPrivateMessageBySenderAndReceiver(), [sender, receiver, sender, receiver],
                                     function (error, row) {
                                         if (error) {
                                             callback(null, error);

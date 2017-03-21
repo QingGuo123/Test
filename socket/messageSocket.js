@@ -4,7 +4,9 @@ module.exports = function(socket, io, usocket) {
         io.sockets.emit("message", {
             "username": obj.username,
             "content": obj.content,
-            "timestamp": obj.timestamp
+            "timestamp": obj.timestamp,
+            "location": obj.location,
+            "status_code": obj.status_code
         });
     });
 
