@@ -91,16 +91,20 @@ angular.module('ESNApp', [])
                 window.location.href = "http://localhost:3000/index.html";
             });
 
+            $scope.sendPrivateMsg = function(){
+              alert($scope.currentChatPrivatelyMsg);
+            }
 
-        $scope.chatWithSb = function(chatUsername) {
-            alert(chatUsername);
-            $scope.chatPrivateBool = true;
 
-        }
+            $scope.chatWithSb = function(chatUsername) {
+                alert(chatUsername);
+                $scope.chatPrivateBool = true;
 
-        $scope.exit = function() {
-            $scope.chatPrivateBool = false;
-        }
+            }
+
+            $scope.exit = function() {
+                $scope.chatPrivateBool = false;
+            }
 
 
 
