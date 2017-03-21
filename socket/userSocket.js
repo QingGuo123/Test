@@ -4,7 +4,7 @@ var sql_user = require("../db/sql_user");
 module.exports = function(socket, io) {
     console.log("invoke userSocket");
     socket.on("userLogin", function(obj){
-        //console.log('id: ' + socket.id);
+        console.log('id: ' + socket.id);
         db.run(sql_user.updateUserOnline(), [obj.username],
             function (error) {
                 if (error) {

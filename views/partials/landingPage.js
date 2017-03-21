@@ -14,7 +14,6 @@ angular.module('ESNApp', [])
         // });
     })
     .controller('userDirectoryController', function($scope, $http, $location) {
-
             var socket = io();
 
             $scope.users = '';
@@ -59,6 +58,12 @@ angular.module('ESNApp', [])
             $http.get('/currentUsername').then(function successCallback(response) {
                 var myBody = document.getElementById('landingPageBody');
                 myBody.style.display = 'block';
+
+                socket.emit("startChatPrivately", {"username": response.data.currentUsername});
+                socket.on("ev_to" + response.data.currentUsername, function(obj){
+                    alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
+                });
+
                 console.log("response.status: " + response.status);
                 $http.get('/users').then(function successCallback(response) {
                       
@@ -91,22 +96,32 @@ angular.module('ESNApp', [])
                 window.location.href = "http://localhost:3000/index.html";
             });
 
-            $scope.sendPrivateMsg = function(){
-              alert($scope.currentChatPrivatelyMsg);
-            }
 
+        $scope.sendPrivateMsg = function () {
 
-            $scope.chatWithSb = function(chatUsername) {
-                alert(chatUsername);
-                $scope.chatPrivateBool = true;
+        }
+        
+        $scope.chatWithSb = function(chatUsername) {
+            $scope.chatPrivateBool = true;
+            $http.get('/currentUsername').then(function successCallback(response) {
+                var from = response.data.currentUsername;
+                socket.emit("privateMessage", {
+                    "from": from,
+                    "to": chatUsername,
+                    "message": {
+                        "content": "cont of msg",
+                        "timestamp": "2018-1-1",
+                        "location": "Mountain View"
+                    }
+                });
+            });
+        }
 
             }
 
             $scope.exit = function() {
                 $scope.chatPrivateBool = false;
             }
-
-
 
     })
     .controller('statusController', function($scope, $location, $http, $timeout) {
