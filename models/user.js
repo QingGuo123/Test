@@ -3,6 +3,7 @@
 var db = require("../db/db.js");
 var sql_user = require("../db/sql_user");
 var sql_status = require("../db/sql_status");
+var sql_privateMessage = require("../db/sql_privateMessage");
 var AppErrors = require("../AppErrors");
 var config = require('../config/global.js');
 
@@ -63,9 +64,10 @@ User.prototype.regOrLogin = function(callback) {
     });
 };
 
-User.getAllUsers = function(callback) {
+User.getAllUsers = function(callback, userdata) {
     if (model_log)
         console.log('~/models/user: getAllusers');
+    var username = userdata["username"];
     var users = [];
     db.each(sql_user.getAllUsers(),
         function (error, row) {
@@ -81,11 +83,26 @@ User.getAllUsers = function(callback) {
                         "status_code": row.status_code,
                         "timestamp": row.timestamp,
                         "location": row.location
-                    }
+                    },
+                    "newpms": 0
                 });
             }
         }, function () {
-            callback(users, null);
+            db.each(sql_privateMessage.getNewPMNumByReceiver(), [username], function(error, row) {
+                if (error) {
+                    callback(null, error);
+                }
+                else if (row) {
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].username == row.sender) {
+                            users[i].newpms = row.newpms;
+                            break;
+                        }
+                    }
+                }
+            }, function () {
+                callback(users, null);
+            });
         }
     );
 };

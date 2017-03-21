@@ -15,7 +15,6 @@ io.on("connection", function(socket){
         if (socket.username in usocket) {
             delete usocket[socket.username];
             usocket.length--;
-            console.log("length = " + usocket.length);
         }
     });
 });
