@@ -96,6 +96,7 @@ angular.module('ESNApp', [])
                 window.location.href = "http://localhost:3000/index.html";
             });
 
+
         $scope.sendPrivateMsg = function () {
 
         }
@@ -116,9 +117,11 @@ angular.module('ESNApp', [])
             });
         }
 
-        $scope.exit = function() {
-            $scope.chatPrivateBool = false;
-        }
+            }
+
+            $scope.exit = function() {
+                $scope.chatPrivateBool = false;
+            }
 
     })
     .controller('statusController', function($scope, $location, $http, $timeout) {
