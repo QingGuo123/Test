@@ -42,8 +42,13 @@
             font-size: 22px;
         }
         #navBtn3{
-            font-family: 'Baloo', cursive;
-            font-size: 22px;
+            background: -moz-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #008ae6), color-stop(100%, #66c2ff));
+            background: -webkit-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
+            background: -o-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
+            background: -ms-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
+            background: linear-gradient(to bottom, #008ae6 0%, #66c2ff 100%);
+            color: white;
         }
 
         #sendMsg{
@@ -120,11 +125,13 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
+
                         </button>
+                        <a class="navbar-brand" href="javascript:void(0)">S17-ESN-SV2</a>
                     </div>
                     <div  id="navBtn3" class="navbar-collapse navbar-warning-collapse collapse" aria-expanded="false" style="height: 1px;">
                         <ul class="nav navbar-nav">
-                            <li ng-class="navLobby" class="active"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
+                            <li ng-class="navLobby"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
                             <li ng-class="navChatPublicly"><a href="javascript:void(0)">Chat Publicly <span class="badge ng-binding"></span></a></li>
                             <!-- <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)">Chat Privately <span class="badge ng-binding"></span></a></li>
                             <li ng-class="navPostAnnouncement"><a href="javascript:void(0)">Post Announcement</a></li>

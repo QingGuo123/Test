@@ -117,11 +117,9 @@ angular.module('ESNApp', [])
             });
         }
 
-            }
-
-            $scope.exit = function() {
-                $scope.chatPrivateBool = false;
-            }
+        $scope.exit = function() {
+            $scope.chatPrivateBool = false;
+        }
 
     })
     .controller('statusController', function($scope, $location, $http, $timeout) {
