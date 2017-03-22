@@ -45,7 +45,7 @@ angular.module('ESNApp',[])
             $scope.currentMsg = "";
 
         },function errorCallback(response){
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
         });
 
     };
@@ -78,7 +78,7 @@ angular.module('ESNApp',[])
             console.log($scope.messages);
         });
     }, function errorCallback(response){
-        window.location.href = "http://localhost:3000/index.html";
+        window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
     });
 
 
@@ -100,7 +100,7 @@ angular.module('ESNApp',[])
             console.log(response.data.announcements);
             $scope.announcements = response.data.announcements;
         }, function errorCallback(response){
-            window.location.href = "http://localhost:3000/index.html";
+            window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
         });
         socket.on("announcement", function(obj){
             $scope.announcements.push({
@@ -139,7 +139,7 @@ angular.module('ESNApp',[])
                 $scope.currentAnnouncement = "";
 
             },function errorCallback(response){
-                    window.location.href = "http://localhost:3000/index.html";
+                    window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
             });
         }  
     })
@@ -159,12 +159,12 @@ angular.module('ESNApp')
 
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
-            window.location.href = "http://localhost:3000/landingPage.html";
+            window.location.href = "http://" + $location.host() + ":" + $location.port() + "/landingPage.html";
             //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
-            window.location.href = "http://localhost:3000/chatPublicly.html";
+            window.location.href = "http://" + $location.host() + ":" + $location.port() + "/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');
@@ -214,9 +214,9 @@ angular.module('ESNApp')
 
         $scope.logout = function () {
             $http.get('/logout').then(function (response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
             }, function errorCallback(response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "http://" + $location.host() + ":" + $location.port() + "/index.html";
             });
         };
 
