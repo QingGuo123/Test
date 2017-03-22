@@ -1,6 +1,6 @@
 "use strict";
 
-var Status = require('../models/status');
+var PrivateMessage = require('../models/privateMessage');
 var AppErrors = require("../AppErrors");
 var config = require('../config/global.js');
 
@@ -11,43 +11,45 @@ var check_session = config.unittest_session_config.check_session;
 
 module.exports = {
 
-    getStatus: function(req, res) {
-        var username = req.params.username;
+    getPrivateMessage: function(req, res) {
+        var sender = req.params.sender;
+        var receiver = req.params.receiver;
         if (controller_log)
-            console.log('~/controllers/statusController: getStatus ' + username);
-        Status.getStatus(
-            function (status, error) {
+            console.log('~/controllers/privateMessagesController: getPrivateMessage ' + sender + ' ' + receiver);
+        PrivateMessage.getPrivateMessage(
+            function (privateMessages, error) {
                 if (error) {
                     if (error instanceof AppErrors.UserNotExisted)
                         res.sendStatus(404);
                     else
                         res.sendStatus(500);
                 } else {
-                    var outputjson = {"status": status};
+                    var outputjson = {"privateMessages": privateMessages};
                     if (response_log)
                         console.log(outputjson);
                     res.status(200).send(outputjson);
                 }
             },
-            {"username": username}
+            {"sender": sender, "receiver": receiver}
         );
     },
 
-    postStatus: function(req, res) {
-        var username = req.body.username;
-        var status_code = req.body.status_code;
+    postPrivateMessage: function(req, res) {
+        var sender = req.body.sender;
+        var receiver = req.body.receiver;
+        var content = req.body.content;
         var timestamp = req.body.timestamp;
         var location = req.body.location;
         if (controller_log)
-            console.log('~/controllers/statusController: postStatus ' + username + ' ' + status_code + ' ' + timestamp + ' ' + location);
-        if (check_session && req.session.loginUser != username) {
+            console.log('~/controllers/privateMessagesController: postPrivateMessage ' + sender + ' ' + receiver + ' ' + content + ' ' + timestamp + ' ' + location);
+        if (check_session && req.session.loginUser != sender) {
             if (session_log)
-                console.log('session: ' + req.session.loginUser + ', username: ' + username);
+                console.log('session: ' + req.session.loginUser + ', sender: ' + sender);
             res.sendStatus(404);
         }
         else {
-            var status = new Status(username, status_code, timestamp, location);
-            status.postStatus(function(postStatusResult, error) {
+            var privateMessage = new PrivateMessage(sender, receiver, content, timestamp, location);
+            privateMessage.postPrivateMessage(function(postPrivateMessageResult, error) {
                 if (error) {
                     if (error instanceof AppErrors.UserNotExisted)
                         res.sendStatus(404);
@@ -56,8 +58,8 @@ module.exports = {
                 }
                 else {
                     if (response_log)
-                        console.log(postStatusResult);
-                    res.status(200).send(postStatusResult);
+                        console.log(postPrivateMessageResult);
+                    res.status(200).send(postPrivateMessageResult);
                 }
             });
         }

@@ -7,6 +7,7 @@ var sql_user = require('../db/sql_user');
 var sql_message = require('../db/sql_message');
 var sql_announcement = require('../db/sql_announcement');
 var sql_status = require('../db/sql_status');
+var sql_privateMessage = require('../db/sql_privateMessage');
 
 module.exports = {
 
@@ -18,10 +19,11 @@ module.exports = {
         if (!exists) {
             db.serialize(function() {
                 db.run(sql_user.createTable());
-                db.run(sql_user.insertAdminUser("adminpwd"));
+                //db.run(sql_user.insertAdminUser("adminpwd"));
                 db.run(sql_message.createTable());
                 db.run(sql_announcement.createTable());
                 db.run(sql_status.createTable());
+                db.run(sql_privateMessage.createTable());
             });
             console.log("create tables succeed");
         }
@@ -29,4 +31,4 @@ module.exports = {
         return db;
     }
 
-}
+};

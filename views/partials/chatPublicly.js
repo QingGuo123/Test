@@ -4,10 +4,8 @@ angular.module('ESNApp',[])
 
         var socket = io();
         socket.on("connect", function (){
-                console.log("User connected via Socket io!");
+            console.log("User connected via Socket io!");
         });
-
-
 
         $scope.currentMsg = "";
         $scope.curUsername = "";
@@ -27,7 +25,7 @@ angular.module('ESNApp',[])
         $http.get('/currentUsername').then(function successCallback(response) {
 
             $scope.curUsername = response.data.currentUsername;
-
+            console.log($scope.curUsername + " + " + $scope.currentMsg + " + " + timestamp);
             $http.post('/messages/public', {
                 "username" : $scope.curUsername,
                 "content" : $scope.currentMsg,
@@ -38,7 +36,6 @@ angular.module('ESNApp',[])
             }, function errorCallback(response) {
                 console.log("Login failed, please check your user name and password.");
             });
-
 
             socket.emit("message",{
                 "username": $scope.curUsername,
@@ -59,19 +56,37 @@ angular.module('ESNApp',[])
         myBody.style.display = 'block';
         $http.get('/messages/public').then(function (response) {
             //$scope.users = response.data.users;
-            console.log(response.data.messages);
+            
+            for(var index = 0; index < response.data.messages.length;index++){
+                if(response.data.messages[index].status_code == -1){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "white";
+                }else if(response.data.messages[index].status_code == 0){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "green";
+                }else if(response.data.messages[index].status_code == 0){
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "yellow";
+                }else{
+                    response.data.messages[index].status_code = "fa fa-circle";
+                    response.data.messages[index].iconcolor = "red";
+                }
+                
+            }
+
             $scope.messages = response.data.messages;
+            console.log($scope.messages);
         });
     }, function errorCallback(response){
         window.location.href = "http://localhost:3000/index.html";
     });
 
-    
+
     socket.on("message", function(obj){
         $scope.messages.push({
          "username": obj.username,
-           "content": obj.content,
-           "timestamp": obj.timestamp
+         "content": obj.content,
+         "timestamp": obj.timestamp
        });
         $scope.$apply();
     });
@@ -79,28 +94,54 @@ angular.module('ESNApp',[])
     })
     .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
 
+        var socket = io();
+
         $http.get('/messages/announcements').then(function successCallback(response) {
-            $scope.announcements = response.announcements;
+            console.log(response.data.announcements);
+            $scope.announcements = response.data.announcements;
         }, function errorCallback(response){
             window.location.href = "http://localhost:3000/index.html";
         });
-
+        socket.on("announcement", function(obj){
+            $scope.announcements.push({
+                "username": obj.username,
+                "content": obj.content,
+                "timestamp": obj.timestamp,
+                "location": obj.location
+            });
+            $scope.$apply();
+        });
 
         //$scope.announcements = ["one", "two", "three"];
-
         $scope.postAnnouncement = function(){
-            $http.post('/messages/announcements', {
-                "username" : "eric",
-                "content" : "$scope.currentMsg",
-                "timestamp" : "2016.10.11",
-                "location" : "Mountain View"
-            }).then(function successCallback(response) {
-                // Take in the response information
-                console.log("post successfully");
-            }, function errorCallback(response) {
-                console.log("Login failed, please check your user name and password.");
+            var timestamp = new Date();
+            $http.get('/currentUsername').then(function successCallback(response) {
+
+                $scope.curUsername = response.data.currentUsername;
+                alert($scope.currentAnnouncement);
+                $http.post('/messages/announcements', {
+                    "username" : $scope.curUsername,
+                    "content" : $scope.currentAnnouncement,
+                    "timestamp" : timestamp,
+                    "location" : "Mountain View"
+                }).then(function successCallback(response) {
+                    // Take in the response information
+                    console.log("post successfully");
+                }, function errorCallback(response) {
+                    console.log("Login failed, please check your user name and password.");
+                });
+                socket.emit("announcement",{
+                    "username" : $scope.curUsername,
+                    "content" : $scope.currentAnnouncement,
+                    "timestamp" : timestamp,
+                    "location" : "Mountain View"
+                });
+                $scope.currentAnnouncement = "";
+
+            },function errorCallback(response){
+                    window.location.href = "http://localhost:3000/index.html";
             });
-        }
+        }  
     })
 
 angular.module('ESNApp')

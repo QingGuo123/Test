@@ -85,7 +85,6 @@ Status.getStatus = function(callback, userdata) {
                 } else if (rows.length == 1)  {
                     db.all(sql_status.getStatus(), [username],
                         function (error, status) {
-                            console.log(status);
                             if (error) {
                                 callback(null, error);
                             } else {

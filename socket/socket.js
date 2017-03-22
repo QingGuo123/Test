@@ -1,10 +1,22 @@
 var io = require('socket.io')();
 var userSocket = require('./userSocket');
 var messageSocket = require('./messageSocket');
+var announcementSocket = require('./announcementSocket');
+
+var usocket = {};
+usocket.length = 0;
 
 io.on("connection", function(socket){
     userSocket(socket, io);
-    messageSocket(socket, io);
+    messageSocket(socket, io, usocket);
+    announcementSocket(socket, io);
+
+    socket.on("disconnect", function(){
+        if (socket.username in usocket) {
+            delete usocket[socket.username];
+            usocket.length--;
+        }
+    });
 });
 
 exports.listen = function(server) {

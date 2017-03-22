@@ -30,7 +30,7 @@ Message.prototype.postPublicMessage = function(callback) {
                 } else if (rows.length == 0) {
                     callback(null, new AppErrors.UserNotExisted("User not existed."));
                 } else if (rows.length == 1) {
-                    db.run(sql_message.insertMessage(), [username, content, timestamp, location],
+                    db.run(sql_message.insertMessage(), [username, content, timestamp, location, username],
                         function (error) {
                             if (error) {
                                 callback(null, error);

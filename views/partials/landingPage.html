@@ -106,28 +106,30 @@
 </head>
 
 <body ng-app="ESNApp" id="landingPageBody" style="display: none;">
+
     <div ui-view class="container-fluid ng-scope">
         <div id="landing-navbar" ng-controller="navbarController" class="ng-scope">
             <div id="navBar" class="navbar navbar-success">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" data-toggle="collapse" data-target=".navbar-warning-collapse" class="navbar-toggle">
+                        <button type="button" data-toggle="collapse" data-target="#test1" class="navbar-toggle">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
+                        <a class="navbar-brand" href="javascript:void(0)">S17-ESN-SV2</a>
                     </div>
-                    <div class="navbar-collapse navbar-warning-collapse collapse" aria-expanded="false" style="height: 1px;">
+                    <div id="test1" class="collapse navbar-collapse navbar-warning-collapse" aria-expanded="false" style="height: 1px;">
                         <ul class="nav navbar-nav">
-                            <li id="navBtn1" ng-class="navLobby" class="active"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
-                            <li id="navBtn2" ng-class="navChatPublicly"><a href="javascript:void(0)" ng-click="chatPublicly()">Chat Publicly <span class="badge ng-binding"></span></a></li>
-                            <!--<li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)" ng-click="chatPrivately()">Chat Privately <span class="badge ng-binding"></span></a></li>-->
-                            <!--<li ng-class="navPostAnnouncement"><a href="javascript:void(0)" ng-click="postAnnouncement()">Post Announcement</a></li>-->
-                            <!--<li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)" ng-click="measurePerf()">Measure Performance</a></li>-->
-                            <!--<li ng-class="navShareLocation"><a href="javascript:void(0)" ng-click="shareLocation()">Share Location</a></li>-->
-                            <!--<li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)" ng-click="administratorPage()">Administer User Profile</a></li>-->
+                            <li ng-class="navLobby"><a href="javascript:void(0)" ng-click="landingPage()">Landing</a></li>
+                            <li ng-class="navChatPublicly"><a href="javascript:void(0)" ng-click="chatPublicly()">Chat Publicly <span class="badge ng-binding"></span></a></li>
+                            <!-- <li ng-class="navChatprivately" class="hide"><a href="javascript:void(0)" ng-click="chatPrivately()">Chat Privately <span class="badge ng-binding"></span></a></li>
+                            <li ng-class="navPostAnnouncement"><a href="javascript:void(0)" ng-click="postAnnouncement()">Post Announcement</a></li>
+                            <li ng-class="navMeasurePerf" class="hide"><a href="javascript:void(0)" ng-click="measurePerf()">Measure Performance</a></li>
+                            <li ng-class="navShareLocation"><a href="javascript:void(0)" ng-click="shareLocation()">Share Location</a></li>
+                            <li ng-class="navAdministerPage" class="hide"><a href="javascript:void(0)" ng-click="administratorPage()">Administer User Profile</a></li> -->
                         </ul>
-                        <ul id="navBtn3" class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
                             <li id="search_button"><a href="javascript: void(0)" data-toggle="modal" data-target="#search_modal" ng-click="search()"><span class="glyphicon glyphicon-search"></span></a></li>
                             <li><a href="javascript:void(0)">{{curUser}}</a></li>
                             <li><a id="logout" href="javascript:void(0)" ng-click="logout()">Log out</a></li>
@@ -162,14 +164,13 @@
             </form>
         </div>
         <div ng-controller="userDirectoryController">
-            <div class="col-xs-12" ng-show="chatPrivateBool" >
+            <div class="col-xs-12" ng-show="chatPrivateBool">
                 <div class="col-xs-12 col-md-12 col-lg-12 well">
                     <h2 id="chatPrivatelyHeader" align="left">Private Chatting</h2>
                     <ul class="list-group">
                         <li ng-repeat="privateMsg in privateMsgs" class="list-group-item">
-                            <!-- <span >{{announcement.username}}</span><b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
-                            <span>{{announcement.content}}</span> -->
-                            <span>{{privateMsg}}</span>
+                            <span >{{privateMsg.sender}} says to {{privateMsg.receiver}}: </span>
+                            <span>{{privateMsg.content}}</span><b class="badge"><span>{{privateMsg.location}}</span>{{privateMsg.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
                         </li>
                     </ul>
                     <form id="chatPrivatelyForm" name="chatPrivatelyForm" class="form-horizontal ng-pristine ng-valid">
@@ -180,7 +181,7 @@
                             <input id="sendPrivateMsg" autocomplete="off" value="Send Private Message" type="submit" ng-click="sendPrivateMsg()" class="btn btn-success">
                             <input id="sendPrivateMsg" autocomplete="off" value="Exit" type="submit" ng-click="exit()" class="btn btn-success" align="right">
                         </div>
-                    </form> 
+                    </form>
                 </div>
             </div>
             <div id="userDirectory" class="col-xs-12">
@@ -226,7 +227,7 @@
                                             <p class="ng-binding">status: {{user.accountstatus}}</p>
                                             <p class="ng-binding">{{user.onlinestatus}}</p>
                                             <p class="ng-binding">
-                                                <!-- <button class="btn btn-success" ng-click="chatWithSb(user.username)">Chat With Me</button> -->
+                                                iter2Status: {{user.status.status_code}}
                                             </p>
                                         </div>
                                     </div>

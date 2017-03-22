@@ -16,7 +16,12 @@ var console_log_config = {
     "session_log": false
 };
 
+var unittest_session_config = {
+  "check_session": true
+};
+
 module.exports = {
     "db_config": db_config,
-    "console_log_config": console_log_config
+    "console_log_config": console_log_config,
+    "unittest_session_config": unittest_session_config
 }

@@ -10,6 +10,7 @@ var response_log = config.console_log_config.response_log;
 module.exports = {
 
     getAllUsers: function(req, res) {
+        var username = req.session.loginUser;
         if (controller_log)
             console.log('~/controllers/usersController: getAllusers');
         User.getAllUsers(function (users, error) {
@@ -21,7 +22,7 @@ module.exports = {
                     console.log(outputjson);
                 res.status(200).send(outputjson);
             }
-        });
+        }, {"username": username});
     },
 
     getUser: function(req, res) {
