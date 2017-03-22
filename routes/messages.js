@@ -15,5 +15,6 @@ router.post('/announcements', announcementsController.postAnnouncement);
 
 router.get('/private/:sender/:receiver', privateMessagesController.getPrivateMessage);
 router.post('/private', privateMessagesController.postPrivateMessage);
+router.post('/private/resetunread', privateMessagesController.resetUnreadMessages);
 
 module.exports = router;

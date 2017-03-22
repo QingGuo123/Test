@@ -63,6 +63,35 @@ module.exports = {
                 }
             });
         }
+    },
+
+    resetUnreadMessages: function(req, res) {
+        var sender = req.body.sender;
+        var receiver = req.body.receiver;
+        if (controller_log)
+            console.log('~/controllers/privateMessagesController: resetUnreadMessages ' + sender + ' ' + receiver);
+        if (check_session && req.session.loginUser != receiver) {
+            if (session_log)
+                console.log('session: ' + req.session.loginUser + ', receiver: ' + receiver);
+            res.sendStatus(404);
+        }
+        else {
+            PrivateMessage.resetUnreadMessages(
+                function (resetUnreadMessagesResult, error) {
+                    if (error) {
+                        if (error instanceof AppErrors.UserNotExisted)
+                            res.sendStatus(404);
+                        else
+                            res.sendStatus(500);
+                    } else {
+                        if (response_log)
+                            console.log(resetUnreadMessagesResult);
+                        res.status(200).send(resetUnreadMessagesResult);
+                    }
+                },
+                {"sender": sender, "receiver": receiver}
+            );
+        }
     }
 
 };

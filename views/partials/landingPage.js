@@ -18,22 +18,6 @@ angular.module('ESNApp', [])
 
         $scope.users = '';
 
-        socket.on("updateDirectory", function() {
-            $http.get('/users').then(function(response) {
-                var users_temp = [];
-                users_temp = response.data.users;
-                //$scope.users = response.data.users;
-                for (var i = 0; i < users_temp.length; i++) {
-                    if (users_temp[i].onlinestatus == 1) {
-                        users_temp[i].onlinestatus = "Online";
-                    } else {
-                        users_temp[i].onlinestatus = "Offline";
-                    }
-                }
-                $scope.users = users_temp;
-            });
-        });
-
         socket.on("error", function() {
             alert("Update directory error.");
         });
@@ -55,24 +39,8 @@ angular.module('ESNApp', [])
         //     }
         //   }
         // })
-        $http.get('/currentUsername').then(function successCallback(response) {
-            var myBody = document.getElementById('landingPageBody');
-            myBody.style.display = 'block';
 
-            socket.emit("startChatPrivately", { "username": response.data.currentUsername });
-            socket.on("ev_to" + response.data.currentUsername, function(obj) {
-                if ($scope.chatWithWhom == obj.from || $scope.chatWithWhom == obj.to){
-                    $scope.privateMsgs;
-                    $http.get('/currentUsername').then(function successCallback(response) {
-                        $http.get('/messages/private/' + obj.from + '/' + obj.to).then(function successCallback(response) {
-                            $scope.privateMsgs = response.data.privateMessages;
-                        });
-                    });
-                }
-
-            });
-
-            console.log("response.status: " + response.status);
+        var updateDirectory = function () {
             $http.get('/users').then(function successCallback(response) {
 
                 var users_temp = [];
@@ -100,10 +68,39 @@ angular.module('ESNApp', [])
             }, function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });
+        }
+
+        $http.get('/currentUsername').then(function successCallback(response) {
+            var myBody = document.getElementById('landingPageBody');
+            myBody.style.display = 'block';
+
+            socket.emit("startChatPrivately", { "username": response.data.currentUsername });
+            socket.on("ev_to" + response.data.currentUsername, function(obj) {
+                if ($scope.chatWithWhom == obj.from || $scope.chatWithWhom == obj.to){
+                    $scope.privateMsgs;
+                    $http.get('/currentUsername').then(function successCallback(response) {
+                        $http.get('/messages/private/' + obj.from + '/' + obj.to).then(function successCallback(response) {
+                            $scope.privateMsgs = response.data.privateMessages;
+                        });
+                    });
+
+                }
+                else {
+                    updateDirectory();
+                }
+
+            });
+
+            console.log("response.status: " + response.status);
+
+            updateDirectory();
         }, function errorCallback(response) {
             window.location.href = "http://localhost:3000/index.html";
         });
 
+        socket.on("updateDirectory", function() {
+            updateDirectory();
+        });
 
         $scope.sendPrivateMsg = function() {
             var timestamp = new Date();
@@ -142,7 +139,16 @@ angular.module('ESNApp', [])
                 var from = response.data.currentUsername;
                 $http.get('/messages/private/' + from + '/' + chatUsername).then(function successCallback(response) {
                     $scope.privateMsgs = response.data.privateMessages;
-
+                    $http.post('/messages/private/resetunread', {
+                        "sender": chatUsername,
+                        "receiver": from
+                    }).then(function successCallback(response) {
+                        // Take in the response information
+                        console.log("post successfully");
+                        updateDirectory();
+                    }, function errorCallback(response) {
+                        console.log("Login failed, please check your user name and password.");
+                    });
                 });
             });
         }
@@ -153,7 +159,7 @@ angular.module('ESNApp', [])
 
     })
     .controller('statusController', function($scope, $location, $http, $timeout) {
-
+        var socket = io();
         $scope.updateStatus = function() {
 
             var curUsername;
@@ -185,6 +191,7 @@ angular.module('ESNApp', [])
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
                 });
+                socket.emit("status");
             }, function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });

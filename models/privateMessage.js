@@ -61,6 +61,24 @@ PrivateMessage.prototype.postPrivateMessage = function(callback) {
     });
 };
 
+PrivateMessage.resetUnreadMessages = function(callback, userdata) {
+    var sender = userdata["sender"];
+    var receiver = userdata["receiver"];
+    if (model_log)
+        console.log('~/models/privateMessage: resetUnreadMessages ' + sender + ' ' + receiver);
+    db.serialize(function () {
+        db.run(sql_privateMessage.resetUnreadMessages(), [sender, receiver],
+            function (error) {
+                if (error) {
+                    callback(null, error);
+                } else {
+                    callback({"resetUnreadMessagesResult": 0}, null);
+                }
+            }
+        );
+    });
+}
+
 PrivateMessage.getPrivateMessage = function(callback, userdata) {
     var sender = userdata["sender"];
     var receiver = userdata["receiver"];

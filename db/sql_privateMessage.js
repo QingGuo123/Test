@@ -42,7 +42,12 @@ module.exports = {
     },
 
     getNewPMNumByReceiver: function() {
-        var sql = "SELECT username sender, COUNT(PrivateMessage.id) newpms FROM User, PrivateMessage WHERE PrivateMessage.senderid = User.id AND receiverid = (SELECT id FROM User WHERE username = ?) GROUP BY senderid;";
+        var sql = "SELECT username sender, COUNT(PrivateMessage.id) newpms FROM User, PrivateMessage WHERE PrivateMessage.senderid = User.id AND receiverid = (SELECT id FROM User WHERE username = ?) AND isnew = 1 GROUP BY senderid;";
+        return sql;
+    },
+
+    resetUnreadMessages: function() {
+        var sql = "UPDATE PrivateMessage SET isnew = 0 WHERE senderid = (SELECT id FROM User WHERE username = ?) AND receiverid = (SELECT id FROM User WHERE username = ?);";
         return sql;
     }
 
