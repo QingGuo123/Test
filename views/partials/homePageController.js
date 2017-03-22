@@ -49,6 +49,7 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 			//console.log("hello");
 			var username = $scope.username;
 			var password = md5.createHash($scope.password);
+			//alert($location.host() + ":" + $location.port());
 			//console.log("$rootScope.curUsername: " + $rootScope.curUsername);
 			$http({
 			  method: 'GET',

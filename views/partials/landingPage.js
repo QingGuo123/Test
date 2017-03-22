@@ -40,7 +40,7 @@ angular.module('ESNApp', [])
         //   }
         // })
 
-        var updateDirectory = function () {
+        var updateDirectory = function() {
             $http.get('/users').then(function successCallback(response) {
 
                 var users_temp = [];
@@ -76,7 +76,7 @@ angular.module('ESNApp', [])
 
             socket.emit("startChatPrivately", { "username": response.data.currentUsername });
             socket.on("ev_to" + response.data.currentUsername, function(obj) {
-                if ($scope.chatWithWhom == obj.from || $scope.chatWithWhom == obj.to){
+                if ($scope.chatWithWhom == obj.from || $scope.chatWithWhom == obj.to) {
                     $scope.privateMsgs;
                     $http.get('/currentUsername').then(function successCallback(response) {
                         $http.get('/messages/private/' + obj.from + '/' + obj.to).then(function successCallback(response) {
@@ -84,8 +84,7 @@ angular.module('ESNApp', [])
                         });
                     });
 
-                }
-                else {
+                } else {
                     updateDirectory();
                 }
 
@@ -106,15 +105,7 @@ angular.module('ESNApp', [])
             var timestamp = new Date();
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;
-                socket.emit("privateMessage", {
-                    "from": from,
-                    "to": $scope.chatWithWhom,
-                    "message": {
-                        "content": $scope.currentChatPrivatelyMsg,
-                        "timestamp": timestamp,
-                        "location": "Mountain View"
-                    }
-                });
+                
                 $http.post('/messages/private', {
                     "sender": from,
                     "receiver": $scope.chatWithWhom,
@@ -127,8 +118,21 @@ angular.module('ESNApp', [])
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
                 });
-            });
 
+                socket.emit("privateMessage", {
+                    "from": from,
+                    "to": $scope.chatWithWhom,
+                    "message": {
+                        "content": $scope.currentChatPrivatelyMsg,
+                        "timestamp": timestamp,
+                        "location": "Mountain View"
+                    }
+                });
+                $scope.currentChatPrivatelyMsg = "";
+
+            }, function errorCallback(response) {
+                window.location.href = "http://localhost:3000/index.html";
+            });
         }
 
         $scope.chatWithSb = function(chatUsername) {
@@ -155,6 +159,7 @@ angular.module('ESNApp', [])
 
         $scope.exit = function() {
             $scope.chatPrivateBool = false;
+            $scope.chatWithWhom = "";
         }
 
     })

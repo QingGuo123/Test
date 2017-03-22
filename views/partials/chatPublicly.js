@@ -64,7 +64,7 @@ angular.module('ESNApp',[])
                 }else if(response.data.messages[index].status_code == 0){
                     response.data.messages[index].status_code = "fa fa-circle";
                     response.data.messages[index].iconcolor = "green";
-                }else if(response.data.messages[index].status_code == 0){
+                }else if(response.data.messages[index].status_code == 1){
                     response.data.messages[index].status_code = "fa fa-circle";
                     response.data.messages[index].iconcolor = "yellow";
                 }else{
@@ -118,7 +118,7 @@ angular.module('ESNApp',[])
             $http.get('/currentUsername').then(function successCallback(response) {
 
                 $scope.curUsername = response.data.currentUsername;
-                alert($scope.currentAnnouncement);
+                //alert($scope.currentAnnouncement);
                 $http.post('/messages/announcements', {
                     "username" : $scope.curUsername,
                     "content" : $scope.currentAnnouncement,
