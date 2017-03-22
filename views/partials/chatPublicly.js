@@ -45,50 +45,54 @@ angular.module('ESNApp',[])
             $scope.currentMsg = "";
 
         },function errorCallback(response){
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
         });
 
     };
 
-    $http.get('/currentUsername').then(function successCallback(response) {
-        console.log("response.status: " + response.status);
-        var myBody = document.getElementById('chatPubliclyBody');
-        myBody.style.display = 'block';
-        $http.get('/messages/public').then(function (response) {
-            //$scope.users = response.data.users;
-            
-            for(var index = 0; index < response.data.messages.length;index++){
-                if(response.data.messages[index].status_code == -1){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "white";
-                }else if(response.data.messages[index].status_code == 0){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "green";
-                }else if(response.data.messages[index].status_code == 1){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "yellow";
-                }else{
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "red";
-                }
-                
-            }
+        var getAllPublicMessages = function () {
+            $http.get('/currentUsername').then(function successCallback(response) {
+                console.log("response.status: " + response.status);
+                var myBody = document.getElementById('chatPubliclyBody');
+                myBody.style.display = 'block';
+                $http.get('/messages/public').then(function (response) {
+                    //$scope.users = response.data.users;
 
-            $scope.messages = response.data.messages;
-            console.log($scope.messages);
-        });
-    }, function errorCallback(response){
-        window.location.href = "http://localhost:3000/index.html";
-    });
+                    for(var index = 0; index < response.data.messages.length;index++){
+                        if(response.data.messages[index].status_code == -1){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "white";
+                        }else if(response.data.messages[index].status_code == 0){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "green";
+                        }else if(response.data.messages[index].status_code == 1){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "yellow";
+                        }else{
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "red";
+                        }
 
+                    }
+
+                    $scope.messages = response.data.messages;
+                    console.log($scope.messages);
+                });
+            }, function errorCallback(response){
+                window.location.href = "/index.html";
+            });
+        };
+
+        getAllPublicMessages();
 
     socket.on("message", function(obj){
-        $scope.messages.push({
-         "username": obj.username,
-         "content": obj.content,
-         "timestamp": obj.timestamp
-       });
-        $scope.$apply();
+       //  $scope.messages.push({
+       //   "username": obj.username,
+       //   "content": obj.content,
+       //   "timestamp": obj.timestamp
+       // });
+       //  $scope.$apply();
+        getAllPublicMessages();
     });
 
     })
@@ -100,7 +104,7 @@ angular.module('ESNApp',[])
             console.log(response.data.announcements);
             $scope.announcements = response.data.announcements;
         }, function errorCallback(response){
-            window.location.href = "http://localhost:3000/index.html";
+            window.location.href = "/index.html";
         });
         socket.on("announcement", function(obj){
             $scope.announcements.push({
@@ -118,7 +122,6 @@ angular.module('ESNApp',[])
             $http.get('/currentUsername').then(function successCallback(response) {
 
                 $scope.curUsername = response.data.currentUsername;
-                //alert($scope.currentAnnouncement);
                 $http.post('/messages/announcements', {
                     "username" : $scope.curUsername,
                     "content" : $scope.currentAnnouncement,
@@ -139,7 +142,7 @@ angular.module('ESNApp',[])
                 $scope.currentAnnouncement = "";
 
             },function errorCallback(response){
-                    window.location.href = "http://localhost:3000/index.html";
+                    window.location.href = "/index.html";
             });
         }  
     })
@@ -159,12 +162,12 @@ angular.module('ESNApp')
 
         $scope.landingPage = function () {
             console.log("Clicked on landingPage");
-            window.location.href = "http://localhost:3000/landingPage.html";
+            window.location.href = "/landingPage.html";
             //$location.path('/lobby');
         };
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
-            window.location.href = "http://localhost:3000/chatPublicly.html";
+            window.location.href = "/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');
@@ -214,9 +217,9 @@ angular.module('ESNApp')
 
         $scope.logout = function () {
             $http.get('/logout').then(function (response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             }, function errorCallback(response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             });
         };
 
@@ -252,5 +255,4 @@ angular.module('ESNApp')
 //       .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
 //         alert("$scope.currentAnnouncement");
 //       });
-
 

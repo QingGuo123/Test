@@ -65,7 +65,7 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 					if(response.data.regOrLoginResult === 1){
 						alert("Incorrect password!");
 				    }else if(response.data.regOrLoginResult === 2){
-				    	window.location.href = "http://localhost:3000/landingPage.html";
+				    	window.location.href = "/landingPage.html";
 				    }
 				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
@@ -83,7 +83,7 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 						// Take in the response information
 						console.log("post successfully");
 						alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");
-						window.location.href = "http://localhost:3000/landingPage.html";
+						window.location.href = "/landingPage.html";
 						// User.setUsername($scope.username);
 						// User.setPassword($scope.password);
 						// console.log(response.data);

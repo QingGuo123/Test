@@ -66,7 +66,7 @@ angular.module('ESNApp', [])
                 }
                 $scope.users = users_temp;
             }, function errorCallback(response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             });
         }
 
@@ -94,7 +94,7 @@ angular.module('ESNApp', [])
 
             updateDirectory();
         }, function errorCallback(response) {
-            window.location.href = "http://localhost:3000/index.html";
+            window.location.href = "/index.html";
         });
 
         socket.on("updateDirectory", function() {
@@ -198,7 +198,7 @@ angular.module('ESNApp', [])
                 });
                 socket.emit("status");
             }, function errorCallback(response) {
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             });
         }
     })
@@ -220,7 +220,7 @@ angular.module('ESNApp', [])
         // handle navbar switch
         $scope.landingPage = function() {
             console.log("Clicked on landingPage");
-            window.location.href = "http://localhost:3000/landingPage.html";
+            window.location.href = "/landingPage.html";
             // $http.post('/land', {
             //   'type':'land'
             // }).then(function successCallback(response) {
@@ -233,7 +233,7 @@ angular.module('ESNApp', [])
         };
         $scope.chatPublicly = function() {
             console.log("Clicked on chatPublicly");
-            window.location.href = "http://localhost:3000/chatPublicly.html";
+            window.location.href = "/chatPublicly.html";
             // Navbar.message_count = 0;
             // $scope.message_navbar = "";
             //$location.path('/chatpublicly');
@@ -246,10 +246,10 @@ angular.module('ESNApp', [])
         $scope.logout = function() {
             $http.get('/logout').then(function(response) {
                 socket.emit("userLogout", { "username": $scope.curUser });
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             }, function errorCallback(response) {
                 socket.emit("userLogout", { "username": $scope.curUser });
-                window.location.href = "http://localhost:3000/index.html";
+                window.location.href = "/index.html";
             });
             // $http.get('/logout').then(function(response) {
             // }, function(response) {
