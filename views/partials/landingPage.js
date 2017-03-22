@@ -69,7 +69,6 @@ angular.module('ESNApp', [])
                         });
                     });
                 }
-                else alert("fuck");
 
             });
 

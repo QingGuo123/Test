@@ -224,10 +224,13 @@
                                 </div> -->
                                         <div class="row-content">
                                             <h4 type="button">{{user.username}}</h4>
-                                            <p class="ng-binding">status: {{user.accountstatus}}</p>
+                                            <p class="ng-binding">AcountStatus: {{user.accountstatus}}</p>
                                             <p class="ng-binding">{{user.onlinestatus}}</p>
                                             <p class="ng-binding">
-                                                iter2Status: {{user.status.status_code}}
+                                                Status: {{user.status.status_code}}
+                                            </p>
+                                            <p class="ng-binding">
+                                                Unread: {{user.newpms}}
                                             </p>
                                         </div>
                                     </div>
