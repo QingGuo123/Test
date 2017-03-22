@@ -224,36 +224,7 @@ angular.module('ESNApp')
             });
         };
 
-        // socket.on("logout", function() {
-        //     alert("Your account has been set to inactive, the system will log you out now.");
-        //     $scope.logout();
-        // });
 
-        // // handle message notification
-        // $scope.message_navbar = "";
-        // socket.on("message", function (message) {
-        //     if ($location.$$url !== "/chatpublicly") {
-        //         Navbar.message_count = Navbar.message_count + 1;
-        //         $scope.message_navbar = Navbar.message_count.toString();
-        //     }
-        // });
-
-        // $scope.private_message_navbar = "";
-        // socket.on('rec_priv_msg', function(message) {
-        //     if ($location.$$url !== "/chatprivately") {
-        //         Navbar.private_message_count = Navbar.private_message_count + 1;
-        //         $scope.private_message_navbar = Navbar.private_message_count.toString();
-        //     }
-        // });
-
-        // $scope.notification = {
-        //     class: "hide",
-        //     message: ""
-        // };
     });
-// angular.module('ESNApp')
-//     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
-//       .controller('announcementPageCtrl', function ($scope, $location, $http, $timeout) {
-//         alert("$scope.currentAnnouncement");
-//       });
+
 
