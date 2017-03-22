@@ -50,45 +50,49 @@ angular.module('ESNApp',[])
 
     };
 
-    $http.get('/currentUsername').then(function successCallback(response) {
-        console.log("response.status: " + response.status);
-        var myBody = document.getElementById('chatPubliclyBody');
-        myBody.style.display = 'block';
-        $http.get('/messages/public').then(function (response) {
-            //$scope.users = response.data.users;
-            
-            for(var index = 0; index < response.data.messages.length;index++){
-                if(response.data.messages[index].status_code == -1){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "white";
-                }else if(response.data.messages[index].status_code == 0){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "green";
-                }else if(response.data.messages[index].status_code == 0){
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "yellow";
-                }else{
-                    response.data.messages[index].status_code = "fa fa-circle";
-                    response.data.messages[index].iconcolor = "red";
-                }
-                
-            }
+        var getAllPublicMessages = function () {
+            $http.get('/currentUsername').then(function successCallback(response) {
+                console.log("response.status: " + response.status);
+                var myBody = document.getElementById('chatPubliclyBody');
+                myBody.style.display = 'block';
+                $http.get('/messages/public').then(function (response) {
+                    //$scope.users = response.data.users;
 
-            $scope.messages = response.data.messages;
-            console.log($scope.messages);
-        });
-    }, function errorCallback(response){
-        window.location.href = "/index.html";
-    });
+                    for(var index = 0; index < response.data.messages.length;index++){
+                        if(response.data.messages[index].status_code == -1){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "white";
+                        }else if(response.data.messages[index].status_code == 0){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "green";
+                        }else if(response.data.messages[index].status_code == 1){
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "yellow";
+                        }else{
+                            response.data.messages[index].status_code = "fa fa-circle";
+                            response.data.messages[index].iconcolor = "red";
+                        }
 
+                    }
+
+                    $scope.messages = response.data.messages;
+                    console.log($scope.messages);
+                });
+            }, function errorCallback(response){
+                window.location.href = "/index.html";
+            });
+        };
+
+        getAllPublicMessages();
 
     socket.on("message", function(obj){
-        $scope.messages.push({
-         "username": obj.username,
-         "content": obj.content,
-         "timestamp": obj.timestamp
-       });
-        $scope.$apply();
+       //  $scope.messages.push({
+       //   "username": obj.username,
+       //   "content": obj.content,
+       //   "timestamp": obj.timestamp
+       // });
+       //  $scope.$apply();
+        getAllPublicMessages();
     });
 
     })
@@ -118,7 +122,6 @@ angular.module('ESNApp',[])
             $http.get('/currentUsername').then(function successCallback(response) {
 
                 $scope.curUsername = response.data.currentUsername;
-                alert($scope.currentAnnouncement);
                 $http.post('/messages/announcements', {
                     "username" : $scope.curUsername,
                     "content" : $scope.currentAnnouncement,

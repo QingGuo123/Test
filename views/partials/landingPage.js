@@ -155,6 +155,7 @@ angular.module('ESNApp', [])
 
         $scope.exit = function() {
             $scope.chatPrivateBool = false;
+            $scope.chatWithWhom = "";
         }
 
     })
