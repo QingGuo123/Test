@@ -98,7 +98,7 @@ angular.module('ESNApp', [])
 
 
         $scope.sendPrivateMsg = function() {
-            //alert($scope.chatWithWhom);
+            alert($scope.chatWithWhom);
             var timestamp = new Date();
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;

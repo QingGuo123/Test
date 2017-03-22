@@ -7,6 +7,7 @@ var config = require('../config/global.js');
 var controller_log = config.console_log_config.controller_log;
 var response_log = config.console_log_config.response_log;
 var session_log = config.console_log_config.session_log;
+var check_session = config.unittest_session_config.check_session;
 
 module.exports = {
 
@@ -39,7 +40,7 @@ module.exports = {
         var location = req.body.location;
         if (controller_log)
             console.log('~/controllers/statusController: postStatus ' + username + ' ' + status_code + ' ' + timestamp + ' ' + location);
-        if (req.session.loginUser != username) {
+        if (check_session && req.session.loginUser != username) {
             if (session_log)
                 console.log('session: ' + req.session.loginUser + ', username: ' + username);
             res.sendStatus(404);
