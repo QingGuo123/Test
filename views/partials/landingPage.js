@@ -80,7 +80,30 @@ angular.module('ESNApp', [])
                     $scope.privateMsgs;
                     $http.get('/currentUsername').then(function successCallback(response) {
                         $http.get('/messages/private/' + obj.from + '/' + obj.to).then(function successCallback(response) {
+                            for (var index = 0; index < response.data.privateMessages.length; index++) {
+                                if (response.data.privateMessages[index].status_code == -1) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "white";
+                                } else if (response.data.privateMessages[index].status_code == 0) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "green";
+                                } else if (response.data.privateMessages[index].status_code == 1) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "yellow";
+                                } else {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "red";
+                                }
+
+                                if (response.data.privateMessages[index].sender == obj.from) {
+                                    response.data.privateMessages[index].sender = "You";
+                                }
+                                if (response.data.privateMessages[index].receiver == obj.from) {
+                                    response.data.privateMessages[index].receiver = "You";
+                                }
+                            }
                             $scope.privateMsgs = response.data.privateMessages;
+                            console.log($scope.privateMsgs);
                         });
                     });
 
