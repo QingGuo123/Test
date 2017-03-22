@@ -64,7 +64,7 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 					if(response.data.regOrLoginResult === 1){
 						alert("Incorrect password!");
 				    }else if(response.data.regOrLoginResult === 2){
-				    	window.location.href = "http://localhost:3000/landingPage.html";
+				    	window.location.href = "/landingPage.html";
 				    }
 				}, function errorCallback(response) {
 					$scope.message="Login failed, please check your user name and password.";
