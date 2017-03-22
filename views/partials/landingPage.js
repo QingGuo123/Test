@@ -105,7 +105,7 @@ angular.module('ESNApp', [])
             var timestamp = new Date();
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;
-                
+
                 $http.post('/messages/private', {
                     "sender": from,
                     "receiver": $scope.chatWithWhom,
@@ -114,6 +114,40 @@ angular.module('ESNApp', [])
                     "location": "Mountain View",
                 }).then(function successCallback(response) {
                     // Take in the response information
+
+
+                    $http.get('/currentUsername').then(function successCallback(response) {
+                        var from = response.data.currentUsername;
+                        $http.get('/messages/private/' + from + '/' + $scope.chatWithWhom).then(function successCallback(response) {
+
+                            for (var index = 0; index < response.data.privateMessages.length; index++) {
+                                if (response.data.privateMessages[index].status_code == -1) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "white";
+                                } else if (response.data.privateMessages[index].status_code == 0) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "green";
+                                } else if (response.data.privateMessages[index].status_code == 1) {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "yellow";
+                                } else {
+                                    response.data.privateMessages[index].status_code = "fa fa-circle";
+                                    response.data.privateMessages[index].iconcolor = "red";
+                                }
+
+                                if (response.data.privateMessages[index].sender == from) {
+                                    response.data.privateMessages[index].sender = "You";
+                                }
+                                if (response.data.privateMessages[index].receiver == from) {
+                                    response.data.privateMessages[index].receiver = "You";
+                                }
+                            }
+                            $scope.privateMsgs = response.data.privateMessages;
+                            console.log($scope.privateMsgs);
+                        });
+                    });
+
+
                     console.log("post successfully");
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
@@ -128,7 +162,10 @@ angular.module('ESNApp', [])
                         "location": "Mountain View"
                     }
                 });
+
                 $scope.currentChatPrivatelyMsg = "";
+
+
 
             }, function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
@@ -142,26 +179,26 @@ angular.module('ESNApp', [])
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;
                 $http.get('/messages/private/' + from + '/' + chatUsername).then(function successCallback(response) {
-                    
-                    for(var index = 0; index < response.data.privateMessages.length;index++){
-                        if(response.data.privateMessages[index].status_code == -1){
+
+                    for (var index = 0; index < response.data.privateMessages.length; index++) {
+                        if (response.data.privateMessages[index].status_code == -1) {
                             response.data.privateMessages[index].status_code = "fa fa-circle";
                             response.data.privateMessages[index].iconcolor = "white";
-                        }else if(response.data.privateMessages[index].status_code == 0){
+                        } else if (response.data.privateMessages[index].status_code == 0) {
                             response.data.privateMessages[index].status_code = "fa fa-circle";
                             response.data.privateMessages[index].iconcolor = "green";
-                        }else if(response.data.privateMessages[index].status_code == 1){
+                        } else if (response.data.privateMessages[index].status_code == 1) {
                             response.data.privateMessages[index].status_code = "fa fa-circle";
                             response.data.privateMessages[index].iconcolor = "yellow";
-                        }else{
+                        } else {
                             response.data.privateMessages[index].status_code = "fa fa-circle";
                             response.data.privateMessages[index].iconcolor = "red";
                         }
 
-                        if(response.data.privateMessages[index].sender == from){
+                        if (response.data.privateMessages[index].sender == from) {
                             response.data.privateMessages[index].sender = "You";
-                        } 
-                        if(response.data.privateMessages[index].receiver == from){
+                        }
+                        if (response.data.privateMessages[index].receiver == from) {
                             response.data.privateMessages[index].receiver = "You";
                         }
 
