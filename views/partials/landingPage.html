@@ -67,24 +67,7 @@
         background: linear-gradient(to bottom, #008ae6 0%, #66c2ff 100%);
         color: white;
     }
-    /*#btn3{
-            background: -moz-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008ae6), color-stop(100%,#66c2ff));
-            background: -webkit-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: -o-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: -ms-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: linear-gradient(to bottom, #008ae6 0%,#66c2ff 100%);
-            color: white;
-        }
-        #btn4{
-            background: -moz-linear-gradient(top, #008ae6 0%, #66c2ff 100%);
-            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008ae6), color-stop(100%,#66c2ff));
-            background: -webkit-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: -o-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: -ms-linear-gradient(top, #008ae6 0%,#66c2ff 100%);
-            background: linear-gradient(to bottom, #008ae6 0%,#66c2ff 100%);
-            color: white;
-        }*/
+
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -190,40 +173,13 @@
                 <h2>User Directory</h2>
                 <div class="list-group">
                     <div>
-                        <!-- ng-repeat -->
-                        <!--<div class="row">-->
-                        <!--<div class="col-xs-7">-->
-                        <!--<div class="list-group-item">-->
-                        <!--&lt;!&ndash; <div class="row-action-primary">-->
-                        <!--<img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">-->
-                        <!--</div> &ndash;&gt;-->
-                        <!--<div class="row-content">-->
-                        <!--<h4 type="button">User1</h4>-->
-                        <!--<p class="ng-binding">status: Normal</p>-->
-                        <!--<p class="ng-binding">offline</p>-->
-                        <!--<p class="ng-binding"></p>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-xs-5">-->
-                        <!--<div>-->
-                        <!--<button id="btn1" type="button" class="btn btn-raised btn-sm"><i class="material-icons">account_box</i></button>-->
-                        <!--</div>-->
-                        <!--<div>-->
-                        <!--<button id="btn2" type="button" class="btn btn-raised btn-sm"><i class="material-icons">speaker_notes</i></button>-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash; end ngIf: user.NAME !== currentUser &ndash;&gt;-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="list-group-separator"></div>-->
+                       
                         <div ng-repeat="user in users">
                             <!-- ng-repeat -->
                             <div class="row">
                                 <div class="col-xs-7 col-md-7">
                                     <div class="list-group-item">
-                                        <!-- <div class="row-action-primary">
-                                    <img src="/Users/EricGao/Desktop/FSE/s17-ESN-SV2/views/partials/test.jpeg" style="width: 10%; height: 10%;">
-                                </div> -->
+                                     
                                         <div class="row-content">
                                             <h4 type="button">{{user.username}}</h4>
                                             <p class="ng-binding">AcountStatus: {{user.accountstatus}}</p>

@@ -1,17 +1,12 @@
 angular.module('ESNApp', [])
     .controller('lobbyPageController', function($scope, $state, $location) {
         $scope.username = User.getUsername();
-        // console.log(User.getLoginorSignup());
-        // console.log(User.getLoginorSignup() == "login");
         if (User.getLoginorSignup() == "login") {
             $scope.signuporlogin = "back "
         } else {
             $scope.signuporlogin = "newcomer"
         }
 
-        // socket.emit('login', {
-        //   user: $scope.username
-        // });
     })
     .controller('userDirectoryController', function($scope, $http, $location) {
         var socket = io();
@@ -21,24 +16,7 @@ angular.module('ESNApp', [])
         socket.on("error", function() {
             alert("Update directory error.");
         });
-        // $scope.sendUserName = function(targetUser){
-        //   ChatPrivately.setUsername(targetUser);
-        //   console.log("here is used to send username!");
-        //   $location.path('/chatprivately');
-        // }
-
-        // socket.on('check_online', function(user) {
-        //   $scope.users[user.index].ONLINE = user.online;
-        // });
-
-        // socket.on('update_status', function(user) {
-        //   for (var i in $scope.users) {
-        //     if ($scope.users[i].NAME === user.user_name) {
-        //       $scope.users[i].STATUS = user.status;
-        //       break;
-        //     }
-        //   }
-        // })
+ 
 
         var updateDirectory = function() {
             $http.get('/users').then(function successCallback(response) {
@@ -47,7 +25,6 @@ angular.module('ESNApp', [])
                 users_temp = response.data.users;
 
                 var temp = [users_temp.length];
-                //$scope.users = response.data.users;
                 for (var i = 0; i < users_temp.length; i++) {
                     if (users_temp[i].onlinestatus == 1) {
                         users_temp[i].onlinestatus = "Online";
@@ -291,12 +268,7 @@ angular.module('ESNApp', [])
     //.controller('navbarController', function ($scope, $location, $http, $timeout, User, Notification, search, socket, Navbar) {
     .controller('navbarController', function($scope, $location, $http, $timeout) {
 
-        // $scope.click = function(){
-        //   alert("cnm");
-        // }
-
         var socket = io();
-
 
         $http.get('/currentUsername').then(function(response) {
             $scope.curUser = response.data.currentUsername;
@@ -307,22 +279,12 @@ angular.module('ESNApp', [])
         $scope.landingPage = function() {
             console.log("Clicked on landingPage");
             window.location.href = "/landingPage.html";
-            // $http.post('/land', {
-            //   'type':'land'
-            // }).then(function successCallback(response) {
-            //   // Take in the response information
-            //   console.log("post successfully");
-            // }, function errorCallback(response) {
-            //   console.log("post error");
-            // });
-            //$location.path('/lobby');
+
         };
         $scope.chatPublicly = function() {
             console.log("Clicked on chatPublicly");
             window.location.href = "/chatPublicly.html";
-            // Navbar.message_count = 0;
-            // $scope.message_navbar = "";
-            //$location.path('/chatpublicly');
+
         };
 
         // handle user login/logout
@@ -337,18 +299,6 @@ angular.module('ESNApp', [])
                 socket.emit("userLogout", { "username": $scope.curUser });
                 window.location.href = "/index.html";
             });
-            // $http.get('/logout').then(function(response) {
-            // }, function(response) {
-            //     console.log(response.status);
-            //     console.log(response.status === 302);
-            //     if (response.status === 302) {
-            //         socket.emit("logout", {
-            //             user: User.getUsername()
-            //         });
-            //         $location.path('/index');
-            //     } else {
-            //         console.log("Log out failed.");
-            //     }
-            // });
+            
         };
     });

@@ -10,16 +10,6 @@ angular.module('ESNApp',[])
         $scope.currentMsg = "";
         $scope.curUsername = "";
 
-    // $http.post('/messages/public', {
-    //     "username" : "eric", 
-    //     "content" : "hello", 
-    //     "timestamp" : timestamp
-    // }).then(function successCallback(response) {
-    //     // Take in the response information
-    //     console.log("post successfully");
-    // }, function errorCallback(response) {
-    //     console.log("Login failed, please check your user name and password.");
-    // });
     $scope.sendMessage = function(){
         var timestamp = new Date();
         $http.get('/currentUsername').then(function successCallback(response) {
@@ -87,12 +77,6 @@ angular.module('ESNApp',[])
         getAllPublicMessages();
 
     socket.on("message", function(obj){
-       //  $scope.messages.push({
-       //   "username": obj.username,
-       //   "content": obj.content,
-       //   "timestamp": obj.timestamp
-       // });
-       //  $scope.$apply();
         getAllPublicMessages();
     });
 
@@ -169,52 +153,11 @@ angular.module('ESNApp')
         $scope.chatPublicly = function () {
             console.log("Clicked on chatPublicly");
             window.location.href = "/chatPublicly.html";
-            // Navbar.message_count = 0;
-            // $scope.message_navbar = "";
-            //$location.path('/chatpublicly');
         };
 
         // handle user login/logout
         $scope.navAdministerPage = "hide";
         $scope.navMeasurePerf = "hide";
-
-        // $http.post("/users/current_user").then(function (response) {
-        //     var username = response.data.username;
-        //     var privilegeLevel = response.data.privilege_level;
-        //     User.setUsername(username);
-        //     User.setLoginorSignup("login");
-        //     User.setPrivilegeLevel(privilegeLevel);
-        //     $scope.currentUser = username;
-        //     $scope.privilegeLevel = privilegeLevel;
-        //     switch (privilegeLevel) {
-        //         case "Administrator":
-        //             $scope.navAdministerPage = "";
-        //             $scope.navMeasurePerf = "";
-        //             break;
-        //         case "Monitor":
-        //             $scope.navMeasurePerf = "";
-        //             break;
-        //         default:
-        //             if ($location.$$url === "/measurePerformance" || 
-        //                 $location.$$url === "/administratorPage" ||
-        //                 $location.$$url === "/administratorUserProfile") {
-        //                 $location.url("/lobby");
-        //             }
-        //             break;
-        //     }
-
-        //     if (User.getLoginorSignup() === "login") {
-        //         Notification.postNotification($scope, "Welcome back "+User.getUsername()+", what do you wanna do today?", "info");
-        //     } else {
-        //         Notification.postNotification($scope, "Welcome new user "+User.getUsername()+", what do you wanna do today?", "info");
-        //     }
-
-        //     socket.emit('login', {
-        //         user: User.getUsername()
-        //     });
-        // }, function () {
-        //     $location.path('/index');
-        // });
 
         $scope.logout = function () {
             $http.get('/logout').then(function (response) {
