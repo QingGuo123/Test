@@ -33,7 +33,7 @@ var user3 = {
     location: '230'
 };
 
-suite('Test status conponent', function () {
+suite('Test status component', function () {
 
     test(' - Identify a exist user can insert or update status', function (done) {
         var test_status = new Status(user1.username, user1.status_code, user1.timestamp, user1.location);

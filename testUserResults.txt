@@ -1,0 +1,20 @@
+initialize database /home/jinliang/FSE/new_project/s17-ESN-SV2/db/ESN_db.db
+
+[0m[0m
+[0m  Test user component[0m
+~/models/user: regOrLogin Eric2 123123123
+{ regOrLoginResult: 2 }
+[2K[0G  [32m  ✓[0m[90m - Identify whether able to register or login[0m
+~/models/user: regOrLogin Jianfeng 123123123
+{ regOrLoginResult: 2 }
+[2K[0G  [32m  ✓[0m[90m - Identify whether another user is able to register or login [0m
+~/models/user: getUser Eric2
+[2K[0G  [32m  ✓[0m[90m - Identify whether able to get the exist test_user[0m
+~/models/user: getAllusers
+[2K[0G  [32m  ✓[0m[90m  - Identify whether able to get all exist test_users[0m
+~/models/user: getUser Minghao2
+[2K[0G  [32m  ✓[0m[90m  - Identify not able to get a non-exist user[0m
+
+
+[92m [0m[32m 5 passing[0m[90m (43ms)[0m
+

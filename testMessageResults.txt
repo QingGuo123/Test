@@ -1,0 +1,17 @@
+
+[0m[0m
+[0m  Test messgage component[0m
+~/models/message: postPublicMessage Eric2 Hello World! 24:00 129B
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist user can post a public message[0m
+~/models/message: postPublicMessage Minghao2 Bye World! 00:00 129A
+[2K[0G  [32m  ✓[0m[90m  - Identify a non-exist user cannot post a public message[0m
+~/models/message: getPublicMessage Eric2
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist user can get public message[0m
+~/models/message: getPublicMessage Minghao2
+[2K[0G  [32m  ✓[0m[90m  - Identify a non-exist user cannot get public message[0m
+~/models/message: getAllPublicMessages
+[2K[0G  [32m  ✓[0m[90m  - Identify can get all public message[0m
+
+
+[92m [0m[32m 5 passing[0m[90m (29ms)[0m
+

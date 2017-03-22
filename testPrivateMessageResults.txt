@@ -1,0 +1,21 @@
+
+[0m[0m
+[0m  Test private message component[0m
+~/models/privateMessage: postPrivateMessage Eric2 Jianfeng Hello World! 24:00 129B
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist user can post a private message successfully[0m
+~/models/privateMessage: postPrivateMessage Minghao2 Jianfeng Bye World! 00:00 129A
+[2K[0G  [32m  ✓[0m[90m  - Identify non-exist sender send a private message to a exist receiver[0m
+~/models/privateMessage: postPrivateMessage Eric2 Minghao2 Hello World! 24:00 129B
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist sender send a private message to a non-exist receiver[0m
+~/models/privateMessage: resetUnreadMessages Eric2 Jianfeng
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist receiver resets a unread message[0m
+~/models/privateMessage: getPrivateMessage Eric2 Jianfeng
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist receiver get private messages from a exist sender[0m
+~/models/privateMessage: getPrivateMessage Minghao2 Jianfeng
+[2K[0G  [32m  ✓[0m[90m  - Identify a non-exist receiver get private messages from a exist sender[0m
+~/models/privateMessage: getPrivateMessage Eric2 Minghao2
+[2K[0G  [32m  ✓[0m[90m  - Identify a exist receiver get private messages from a non-exist sender[0m
+
+
+[92m [0m[32m 7 passing[0m[90m (60ms)[0m
+
