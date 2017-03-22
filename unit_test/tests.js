@@ -5,8 +5,8 @@ var expect = require('expect.js');
 var agent = require('superagent');
 
 
-
 var PORT = process.env.PORT | 3000;
+// var PORT = 3000;
 var HOST = 'http://localhost:' + PORT;
 
 //Init a server
@@ -31,17 +31,6 @@ var server = app.listen(app.get('port'), serverInit)
     });
 
 
-var session = require('express-session');
-var FileStore = require('session-file-store')(session);
-
-app.use(session({
-    name: 'session',
-    secret: 'secret',
-    store: new FileStore({logFn: function(){}}),
-    cookie: {maxAge: 3600 * 1000},
-    saveUninitialized: false,
-    resave: false
-}));
 
 var user1 = {
     username: 'Eric2',
@@ -72,6 +61,16 @@ suite('users API', function () {
                     expect(res).to.have.property('statusCode');
                     expect(res).to.have.property('body');
                     expect(res.statusCode).to.equal(200);
+                    // agent.post(HOST + '/status')
+                    //     .send({username: user1.username, status_code: -1, timestamp:user1.timestamp, location:user1.location})
+                    //     .end(function (err, res) {
+                    //         // expect(err).to.be.ok();
+                    //         expect(res).to.have.property('statusCode');
+                    //         expect(res.statusCode).to.equal(200);
+                    //         // expect(res.body.postStatusResult).to.eql(user1.status_code);
+                    //         done();
+                    //     });
+
                     done();
             });
     });
@@ -109,6 +108,8 @@ suite('users API', function () {
                 expect(res).to.have.property('statusCode');
                 expect(res).to.have.property('body');
                 expect(res.statusCode).to.equal(200);
+                // expect(res.session.loginUser).to.equal(user1.username);
+                console.log(res.session);
                 done();
             });
     });
@@ -121,6 +122,7 @@ suite('users API', function () {
                 expect(err).to.not.be.ok();
                 expect(res).to.have.property('body');
                 console.log(res.body);
+                expect(res.body.username).to.equal(user1.username);
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(200);
                 done();
@@ -143,14 +145,15 @@ suite('users API', function () {
 
     test('Should update the test user`s status', function (done) {
         var req = agent.post(HOST + '/status');
-        req.session.loginUser = user1.username;
+
         req
-            .send({username: user1.username, status_code: user1.status_code, timestamp:user1.timestamp, location:user1.location})
+            .send({username: user1.username, status_code: -1, timestamp:user1.timestamp, location:user1.location})
             .end(function (err, res) {
-                // expect(err).to.be.ok();
+                 expect(err).to.be.ok();
                 expect(res).to.have.property('statusCode');
                 expect(res.statusCode).to.equal(200);
-                // expect(res.body.postStatusResult).to.eql(user1.status_code);
+                expect(res.body.postStatusResult).to.eql(user1.status_code);
+                console.log("123123123");
                 done();
             });
     });
@@ -226,6 +229,18 @@ suite('users API', function () {
                 done();
             });
     });
+
+
+    test('Should send a public message', function (done) {
+        var req = agent.post(HOST + '');
+        req
+            .send()
+            .end(function (err, res) {
+                done();
+        });
+    });
+
+
 
 
 });

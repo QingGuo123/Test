@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                     clearRequireCache: false,
                     ui: 'tdd'
                 },
-                src:['unit_test/**/*.js']
+                src:['unit_test/**/tests.js']
             },
             shippable:{
                 options:{
@@ -24,9 +24,19 @@ module.exports = function (grunt) {
                     },
                     ui:'tdd'
                 },
-                src: ['test/**/*.js']
+                src: ['test/**/table_message.js']
             }
         }
+
+        // mocha_istanbul: {
+        //     coverage: {
+        //         src: 'test', // a folder works nicely
+        //         options:{
+        //             ['--ui', 'tdd'] //any extra options fpr
+        //         }
+        //
+        //     }
+        // }
     });
     grunt.loadNpmTasks('grunt-mocha-test');
     // grunt.loadNpmTasks('grunt-mocha-istanbul');

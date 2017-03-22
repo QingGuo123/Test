@@ -17,7 +17,7 @@ var console_log_config = {
 };
 
 var unittest_session_config = {
-  "check_session": true
+  "check_session": false
 };
 
 module.exports = {

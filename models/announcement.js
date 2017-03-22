@@ -20,6 +20,7 @@ Announcement.prototype.postAnnouncement = function(callback) {
     var content = this.content;
     var timestamp = this.timestamp;
     var location = this.location;
+    console.log("username: " + username);
     if (model_log)
         console.log('~/models/announcement: postAnnouncement ' + username + ' ' + content + ' ' + timestamp + ' ' + location);
     db.serialize(function () {

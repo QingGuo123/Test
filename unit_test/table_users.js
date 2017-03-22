@@ -11,7 +11,7 @@ var sql_status = require('../db/sql_status');
 
 var db = null;
 var initDB = require('../db/init_db.js');
-var db_path = path.join(__dirname, '../db/ESN_db.db');
+var db_path = path.join(__dirname, '../db/table_user_test.db');
 var config = require('../config/global.js');
 
 
@@ -36,7 +36,7 @@ var test_admin_user = {
 
 suite('Users DB', function () {
 
-    test('Identify whether able to insert a test_user', function (done) {
+    test('- Identify whether able to insert a test_user', function (done) {
         db.run(sql_user.insertUser(), [test_user.username, test_user.password], function (err,row) {
             expect(err).to.not.be.ok();
             console.log(row);
@@ -44,7 +44,7 @@ suite('Users DB', function () {
         });
     });
 
-    test('Identify whether able to get the test_user in db', function (done) {
+    test('- Identify whether able to get the test_user in db', function (done) {
         db.all(sql_user.getUser(), [test_user.username], function (err, row) {
             expect(err).to.not.be.ok();
             console.log(row);
@@ -54,7 +54,7 @@ suite('Users DB', function () {
     });
 
 
-    test('Identify whether able to validate a user`s username and password', function (done) {
+    test('- Identify whether able to validate a user`s username and password', function (done) {
         db.all(sql_user.validUsernameAndPassword(), [test_user.username, test_user.password], function (err, row) {
             expect(err).to.not.be.ok();
             expect(row.length).to.equal(1);
@@ -63,14 +63,21 @@ suite('Users DB', function () {
     });
 
 
-    test('Identify whether able to set a user`s status', function (done) {
+    test('- Identify whether able to set a user`s status', function (done) {
         db.run(sql_status.insertStatus(), [test_user.username, -1,'', ''], function (err, res, row) {
             expect(err).to.not.be.ok();
             done();
         });
     });
 
-    test('Identify whether able to insert a admin user', function (done) {
-        done();
-    })
+    test('- Identify whether able to get a user`s status', function (done) {
+        db.all(sql_status.getStatus(), [test_user.username], function (err, rows) {
+            expect(err).to.not.be.ok();
+            expect(rows[0].status_code).to.equal(-1);
+            console.log(rows[0]);
+            done();
+        });
+    });
+
+
 });

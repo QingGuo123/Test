@@ -5,7 +5,7 @@ var router = express.Router();
 var messagesController = require('../controllers/messagesController');
 var privateMessagesController = require('../controllers/privateMessagesController');
 var announcementsController = require('../controllers/announcementsController');
-
+console.log("msg");
 router.get('/public', messagesController.getAllPublicMessages);
 router.post('/public', messagesController.postPublicMessage);
 router.get('/public/:username', messagesController.getPublicMessage);

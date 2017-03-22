@@ -27,6 +27,7 @@ module.exports = {
     },
 
     postAnnouncement: function(req, res) {
+        console.log("enter into controller");
         var username = req.body.username;
         var content = req.body.content;
         var timestamp = req.body.timestamp;
