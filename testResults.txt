@@ -60,5 +60,5 @@ initialize database /home/jinliang/FSE/new_project/s17-ESN-SV2/db/ESN_db.db
 [2K[0G  [32m  ✓[0m[90m  - Identify a exist receiver get private messages from a non-exist sender[0m
 
 
-[92m [0m[32m 25 passing[0m[90m (97ms)[0m
+[92m [0m[32m 25 passing[0m[90m (112ms)[0m
 

@@ -9,29 +9,29 @@ var Announcement = require('../models/announcement.js');
 var Message = require('../models/message.js');
 var PrivateMessage = require('../models/privateMessage.js');
 
-var PORT = process.env.PORT | 3000;
-var HOST = 'http://localhost:' + PORT;
-
-//Init a server
-var debug = require('debug')('ESN');
-var app = require('../app.js');
-
-app.set('port', PORT);
-app.set('testing', true);
-
-var serverInit = function () {
-    debug('Express server listening on port' + PORT);
-};
-
-var server = app.listen(app.get('port'), serverInit)
-    .on('error', function(err){
-        if(err.code === 'EADDRINUSE'){
-            PORT++;
-            HOST = 'http://localhost:'+PORT;
-            app.set('port', PORT);
-            server = app.listen(app.get('port'), serverInit)
-        }
-    });
+// var PORT = process.env.PORT | 3000;
+// var HOST = 'http://localhost:' + PORT;
+//
+// //Init a server
+// var debug = require('debug')('ESN');
+// var app = require('../app.js');
+//
+// app.set('port', PORT);
+// app.set('testing', true);
+//
+// var serverInit = function () {
+//     debug('Express server listening on port' + PORT);
+// };
+//
+// var server = app.listen(app.get('port'), serverInit)
+//     .on('error', function(err){
+//         if(err.code === 'EADDRINUSE'){
+//             PORT++;
+//             HOST = 'http://localhost:'+PORT;
+//             app.set('port', PORT);
+//             server = app.listen(app.get('port'), serverInit)
+//         }
+//     });
 
 var user1 = {
     username: 'Eric2',
@@ -60,7 +60,7 @@ var user3 = {
     location: '230'
 };
 
-suite('Test User Model', function () {
+suite('Test all Model', function () {
     test('- Identify whether able to register or login', function (done) {
         var test_user = new User(user1.username, user1.password);
         test_user.regOrLogin(function (res1) {
