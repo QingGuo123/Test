@@ -21,8 +21,11 @@ module.exports = function(socket, io, usocket) {
     });
 
     socket.on("privateMessage", function(obj){
+        if (obj.from in usocket) {
+            usocket[obj.from].emit("ev_to" + obj.from, obj);
+        }
         if (obj.to in usocket) {
-            usocket[obj.to].emit("ev_to" + obj.to, {"message": obj.message});
+            usocket[obj.to].emit("ev_to" + obj.to, obj);
         }
     });
 };

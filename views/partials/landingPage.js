@@ -61,7 +61,16 @@ angular.module('ESNApp', [])
 
             socket.emit("startChatPrivately", { "username": response.data.currentUsername });
             socket.on("ev_to" + response.data.currentUsername, function(obj) {
-                alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
+                if ($scope.chatWithWhom == obj.from || $scope.chatWithWhom == obj.to){
+                    $scope.privateMsgs;
+                    $http.get('/currentUsername').then(function successCallback(response) {
+                        $http.get('/messages/private/' + obj.from + '/' + obj.to).then(function successCallback(response) {
+                            $scope.privateMsgs = response.data.privateMessages;
+                        });
+                    });
+                }
+                else alert("fuck");
+
             });
 
             console.log("response.status: " + response.status);
@@ -98,7 +107,6 @@ angular.module('ESNApp', [])
 
 
         $scope.sendPrivateMsg = function() {
-            alert($scope.chatWithWhom);
             var timestamp = new Date();
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;
@@ -106,8 +114,8 @@ angular.module('ESNApp', [])
                     "from": from,
                     "to": $scope.chatWithWhom,
                     "message": {
-                        "content": "cont of msg",
-                        "timestamp": "2018-1-1",
+                        "content": $scope.currentChatPrivatelyMsg,
+                        "timestamp": timestamp,
                         "location": "Mountain View"
                     }
                 });
