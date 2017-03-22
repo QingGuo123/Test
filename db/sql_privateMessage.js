@@ -37,7 +37,7 @@ module.exports = {
     },
 
     getPrivateMessageBySenderAndReceiver: function() {
-        var sql = "SELECT senderid, receiverid, content, timestamp, location, status_code, isnew FROM PrivateMessage WHERE (PrivateMessage.senderid = (SELECT id FROM User WHERE username = ?) AND PrivateMessage.receiverid = (SELECT id FROM User WHERE username = ?)) OR (PrivateMessage.receiverid = (SELECT id FROM User WHERE username = ?) AND PrivateMessage.senderid = (SELECT id FROM User WHERE username = ?)) ORDER BY timestamp;";
+        var sql = "SELECT a.username sender, b.username receiver, content, timestamp, location, status_code, isnew FROM PrivateMessage, User a, User b WHERE ((PrivateMessage.senderid = (SELECT id FROM User WHERE username = ?) AND PrivateMessage.receiverid = (SELECT id FROM User WHERE username = ?)) OR (PrivateMessage.receiverid = (SELECT id FROM User WHERE username = ?) AND PrivateMessage.senderid = (SELECT id FROM User WHERE username = ?))) AND a.id = senderid AND b.id = receiverid ORDER BY timestamp;";
         return sql;
     },
 
