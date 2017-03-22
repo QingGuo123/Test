@@ -29,7 +29,8 @@ angular.module('ESNApp',[])
             $http.post('/messages/public', {
                 "username" : $scope.curUsername,
                 "content" : $scope.currentMsg,
-                "timestamp" : timestamp
+                "timestamp" : timestamp,
+                "location" : "Mountain View"
             }).then(function successCallback(response) {
                 // Take in the response information
                 console.log("post successfully");

@@ -166,11 +166,11 @@
         <div ng-controller="userDirectoryController">
             <div class="col-xs-12" ng-show="chatPrivateBool">
                 <div class="col-xs-12 col-md-12 col-lg-12 well">
-                    <h2 id="chatPrivatelyHeader" align="left">Private Chatting</h2>
+                    <h2 id="chatPrivatelyHeader" align="left">Private Chatting <h4>You are chatting with {{chatWithWhom}}</h4></h2>
                     <ul class="list-group">
                         <li ng-repeat="privateMsg in privateMsgs" class="list-group-item">
-                            <span >{{privateMsg.sender}} says to {{privateMsg.receiver}}: </span>
-                            <span>{{privateMsg.content}}</span><b class="badge"><span>{{privateMsg.location}}</span>{{privateMsg.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
+                            <span ><i class="{{privateMsg.status_code}}" style="color:{{privateMsg.iconcolor}};"></i>  {{privateMsg.sender}} said to {{privateMsg.receiver}}: </span>
+                            <span>{{privateMsg.content}}</span><b class="badge"><span>{{privateMsg.location}}, </span>{{privateMsg.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
                         </li>
                     </ul>
                     <form id="chatPrivatelyForm" name="chatPrivatelyForm" class="form-horizontal ng-pristine ng-valid">
