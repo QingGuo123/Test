@@ -1,5 +1,6 @@
-module.exports = function(socket, io, usocket) {
-    console.log("invoke announcementSocket");
+"use strict";
+
+module.exports = function(socket, io) {
     socket.on("announcement", function(obj){
         io.sockets.emit("announcement", {
             "username": obj.username,

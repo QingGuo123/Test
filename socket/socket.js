@@ -1,3 +1,5 @@
+"use strict";
+
 var io = require('socket.io')();
 var userSocket = require('./userSocket');
 var messageSocket = require('./messageSocket');
