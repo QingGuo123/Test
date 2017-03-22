@@ -141,7 +141,6 @@ angular.module('ESNApp', [])
                                 if (response.data.privateMessages[index].receiver == from) {
                                     response.data.privateMessages[index].receiver = "You";
                                 }
-
                             }
                             $scope.privateMsgs = response.data.privateMessages;
                             console.log($scope.privateMsgs);
