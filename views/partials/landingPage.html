@@ -169,9 +169,8 @@
                     <h2 id="chatPrivatelyHeader" align="left">Private Chatting</h2>
                     <ul class="list-group">
                         <li ng-repeat="privateMsg in privateMsgs" class="list-group-item">
-                            <!-- <span >{{announcement.username}}</span><b class="badge">{{announcement.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b> says:
-                            <span>{{announcement.content}}</span> -->
-                            <span>{{privateMsg}}</span>
+                            <span >{{privateMsg.sender}} says to {{privateMsg.receiver}}: </span>
+                            <span>{{privateMsg.content}}</span><b class="badge"><span>{{privateMsg.location}}</span>{{privateMsg.timestamp|date : 'MM/dd/yyyy HH:mm:ss'}}</b>
                         </li>
                     </ul>
                     <form id="chatPrivatelyForm" name="chatPrivatelyForm" class="form-horizontal ng-pristine ng-valid">

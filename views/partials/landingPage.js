@@ -59,8 +59,8 @@ angular.module('ESNApp', [])
             var myBody = document.getElementById('landingPageBody');
             myBody.style.display = 'block';
 
-            socket.emit("startChatPrivately", {"username": response.data.currentUsername});
-            socket.on("ev_to" + response.data.currentUsername, function(obj){
+            socket.emit("startChatPrivately", { "username": response.data.currentUsername });
+            socket.on("ev_to" + response.data.currentUsername, function(obj) {
                 alert(obj.message.content + " " + obj.message.timestamp + " " + obj.message.location);
             });
 
@@ -78,40 +78,64 @@ angular.module('ESNApp', [])
                     } else {
                         users_temp[i].onlinestatus = "Offline";
                     }
-                    if(users_temp[i].status.status_code == -1){
+                    if (users_temp[i].status.status_code == -1) {
                         users_temp[i].status.status_code = "Undefined";
-                    }else if(users_temp[i].status.status_code == 0){
+                    } else if (users_temp[i].status.status_code == 0) {
                         users_temp[i].status.status_code = "Normal";
-                    }else if(users_temp[i].status.status_code == 1){
+                    } else if (users_temp[i].status.status_code == 1) {
                         users_temp[i].status.status_code = "Help";
-                    }else{
+                    } else {
                         users_temp[i].status.status_code = "Emergency";
                     }
                 }
                 $scope.users = users_temp;
-            },function errorCallback(response) {
+            }, function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });
-        },function errorCallback(response) {
+        }, function errorCallback(response) {
             window.location.href = "http://localhost:3000/index.html";
         });
 
-        $scope.sendPrivateMsg = function () {
 
-        }
-
-        $scope.chatWithSb = function(chatUsername) {
-            $scope.chatPrivateBool = true;
+        $scope.sendPrivateMsg = function() {
+            //alert($scope.chatWithWhom);
+            var timestamp = new Date();
             $http.get('/currentUsername').then(function successCallback(response) {
                 var from = response.data.currentUsername;
                 socket.emit("privateMessage", {
                     "from": from,
-                    "to": chatUsername,
+                    "to": $scope.chatWithWhom,
                     "message": {
                         "content": "cont of msg",
                         "timestamp": "2018-1-1",
                         "location": "Mountain View"
                     }
+                });
+                $http.post('/messages/private', {
+                    "sender": from,
+                    "receiver": $scope.chatWithWhom,
+                    "content": $scope.currentChatPrivatelyMsg,
+                    "timestamp": timestamp,
+                    "location": "Mountain View",
+                }).then(function successCallback(response) {
+                    // Take in the response information
+                    console.log("post successfully");
+                }, function errorCallback(response) {
+                    console.log("Login failed, please check your user name and password.");
+                });
+            });
+
+        }
+
+        $scope.chatWithSb = function(chatUsername) {
+            $scope.chatPrivateBool = true;
+            $scope.chatWithWhom = chatUsername;
+            $scope.privateMsgs;
+            $http.get('/currentUsername').then(function successCallback(response) {
+                var from = response.data.currentUsername;
+                $http.get('/messages/private/' + from + '/' + chatUsername).then(function successCallback(response) {
+                    $scope.privateMsgs = response.data.privateMessages;
+
                 });
             });
         }
@@ -130,13 +154,13 @@ angular.module('ESNApp', [])
             var timestamp = new Date();
             var location = "Mountain View";
 
-            if($scope.status == "Ok"){
+            if ($scope.status == "Ok") {
                 curStatus_code = 0;
-            }else if($scope.status == "Help"){
+            } else if ($scope.status == "Help") {
                 curStatus_code = 1;
-            }else if($scope.status == "Emergency"){
+            } else if ($scope.status == "Emergency") {
                 curStatus_code = 2;
-            }else{
+            } else {
                 curStatus_code = -1;
             }
 
@@ -144,17 +168,17 @@ angular.module('ESNApp', [])
                 var curUsername = response.data.currentUsername;
                 //alert(curUsername + curStatus_code + timestamp + location);
                 $http.post('/status', {
-                    "username" : curUsername,
-                    "status_code" : curStatus_code,
-                    "timestamp" : timestamp,
-                    "location" : location
+                    "username": curUsername,
+                    "status_code": curStatus_code,
+                    "timestamp": timestamp,
+                    "location": location
                 }).then(function successCallback(response) {
                     // Take in the response information
                     console.log("post successfully");
                 }, function errorCallback(response) {
                     console.log("Login failed, please check your user name and password.");
                 });
-            },function errorCallback(response) {
+            }, function errorCallback(response) {
                 window.location.href = "http://localhost:3000/index.html";
             });
         }
