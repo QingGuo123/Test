@@ -2,8 +2,6 @@
  * Created by jinliang on 3/19/17.
  */
 var expect = require('expect.js');
-var agent = require('superagent');
-
 
 var User = require('../models/user.js');
 var Status = require('../models/status.js');
@@ -12,7 +10,6 @@ var Message = require('../models/message.js');
 var PrivateMessage = require('../models/privateMessage.js');
 
 var PORT = process.env.PORT | 3000;
-// var PORT = 3000;
 var HOST = 'http://localhost:' + PORT;
 
 //Init a server
@@ -61,7 +58,7 @@ var user3 = {
     status_code:1,
     timestamp: '12:00',
     location: '230'
-}
+};
 
 suite('Test User Model', function () {
     test('- Identify whether able to register or login', function (done) {
@@ -233,7 +230,6 @@ suite('Test User Model', function () {
             done();
         }, {'username': user1.username});
     });
-
 
     test(' - Identify a non-exist user cannot get public message', function (done) {
         Message.getPublicMessage(function (messages, err) {

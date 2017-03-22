@@ -1,15 +1,12 @@
 initialize database /home/jinliang/FSE/new_project/s17-ESN-SV2/db/ESN_db.db
-create tables succeed
 
 [0m[0m
 [0m  Test User Model[0m
 ~/models/user: regOrLogin Eric2 123123123
-{ regOrLoginResult: 0 }
-~/models/user: regOrLogin Eric2 123123123
+{ regOrLoginResult: 2 }
 [2K[0G  [32m  ✓[0m[90m - Identify whether able to register or login[0m
 ~/models/user: regOrLogin Jianfeng 123123123
-{ regOrLoginResult: 0 }
-~/models/user: regOrLogin Jianfeng 123123123
+{ regOrLoginResult: 2 }
 [2K[0G  [32m  ✓[0m[90m - Identify whether another user is able to register or login [0m
 ~/models/user: getUser Eric2
 [2K[0G  [32m  ✓[0m[90m - Identify whether able to get the exist test_user[0m
@@ -21,9 +18,9 @@ create tables succeed
 [2K[0G  [32m  ✓[0m[90m  - Identify not able to get all non-exist test_users[0m
 ~/models/status: postStatus Eric2 0 24:00 129B
 [ { username: 'Eric2',
-    status_code: -1,
-    timestamp: '',
-    location: '' } ]
+    status_code: 0,
+    timestamp: '24:00',
+    location: '129B' } ]
 [2K[0G  [32m  ✓[0m[90m  - Identify a exist user can insert or update status[0m
 ~/models/status: postStatus Minghao2 1 00:00 129A
 [2K[0G  [32m  ✓[0m[90m  - Identify a non-exist user cannot insert or update status[0m
@@ -63,5 +60,5 @@ create tables succeed
 [2K[0G  [32m  ✓[0m[90m  - Identify a exist receiver get private messages from a non-exist sender[0m
 
 
-[92m [0m[32m 25 passing[0m[90m (140ms)[0m
+[92m [0m[32m 25 passing[0m[90m (97ms)[0m
 
