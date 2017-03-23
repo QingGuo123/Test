@@ -10,18 +10,19 @@ var db_config = {
 };
 
 var console_log_config = {
-    "controller_log": true,
-    "model_log": true,
+    "controller_log": false,
+    "model_log": false,
     "response_log": false,
     "session_log": false
 };
 
-var unittest_session_config = {
-  "check_session": true
+var test_config = {
+    "check_session": true,
+    "delete_db_when_run": true
 };
 
 module.exports = {
     "db_config": db_config,
     "console_log_config": console_log_config,
-    "unittest_session_config": unittest_session_config
+    "test_config": test_config
 }
