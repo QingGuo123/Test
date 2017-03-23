@@ -75,6 +75,8 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 			    //console.log("404:"+response);
 			    
 		    	if (confirm("Are you sure to create a new user?")) {
+		    		alert('Welcome to ESN! All four statuses are as follow: OK --> I am OK, I do not need help --> Green Help --> I need help, but this is not a life threatening emergency --> Yellow Emergency --> I need help now, as this is a life threatening emergency --> Red Undefined --> The user has not been providing her status yet. Choose your statuses in the radio box!');
+				    //alert('Welcome to ESN!');
 				    $http.post('/users', {
 						"username": username,
 						"password": password
@@ -82,7 +84,6 @@ angular.module('ESNApp', ['angular-md5']).controller('homePageController',['$sco
 						socket.emit("userLogin", {"username": username});
 						// Take in the response information
 						console.log("post successfully");
-						alert("Welcome to ESN! All four statuses are as follow:\nOK --> I am OK, I do not need help --> Green\nHelp --> I need help, but this is not a life threatening emergency --> Yellow\nEmergency --> I need help now, as this is a life threatening emergency --> Red\nUndefined --> The user has not been providing her status yet.\n Choose your statuses in the radio box!");
 						window.location.href = "/landingPage.html";
 						// User.setUsername($scope.username);
 						// User.setPassword($scope.password);
