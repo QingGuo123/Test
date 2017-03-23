@@ -18,7 +18,6 @@ module.exports = function(socket, io, usocket) {
             socket.username = obj.username;
             usocket[obj.username] = socket;
             usocket.length++;
-            console.log("length = " + usocket.length);
         }
     });
 
